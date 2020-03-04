@@ -23,6 +23,8 @@ public class User {
     private String password;
     @DatabaseField
     private String phone;
+    @DatabaseField
+    private String role;
     @DatabaseField(dataType = DataType.DATE)
     private Date dateOfBirth;
 
@@ -90,11 +92,33 @@ public class User {
         this.phone = phone;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "firstName='" + firstName + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", phone='" + phone + '\'' +
+                ", role='" + role + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                '}';
     }
 }

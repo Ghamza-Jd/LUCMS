@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="380.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.191" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginController">
+<AnchorPane prefHeight="380.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginController">
    <children>
       <ImageView fitHeight="400.0" fitWidth="600.0" opacity="0.82" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -29,7 +28,7 @@
          </font>
       </Label>
       <PasswordField id="password" fx:id="password" layoutX="441.0" layoutY="269.0" promptText="Password" />
-      <Button fx:id="loginBtn" layoutX="474.0" layoutY="330.0" mnemonicParsing="false" onAction="#login" text="Login">
+      <Button fx:id="loginBtn" layoutX="474.0" layoutY="330.0" mnemonicParsing="false" onAction="#loginBtnHandler" text="Login">
          <font>
             <Font name="Cambria" size="20.0" />
          </font>

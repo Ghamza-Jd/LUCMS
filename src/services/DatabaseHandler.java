@@ -12,6 +12,7 @@ import java.sql.SQLException;
 
 public class DatabaseHandler {
     private static DatabaseHandler _db;
+
     private Dao<User, String> userDao;
     private Dao<Student, String> studentDao;
 
@@ -31,7 +32,7 @@ public class DatabaseHandler {
         TableUtils.createTableIfNotExists(connectionSource, Student.class);
     }
 
-    public static DatabaseHandler getDatabaseHandler() throws SQLException {
+    public static DatabaseHandler getInstance() throws SQLException {
         if(_db == null) _db = new DatabaseHandler();
         return _db;
     }

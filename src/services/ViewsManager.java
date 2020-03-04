@@ -10,8 +10,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class ViewsManager {
-    private static ViewsManager _manager;
-    private ViewsManager() { }
     public static Stage getActiveStage(ActionEvent event){
         return (Stage) ((Node) event.getSource()).getScene().getWindow();
     }

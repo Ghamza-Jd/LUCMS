@@ -38,4 +38,12 @@ public class Student {
     public void setMajor(String major) {
         this.major = major;
     }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "user=" + user +
+                ", major='" + major + '\'' +
+                '}';
+    }
 }

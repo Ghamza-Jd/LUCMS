@@ -1,4 +1,6 @@
+import controllers.repos.Students;
 import controllers.repos.Users;
+import models.Student;
 import models.User;
 
 import java.sql.SQLException;
@@ -15,6 +17,10 @@ public class Testing {
                 "78939614",
                 new Date()
         );
-        Users.getDao().createUser(user);
+        Student s = new Student(
+                user,
+                "Computer Science"
+        );
+        Students.getDao().createStudent(s);
     }
 }

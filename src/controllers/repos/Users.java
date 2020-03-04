@@ -2,6 +2,7 @@ package controllers.repos;
 
 import com.j256.ormlite.dao.Dao;
 import exceptions.InvalidCredentialsException;
+import exceptions.UserNotFoundException;
 import models.User;
 import services.DatabaseHandler;
 import services.Security;
@@ -13,7 +14,7 @@ public class Users {
     private Dao<User, String> userDao;
     public static Users _users;
     private Users() throws SQLException {
-        userDao = DatabaseHandler.getDatabaseHandler().getUserDao();
+        userDao = DatabaseHandler.getInstance().getUserDao();
     }
     public static Users getDao() throws SQLException {
         if(_users == null) _users = new Users();
@@ -22,10 +23,13 @@ public class Users {
     public void createUser(User user) throws SQLException {
         userDao.create(user);
     }
-    public boolean isUser(String username, String password) throws SQLException {
+    public User getUser(String username) throws SQLException {
         List<User> users = userDao.queryBuilder().where().eq("username", username).query();
         if(users.size() == 0) throw new InvalidCredentialsException();
-        User user = users.get(0);
+        return users.get(0);
+    }
+    public boolean isUser(String username, String password) throws SQLException {
+        User user = getUser(username);
         if(!Security.eqHash(password, user.getPassword())) throw new InvalidCredentialsException();
         return true;
     }
