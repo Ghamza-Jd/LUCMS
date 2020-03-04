@@ -3,6 +3,7 @@ package models;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import services.Security;
 
 import java.util.Date;
 
@@ -13,10 +14,12 @@ public class User {
     @DatabaseField
     private String firstName;
     @DatabaseField
+    private String middleName;
+    @DatabaseField
     private String lastName;
     @DatabaseField
-    private String email;
-    @DatabaseField
+    private String username;
+    @DatabaseField(width = 256)
     private String password;
     @DatabaseField
     private String phone;
@@ -24,6 +27,16 @@ public class User {
     private Date dateOfBirth;
 
     public User(){ }
+
+    public User(String firstName, String middleName, String lastName, String username, String password, String phone, Date dateOfBirth) {
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.username = username;
+        this.password = Security.hash(password);
+        this.phone = phone;
+        this.dateOfBirth = dateOfBirth;
+    }
 
     public int getId() {
         return id;
@@ -37,6 +50,14 @@ public class User {
         this.firstName = firstName;
     }
 
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
     public String getLastName() {
         return lastName;
     }
@@ -45,12 +66,12 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -58,7 +79,7 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = Security.hash(password);
     }
 
     public String getPhone() {
