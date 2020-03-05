@@ -6,7 +6,7 @@ import models.User;
 import java.sql.SQLException;
 import java.util.Date;
 
-public class Testing {
+public class Backend_Testing {
     public static void main(String[] args) throws SQLException {
         User user = new User(
                 "Hamza",

@@ -38,7 +38,7 @@ public class LoginController implements Initializable {
         try {
             if (Users.getDao().isUser(username, password)) {
                 login(username);
-                ViewsManager.getActiveStage(event).setScene(ViewsManager.requestView("test"));
+                ViewsManager.getActiveStage(event).setScene(ViewsManager.requestView("StudentDashboard"));
             }
         } catch (InvalidCredentialsException e) {
             Alerts.warningAlert("Invalid Credentials", "Incorrect username or password").showAndWait();
