@@ -22,5 +22,20 @@ public class Backend_Testing {
                 "Computer Science"
         );
         Students.getDao().createStudent(s);
+
+        User ru = new User(
+                "Noura",
+                "Amine",
+                "Joudieh",
+                "Rosa",
+                "P@ssw0rd",
+                "78887888",
+                new Date()
+        );
+        Student rs = new Student(
+                ru,
+                "Computer Science"
+        );
+        Students.getDao().createStudent(rs);
     }
 }

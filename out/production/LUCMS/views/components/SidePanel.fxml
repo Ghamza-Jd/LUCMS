@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="353.0" prefWidth="165.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.components.SidePanelController">
+   <children>
+      <VBox alignment="CENTER" prefHeight="72.0" prefWidth="165.0">
+         <children>
+            <Label fx:id="username" alignment="CENTER" contentDisplay="CENTER" text="Username" textAlignment="CENTER">
+               <font>
+                  <Font name="Cambria" size="18.0" />
+               </font>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </Label>
+         </children>
+      </VBox>
+      <VBox alignment="CENTER" prefHeight="281.0" prefWidth="167.0" spacing="30.0">
+         <children>
+            <JFXButton fx:id="profile" maxWidth="1.7976931348623157E308" text="Profile" />
+            <JFXButton fx:id="marks" layoutX="10.0" layoutY="114.0" maxWidth="1.7976931348623157E308" text="Marks" />
+            <JFXButton layoutX="10.0" layoutY="208.0" maxWidth="1.7976931348623157E308" onAction="#logout" text="Logout" />
+         </children>
+      </VBox>
+   </children>
+</VBox>

@@ -17,4 +17,7 @@ public class ViewsManager {
         Parent root = FXMLLoader.load(ViewsManager.class.getResource(String.format("../views/%s.fxml", path)));
         return new Scene(root);
     }
+    public static Parent requestComponent(String path) throws IOException {
+        return FXMLLoader.load(ViewsManager.class.getResource(String.format("../views/components/%s.fxml", path)));
+    }
 }
