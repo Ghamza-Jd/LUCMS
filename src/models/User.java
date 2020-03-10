@@ -5,6 +5,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import services.Security;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @DatabaseTable(tableName = "user")
@@ -19,6 +20,8 @@ public class User {
     private String lastName;
     @DatabaseField
     private String username;
+    @DatabaseField
+    private String normalizedUsername;
     @DatabaseField(width = 256)
     private String password;
     @DatabaseField
@@ -30,11 +33,13 @@ public class User {
 
     public User(){ }
 
-    public User(String firstName, String middleName, String lastName, String username, String password, String phone, Date dateOfBirth) {
+    public User(String firstName, String middleName, String lastName,
+                String username, String password, String phone, Date dateOfBirth) {
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
         this.username = username;
+        this.normalizedUsername = username.toUpperCase();
         this.password = Security.hash(password);
         this.phone = phone;
         this.dateOfBirth = dateOfBirth;
@@ -74,6 +79,11 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+        this.normalizedUsername = username.toUpperCase();
+    }
+
+    public String getNormalizedUsername() {
+        return normalizedUsername;
     }
 
     public String getPassword() {
@@ -100,8 +110,9 @@ public class User {
         this.role = role;
     }
 
-    public Date getDateOfBirth() {
-        return dateOfBirth;
+    public String getDateOfBirth() {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        return df.format(dateOfBirth);
     }
 
     public void setDateOfBirth(Date dateOfBirth) {

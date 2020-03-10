@@ -29,6 +29,11 @@ public class DashboardController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        try {
+            container.getChildren().setAll(ViewsManager.requestComponent("News"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         HamburgerBackArrowBasicTransition burger = new HamburgerBackArrowBasicTransition(hamburger);
         burger.setRate(-1);
         drawer.setSidePane(sidePanel);
@@ -47,6 +52,13 @@ public class DashboardController implements Initializable {
         sidePanelController.getMarks().setOnAction(e -> {
             try {
                 container.getChildren().setAll(ViewsManager.requestComponent("Marks"));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+        sidePanelController.getHome().setOnAction(e -> {
+            try {
+                container.getChildren().setAll(ViewsManager.requestComponent("News"));
             } catch (IOException ex) {
                 ex.printStackTrace();
             }

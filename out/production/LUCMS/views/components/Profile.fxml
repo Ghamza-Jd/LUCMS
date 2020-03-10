@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.components.ProfileController">
    <children>
-      <Label layoutX="286.0" layoutY="192.0" text="Profile" />
+      <Label layoutX="40.0" layoutY="49.0" text="First Name:" />
+      <JFXTextField fx:id="firstName" editable="false" layoutX="40.0" layoutY="66.0" />
+      <Label layoutX="227.0" layoutY="46.0" text="Middle Name:" />
+      <JFXTextField fx:id="middleName" editable="false" layoutX="225.0" layoutY="66.0" />
+      <Label layoutX="410.0" layoutY="46.0" text="Last Name:" />
+      <JFXTextField fx:id="lastName" editable="false" layoutX="410.0" layoutY="63.0" />
+      <Label layoutX="40.0" layoutY="140.0" text="Username:" />
+      <JFXTextField fx:id="username" editable="false" layoutX="40.0" layoutY="157.0" />
+      <Label layoutX="227.0" layoutY="135.0" text="Phone Number:" />
+      <JFXTextField fx:id="phoneNumber" editable="false" layoutX="225.0" layoutY="155.0" />
+      <Label layoutX="410.0" layoutY="137.0" text="Date of Birth:" />
+      <JFXTextField fx:id="dateOfBirth" editable="false" layoutX="410.0" layoutY="154.0" />
    </children>
 </AnchorPane>

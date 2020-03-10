@@ -10,6 +10,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import models.User;
 import services.Session;
+import services.Validator;
 import services.ViewsManager;
 import utils.Alerts;
 

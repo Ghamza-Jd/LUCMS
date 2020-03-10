@@ -22,6 +22,7 @@
       </VBox>
       <VBox alignment="CENTER" prefHeight="281.0" prefWidth="167.0" spacing="30.0">
          <children>
+            <JFXButton fx:id="home" layoutX="10.0" layoutY="89.0" maxWidth="1.7976931348623157E308" text="Home" />
             <JFXButton fx:id="profile" maxWidth="1.7976931348623157E308" text="Profile" />
             <JFXButton fx:id="marks" layoutX="10.0" layoutY="114.0" maxWidth="1.7976931348623157E308" text="Marks" />
             <JFXButton layoutX="10.0" layoutY="208.0" maxWidth="1.7976931348623157E308" onAction="#logout" text="Logout" />

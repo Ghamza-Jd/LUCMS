@@ -2,6 +2,7 @@ import controllers.repos.Students;
 import controllers.repos.Users;
 import models.Student;
 import models.User;
+import services.Session;
 
 import java.sql.SQLException;
 import java.util.Date;
@@ -17,25 +18,11 @@ public class Backend_Testing {
                 "78939614",
                 new Date()
         );
-        Student s = new Student(
+        Users.getDao().createUser(user);
+        Student student = new Student(
                 user,
                 "Computer Science"
         );
-        Students.getDao().createStudent(s);
-
-        User ru = new User(
-                "Noura",
-                "Amine",
-                "Joudieh",
-                "Rosa",
-                "P@ssw0rd",
-                "78887888",
-                new Date()
-        );
-        Student rs = new Student(
-                ru,
-                "Computer Science"
-        );
-        Students.getDao().createStudent(rs);
+        Students.getDao().createStudent(student);
     }
 }

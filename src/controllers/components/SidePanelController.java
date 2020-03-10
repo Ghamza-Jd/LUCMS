@@ -17,9 +17,10 @@ public class SidePanelController implements Initializable {
     @FXML
     private Label username;
     @FXML
-    private JFXButton profile;
-    @FXML
-    private JFXButton marks;
+    private JFXButton
+            profile,
+            marks,
+            home;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -33,11 +34,9 @@ public class SidePanelController implements Initializable {
         Session.getInstance().clearSession();
     }
 
-    public JFXButton getProfile() {
-        return profile;
-    }
+    public JFXButton getProfile() { return profile; }
 
-    public JFXButton getMarks() {
-        return marks;
-    }
+    public JFXButton getMarks() { return marks; }
+
+    public JFXButton getHome() { return home; }
 }
