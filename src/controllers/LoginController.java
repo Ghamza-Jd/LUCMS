@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import models.Student;
 import models.User;
 import services.Session;
 import services.ViewsManager;
@@ -46,7 +47,7 @@ public class LoginController implements Initializable {
         Session.getInstance().addToSession("user", Users.getInstance().retrieveSingle(username));
         User user = (User) Session.getInstance().getValue("user");
         if(user.getRole().equals("STUDENT")) {
-            Session.getInstance().addToSession("student", Students.getDao().getStudent(user));
+            Session.getInstance().addToSession("student", Students.getInstance().retrieveSingle(user));
             System.out.println(Session.getInstance().getValue("student"));
         }
     }

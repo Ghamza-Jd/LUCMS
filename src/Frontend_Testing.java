@@ -12,7 +12,7 @@ public class Frontend_Testing extends Application {
     public static void main(String[] args) throws SQLException {
         User user = Users.getInstance().retrieveSingle("hamzajd");
         Session.getInstance().addToSession("user", user);
-        Session.getInstance().addToSession("student", Students.getDao().getStudent(user));
+        Session.getInstance().addToSession("student", Students.getInstance().retrieveSingle(user));
         launch(args);
     }
 

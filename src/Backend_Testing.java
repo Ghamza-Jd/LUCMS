@@ -1,4 +1,6 @@
+import controllers.repos.Students;
 import controllers.repos.Users;
+import models.Student;
 import models.User;
 
 import java.sql.SQLException;
@@ -15,6 +17,7 @@ public class Backend_Testing {
                 "78939614",
                 new Date()
         );
-        Users.getInstance().create(user);
+        Student student = new Student(user, "Comp science");
+        Students.getInstance().create(student);
     }
 }
