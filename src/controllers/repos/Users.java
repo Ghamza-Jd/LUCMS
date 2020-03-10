@@ -1,35 +1,67 @@
 package controllers.repos;
 
 import com.j256.ormlite.dao.Dao;
-import exceptions.InvalidCredentialsException;
 import models.User;
-import services.DatabaseHandler;
-import services.Security;
+import services.IModel;
+import services.Persistence;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public class Users {
-    private Dao<User, String> userDao;
+public class Users extends Persistence {
     public static Users _users;
+    private Dao<IModel, String> _accessObject;
     private Users() throws SQLException {
-        userDao = DatabaseHandler.getInstance().getUserDao();
+        _accessObject = getAccessObject(User.class);
     }
-    public static Users getDao() throws SQLException {
+    public static Users getInstance() throws SQLException {
         if(_users == null) _users = new Users();
         return _users;
     }
-    public void createUser(User user) throws SQLException {
-        userDao.create(user);
-    }
-    public User getUser(String username) throws SQLException {
-        List<User> users = userDao.queryBuilder().where().eq("normalizedUsername", username).query();
-        if(users.size() == 0) throw new InvalidCredentialsException();
-        return users.get(0);
-    }
+
     public boolean isUser(String username, String password) throws SQLException {
-        User user = getUser(username);
-        if(!Security.eqHash(password, user.getPassword())) throw new InvalidCredentialsException();
         return true;
+    }
+
+    @Override
+    public void create(IModel model) throws SQLException {
+        User user = (User) model;
+        _accessObject.create(user);
+    }
+
+    @Override
+    public List<IModel> retrieveAll() throws SQLException {
+        return _accessObject.queryBuilder().query();
+    }
+
+    @Override
+    public void update(IModel model) throws SQLException {
+        throw new NotImplementedException();
+    }
+
+    @Override
+    public void delete(IModel model) throws SQLException {
+        throw new NotImplementedException();
+    }
+
+    public boolean exists(String username) throws SQLException {
+        List<IModel> users =
+                _accessObject
+                    .queryBuilder()
+                    .where()
+                    .eq("normalizedUsername", username)
+                    .query();
+        return users.size() > 0;
+    }
+
+    public User retrieveSingle(String username) throws SQLException {
+        List<IModel> users =
+                _accessObject
+                        .queryBuilder()
+                        .where()
+                        .eq("normalizedUsername", username)
+                        .query();
+        return (users.size() > 0 ? (User) users.get(0) : null);
     }
 }

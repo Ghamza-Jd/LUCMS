@@ -1,9 +1,7 @@
 import controllers.repos.Students;
 import controllers.repos.Users;
 import javafx.application.Application;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import models.Student;
 import models.User;
 import services.Session;
 import services.ViewsManager;
@@ -12,7 +10,7 @@ import java.sql.SQLException;
 
 public class Frontend_Testing extends Application {
     public static void main(String[] args) throws SQLException {
-        User user = Users.getDao().getUser("hamzajd");
+        User user = Users.getInstance().retrieveSingle("hamzajd");
         Session.getInstance().addToSession("user", user);
         Session.getInstance().addToSession("student", Students.getDao().getStudent(user));
         launch(args);

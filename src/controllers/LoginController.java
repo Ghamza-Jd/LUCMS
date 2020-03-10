@@ -10,7 +10,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import models.User;
 import services.Session;
-import services.Validator;
 import services.ViewsManager;
 import utils.Alerts;
 
@@ -33,7 +32,7 @@ public class LoginController implements Initializable {
         String username = this.username.getText();
         String password = this.password.getText();
         try {
-            if (Users.getDao().isUser(username, password)) {
+            if (Users.getInstance().isUser(username, password)) {
                 login(username);
                 ViewsManager.getActiveStage(event).setScene(ViewsManager.requestView("Dashboard"));
             }
@@ -44,7 +43,7 @@ public class LoginController implements Initializable {
     }
 
     private void login(String username) throws SQLException {
-        Session.getInstance().addToSession("user", Users.getDao().getUser(username));
+        Session.getInstance().addToSession("user", Users.getInstance().retrieveSingle(username));
         User user = (User) Session.getInstance().getValue("user");
         if(user.getRole().equals("STUDENT")) {
             Session.getInstance().addToSession("student", Students.getDao().getStudent(user));

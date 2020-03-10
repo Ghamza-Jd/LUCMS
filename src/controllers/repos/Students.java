@@ -13,8 +13,8 @@ public class Students {
     private Dao<Student, String> studentDao;
     private static Students _students;
     private Students() throws SQLException {
-        userDao = DatabaseHandler.getInstance().getUserDao();
-        studentDao = DatabaseHandler.getInstance().getStudentDao();
+        userDao = DatabaseHandler.getInstance().getDao(User.class);
+        studentDao = DatabaseHandler.getInstance().getDao(Student.class);
     }
     public static Students getDao() throws SQLException {
         if(_students == null) _students = new Students();

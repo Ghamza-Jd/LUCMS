@@ -3,13 +3,14 @@ package models;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import services.IModel;
 import services.Security;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @DatabaseTable(tableName = "user")
-public class User {
+public class User implements IModel {
     @DatabaseField(generatedId = true)
     private int id;
     @DatabaseField
