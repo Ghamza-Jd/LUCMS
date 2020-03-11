@@ -10,11 +10,13 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class Users extends Persistence {
-    public static Users _users;
+    private static Users _users;
     private Dao<IModel, String> _accessObject;
+
     private Users() throws SQLException {
         _accessObject = getAccessObject(User.class);
     }
+
     public static Users getInstance() throws SQLException {
         if(_users == null) _users = new Users();
         return _users;

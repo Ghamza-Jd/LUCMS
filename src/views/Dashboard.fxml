@@ -12,6 +12,6 @@
          </children>
       </JFXDrawer>
       <JFXHamburger fx:id="hamburger" layoutX="917.0" layoutY="19.0" />
-      <AnchorPane fx:id="container" layoutX="171.0" layoutY="46.0" prefHeight="468.0" prefWidth="791.0" />
+      <AnchorPane fx:id="container" layoutX="171.0" layoutY="46.0" prefHeight="460.0" prefWidth="790.0" />
    </children>
 </AnchorPane>

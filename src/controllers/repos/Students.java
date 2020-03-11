@@ -10,8 +10,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class Students extends Persistence {
-    public static Students _students;
-
+    private static Students _students;
     private Dao<IModel, String> _studentsAccessObject;
     private Dao<IModel, String> _usersAccessObject;
 
@@ -19,6 +18,7 @@ public class Students extends Persistence {
         _studentsAccessObject = getAccessObject(Student.class);
         _usersAccessObject = Users.getInstance().getAccessObject(User.class);
     }
+
     public static Students getInstance() throws SQLException {
         if(_students == null) _students = new Students();
         return _students;

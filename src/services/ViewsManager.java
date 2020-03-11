@@ -20,4 +20,23 @@ public class ViewsManager {
     public static Parent requestComponent(String path) throws IOException {
         return FXMLLoader.load(ViewsManager.class.getResource(String.format("../views/components/%s.fxml", path)));
     }
+    public static DetailedComponent requestDetailedComponent(String path) throws IOException {
+        FXMLLoader loader = new FXMLLoader(ViewsManager.class.getResource(String.format("../views/components/%s.fxml", path)));
+        Parent root = loader.load();
+        return new DetailedComponent(root, loader);
+    }
+
+    public static class DetailedComponent {
+        private Parent root;
+        private FXMLLoader loader;
+
+        DetailedComponent(Parent root, FXMLLoader loader){
+            this.root = root;
+            this.loader = loader;
+        }
+
+        public FXMLLoader getLoader() { return loader; }
+
+        public Parent getRoot() { return root; }
+    }
 }

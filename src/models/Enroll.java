@@ -2,9 +2,10 @@ package models;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import services.IModel;
 
 @DatabaseTable(tableName = "enroll")
-public class Enroll {
+public class Enroll implements IModel {
     @DatabaseField(id = true)
     private String id;
     @DatabaseField(canBeNull = false, foreign = true)
