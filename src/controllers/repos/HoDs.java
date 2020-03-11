@@ -27,7 +27,10 @@ public class HoDs extends Persistence {
 
     @Override
     public void create(IModel model) throws SQLException {
-
+        HeadOfDepartment hod = (HeadOfDepartment) model;
+        hod.getUser().setRole("HEAD_OF_DEPARTMENT");
+        _usersAccessObject.create(hod.getUser());
+        _hodsAccessObject.create(hod);
     }
 
     @Override

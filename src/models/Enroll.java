@@ -9,7 +9,7 @@ public class Enroll implements IModel {
     @DatabaseField(id = true)
     private String id;
     @DatabaseField(canBeNull = false, foreign = true)
-    private  Student student;
+    private Student student;
     @DatabaseField(canBeNull = false, foreign = true)
     private Course course;
     @DatabaseField
