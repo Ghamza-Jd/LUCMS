@@ -5,7 +5,9 @@ import javafx.fxml.FXML;
 
 public class StudentSidePanelController {
     @FXML
-    private JFXButton marks;
+    private JFXButton
+            marks,
+            courses;
 
     public JFXButton getMarks() {
         return marks;

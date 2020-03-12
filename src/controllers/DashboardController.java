@@ -57,6 +57,9 @@ public class DashboardController implements Initializable {
             );
             sidePanelController.getEmpty().getChildren().setAll(component.getRoot());
         }
+        if(role.equals("PROFESSOR")) {
+
+        }
     }
 
     private void toggleBurger() {

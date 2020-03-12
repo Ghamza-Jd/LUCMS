@@ -5,9 +5,7 @@ import java.util.HashMap;
 public class Session {
     private HashMap<String, Object> data;
     private static Session _session;
-    private Session() {
-        data = new HashMap<>();
-    }
+    private Session() { data = new HashMap<>(); }
     public static Session getInstance() {
         if(_session == null) _session = new Session();
         return _session;

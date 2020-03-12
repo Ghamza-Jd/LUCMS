@@ -9,6 +9,8 @@ public class Course implements IModel {
     @DatabaseField(generatedId = true)
     private int id;
     @DatabaseField
+    private String code;
+    @DatabaseField
     private String name;
     @DatabaseField
     private int numberOfCredits;
@@ -19,7 +21,8 @@ public class Course implements IModel {
 
     public Course() { }
 
-    public Course(String name, int numberOfCredits, String language, Professor professor) {
+    public Course(String code, String name, int numberOfCredits, String language, Professor professor) {
+        this.code = code;
         this.name = name;
         this.numberOfCredits = numberOfCredits;
         this.language = language;
@@ -32,6 +35,14 @@ public class Course implements IModel {
 
     public String getName() {
         return name;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getCode() {
+        return code;
     }
 
     public void setName(String name) {
