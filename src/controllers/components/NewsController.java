@@ -4,13 +4,11 @@ import controllers.repos.NewsRepo;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.Pane;
 import models.News;
 import services.IModel;
 import services.ViewsManager;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
@@ -34,7 +32,7 @@ public class NewsController implements Initializable {
                 controller.getTitle().setText(n.getTitle());
                 controller.getBody().setText(n.getBody());
             }
-        } catch (SQLException | IOException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

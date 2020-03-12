@@ -17,12 +17,22 @@ public class ViewsManager {
         Parent root = FXMLLoader.load(ViewsManager.class.getResource(String.format("../views/%s.fxml", path)));
         return new Scene(root);
     }
-    public static Parent requestComponent(String path) throws IOException {
-        return FXMLLoader.load(ViewsManager.class.getResource(String.format("../views/components/%s.fxml", path)));
+    public static Parent requestComponent(String path) {
+        try {
+            return FXMLLoader.load(ViewsManager.class.getResource(String.format("../views/components/%s.fxml", path)));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
-    public static DetailedComponent requestDetailedComponent(String path) throws IOException {
+    public static DetailedComponent requestDetailedComponent(String path) {
         FXMLLoader loader = new FXMLLoader(ViewsManager.class.getResource(String.format("../views/components/%s.fxml", path)));
-        Parent root = loader.load();
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return new DetailedComponent(root, loader);
     }
 

@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
 import models.User;
 import services.Session;
 import services.ViewsManager;
@@ -19,8 +20,9 @@ public class SidePanelController implements Initializable {
     @FXML
     private JFXButton
             profile,
-            marks,
             home;
+    @FXML
+    private Pane empty;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -36,7 +38,9 @@ public class SidePanelController implements Initializable {
 
     public JFXButton getProfile() { return profile; }
 
-    public JFXButton getMarks() { return marks; }
-
     public JFXButton getHome() { return home; }
+
+    public Pane getEmpty() {
+        return empty;
+    }
 }

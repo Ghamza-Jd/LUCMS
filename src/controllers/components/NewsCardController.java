@@ -3,7 +3,6 @@ package controllers.components;
 import com.jfoenix.controls.JFXTextArea;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
 
 public class NewsCardController {
     @FXML

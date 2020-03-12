@@ -18,5 +18,6 @@
       <JFXTextField fx:id="phoneNumber" editable="false" layoutX="225.0" layoutY="155.0" />
       <Label layoutX="410.0" layoutY="137.0" text="Date of Birth:" />
       <JFXTextField fx:id="dateOfBirth" editable="false" layoutX="410.0" layoutY="154.0" />
+      <AnchorPane fx:id="addition" layoutX="40.0" layoutY="200.0" prefHeight="186.0" prefWidth="513.0" />
    </children>
 </AnchorPane>
