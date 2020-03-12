@@ -1,9 +1,12 @@
 package controllers.repos;
 
 import com.j256.ormlite.dao.Dao;
+import exceptions.InvalidCredentialsException;
 import models.User;
+import org.omg.CORBA.DynAnyPackage.Invalid;
 import services.IModel;
 import services.Persistence;
+import services.Security;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.sql.SQLException;
@@ -23,6 +26,9 @@ public class Users extends Persistence {
     }
 
     public boolean isUser(String username, String password) throws SQLException {
+        if(!exists(username)) throw new InvalidCredentialsException();
+        User user = retrieveSingle(username);
+        if(!Security.eqHash(password, user.getPassword())) throw new InvalidCredentialsException();
         return true;
     }
 

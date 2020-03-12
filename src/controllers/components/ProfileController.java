@@ -37,5 +37,8 @@ public class ProfileController implements Initializable {
         if(user.getRole().equals("STUDENT")) {
             addition.getChildren().setAll(ViewsManager.requestComponent("student/StudentProfile"));
         }
+        if(user.getRole().equals("PROFESSOR")) {
+            addition.getChildren().setAll(ViewsManager.requestComponent("professor/ProfessorProfile"));
+        }
     }
 }

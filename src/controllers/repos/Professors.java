@@ -48,4 +48,19 @@ public class Professors extends Persistence {
     public void delete(IModel model) throws SQLException {
 
     }
+
+    public Professor retrieveSingle(User user) throws SQLException {
+        List<IModel> professors =
+                _professorsAccessObject
+                        .queryBuilder()
+                        .where()
+                        .eq("user_id", user)
+                        .query();
+        if(professors.size() > 0) {
+            IModel professor = professors.get(0);
+            _usersAccessObject.refresh(((Professor) professor).getUser());
+            return (Professor) professor;
+        }
+        return null;
+    }
 }

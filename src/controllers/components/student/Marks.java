@@ -23,21 +23,28 @@ public class Marks implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         double width = table.getPrefWidth();
 
-        JFXTreeTableColumn<MarkRow, String> code = new JFXTreeTableColumn<>("Code");
-        JFXTreeTableColumn<MarkRow, String> name = new JFXTreeTableColumn<>("Name");
-        JFXTreeTableColumn<MarkRow, String> numberOfCredits = new JFXTreeTableColumn<>("Credits");
-        JFXTreeTableColumn<MarkRow, String> language = new JFXTreeTableColumn<>("Language");
-        JFXTreeTableColumn<MarkRow, String> grade = new JFXTreeTableColumn<>("Grade");
+        JFXTreeTableColumn<MarkRow, String>
+                code        = new JFXTreeTableColumn<>("Code"),
+                name        = new JFXTreeTableColumn<>("Name"),
+                nbCredits   = new JFXTreeTableColumn<>("Credits"),
+                language    = new JFXTreeTableColumn<>("Language"),
+                grade       = new JFXTreeTableColumn<>("Grade");
 
         code.setPrefWidth(width / 5 - 1);
         name.setPrefWidth(width / 5 - 1);
-        numberOfCredits.setPrefWidth(width / 5 - 1);
+        nbCredits.setPrefWidth(width / 5 - 1);
         language.setPrefWidth(width / 5 - 1);
         grade.setPrefWidth(width / 5 - 1);
 
+        code.setResizable(false);
+        name.setResizable(false);
+        nbCredits.setResizable(false);
+        language.setResizable(false);
+        grade.setResizable(false);
+
         code.setCellValueFactory(cell -> cell.getValue().getValue().code);
         name.setCellValueFactory(cell -> cell.getValue().getValue().name);
-        numberOfCredits.setCellValueFactory(cell -> cell.getValue().getValue().numberOfCredits);
+        nbCredits.setCellValueFactory(cell -> cell.getValue().getValue().numberOfCredits);
         language.setCellValueFactory(cell -> cell.getValue().getValue().language);
         grade.setCellValueFactory(cell -> cell.getValue().getValue().grade);
 
@@ -52,7 +59,7 @@ public class Marks implements Initializable {
         rows.add(new MarkRow("I2210", "OOP", "5", "EN", "90"));
 
         final TreeItem<MarkRow> root = new RecursiveTreeItem<>(rows, RecursiveTreeObject::getChildren);
-        table.getColumns().setAll(code, name, numberOfCredits, language, grade);
+        table.getColumns().setAll(code, name, nbCredits, language, grade);
         table.setRoot(root);
         table.setShowRoot(false);
     }

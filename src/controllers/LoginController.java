@@ -1,5 +1,6 @@
 package controllers;
 
+import controllers.repos.Professors;
 import controllers.repos.Students;
 import controllers.repos.Users;
 import exceptions.InvalidCredentialsException;
@@ -41,6 +42,9 @@ public class LoginController {
         User user = (User) Session.getInstance().getValue("user");
         if(user.getRole().equals("STUDENT")) {
             Session.getInstance().addToSession("student", Students.getInstance().retrieveSingle(user));
+        }
+        if(user.getRole().equals("PROFESSOR")) {
+            Session.getInstance().addToSession("professor", Professors.getInstance().retrieveSingle(user));
         }
     }
 }
