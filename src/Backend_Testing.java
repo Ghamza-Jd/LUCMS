@@ -1,7 +1,9 @@
 import controllers.repos.Professors;
 import controllers.repos.Students;
+import controllers.repos.StudentsAffairs;
 import models.Professor;
 import models.Student;
+import models.StudentsAffair;
 import models.User;
 
 import java.sql.SQLException;
@@ -32,5 +34,17 @@ public class Backend_Testing {
         );
         Professor professor = new Professor(user2, 2214);
         Professors.getInstance().create(professor);
+
+        User user3 = new User(
+                "Sara",
+                "Abdallah",
+                "Jadid",
+                "sarajd",
+                "P@ssw0rd",
+                "78939614",
+                new Date()
+        );
+        StudentsAffair sa = new StudentsAffair(user3, "SJ@gmail.com");
+        StudentsAffairs.getInstance().create(sa);
     }
 }

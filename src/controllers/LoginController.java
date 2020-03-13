@@ -2,6 +2,7 @@ package controllers;
 
 import controllers.repos.Professors;
 import controllers.repos.Students;
+import controllers.repos.StudentsAffairs;
 import controllers.repos.Users;
 import exceptions.InvalidCredentialsException;
 import javafx.event.ActionEvent;
@@ -45,6 +46,9 @@ public class LoginController {
         }
         if(user.getRole().equals("PROFESSOR")) {
             Session.getInstance().addToSession("professor", Professors.getInstance().retrieveSingle(user));
+        }
+        if(user.getRole().equals("STUDENT_AFFAIR")) {
+            Session.getInstance().addToSession("student_affair", StudentsAffairs.getInstance().retrieveAll());
         }
     }
 }

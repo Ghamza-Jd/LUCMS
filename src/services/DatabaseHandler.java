@@ -11,7 +11,6 @@ import java.util.HashMap;
 
 public class DatabaseHandler {
     private static DatabaseHandler _db;
-
     private HashMap<String, Object> accessObjects;
     private JdbcPooledConnectionSource connectionSource;
 

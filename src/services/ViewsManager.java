@@ -13,10 +13,12 @@ public class ViewsManager {
     public static Stage getActiveStage(ActionEvent event){
         return (Stage) ((Node) event.getSource()).getScene().getWindow();
     }
+
     public static Scene requestView(String path) throws IOException {
         Parent root = FXMLLoader.load(ViewsManager.class.getResource(String.format("../views/%s.fxml", path)));
         return new Scene(root);
     }
+
     public static Parent requestComponent(String path) {
         try {
             return FXMLLoader.load(ViewsManager.class.getResource(String.format("../views/components/%s.fxml", path)));
@@ -25,6 +27,7 @@ public class ViewsManager {
         }
         return null;
     }
+
     public static DetailedComponent requestDetailedComponent(String path) {
         FXMLLoader loader = new FXMLLoader(ViewsManager.class.getResource(String.format("../views/components/%s.fxml", path)));
         Parent root = null;

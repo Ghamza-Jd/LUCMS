@@ -27,7 +27,8 @@ public class StudentsAffairs extends Persistence {
     @Override
     public void create(IModel model) throws SQLException {
         StudentsAffair affair = (StudentsAffair) model;
-        affair.getUser().setRole("AFFAIR");
+        affair.getUser().setRole("STUDENT_AFFAIR");
+        _usersAccessObject.create(affair.getUser());
         _affairsAccessObject.create(affair);
     }
 
@@ -44,5 +45,9 @@ public class StudentsAffairs extends Persistence {
     @Override
     public void delete(IModel model) throws SQLException {
 
+    }
+
+    public StudentsAffair retrieveAll(User user) throws SQLException {
+        return null;
     }
 }

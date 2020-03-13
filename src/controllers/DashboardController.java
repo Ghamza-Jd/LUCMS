@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import controllers.components.SidePanelController;
 import controllers.components.student.StudentSidePanelController;
+import controllers.components.students_affair.SA_SidePanelController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
@@ -60,6 +61,15 @@ public class DashboardController implements Initializable {
         if(role.equals("PROFESSOR")) {
             ViewsManager.DetailedComponent component =
                     ViewsManager.requestDetailedComponent("professor/ProfessorSidePanel");
+            sidePanelController.getEmpty().getChildren().setAll(component.getRoot());
+        }
+        if(role.equals("STUDENT_AFFAIR")){
+            ViewsManager.DetailedComponent component =
+                    ViewsManager.requestDetailedComponent("students_affair/SA_SidePanel");
+            SA_SidePanelController controller = component.getLoader().getController();
+            controller.getCreateStudent().setOnAction(e -> {
+                container.getChildren().setAll(ViewsManager.requestComponent("students_affair/CreateStudent"));
+            });
             sidePanelController.getEmpty().getChildren().setAll(component.getRoot());
         }
     }
