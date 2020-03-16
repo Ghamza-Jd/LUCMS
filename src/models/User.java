@@ -6,8 +6,8 @@ import com.j256.ormlite.table.DatabaseTable;
 import services.IModel;
 import services.Security;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.text.SimpleDateFormat;
 
 @DatabaseTable(tableName = "user")
 public class User implements IModel {
