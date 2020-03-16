@@ -17,7 +17,8 @@ public class DatabaseHandler {
     private DatabaseHandler() throws SQLException {
         accessObjects = new HashMap<>();
         connectionSource = new JdbcPooledConnectionSource(
-                    String.format("jdbc:mysql://%s/%s",
+                    String.format("jdbc:%s://%s/%s",
+                            Config.DATABASE_ENGINE,
                             Config.DATABASE_URL,
                             Config.DATABASE_NAME),
                     Config.DATABASE_USERNAME,

@@ -33,7 +33,7 @@ public class LoginController {
                 ViewsManager.getActiveStage(event).setScene(ViewsManager.requestView("Dashboard"));
             }
         } catch (InvalidCredentialsException e) {
-            Alerts.createAlert("Invalid Credentials", "Incorrect username or password").showAndWait();
+            Alerts.createDefaultAlert("Invalid Credentials", "Incorrect username or password").showAndWait();
             this.password.setText("");
         }
     }

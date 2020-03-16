@@ -1,6 +1,8 @@
 package controllers.components;
 
+import com.jfoenix.controls.JFXAlert;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialogLayout;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -9,6 +11,7 @@ import javafx.scene.layout.Pane;
 import models.User;
 import services.Session;
 import services.ViewsManager;
+import utils.Alerts;
 
 import java.io.IOException;
 import java.net.URL;
@@ -31,9 +34,26 @@ public class SidePanelController implements Initializable {
     }
 
     @FXML
-    void logout(ActionEvent event) throws IOException {
-        ViewsManager.getActiveStage(event).setScene(ViewsManager.requestView("Login"));
-        Session.getInstance().clearSession();
+    void logout(ActionEvent event) {
+        JFXAlert<String> alert = Alerts.createAlert();
+        JFXDialogLayout layout = Alerts.createLayout("Logout", "Are you sure?");
+        JFXButton logout = new JFXButton("Logout");
+        logout.setOnAction(e -> {
+            try {
+                ViewsManager.getActiveStage(event).setScene(ViewsManager.requestView("Login"));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            alert.hideWithAnimation();
+            Session.getInstance().clearSession();
+        });
+        JFXButton cancel = new JFXButton("Cancel");
+        cancel.setOnAction(e -> {
+            alert.hideWithAnimation();
+        });
+        layout.setActions(cancel, logout);
+        alert.setContent(layout);
+        alert.showAndWait();
     }
 
     public JFXButton getProfile() { return profile; }

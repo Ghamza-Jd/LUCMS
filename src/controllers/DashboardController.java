@@ -4,6 +4,8 @@ import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import controllers.components.SidePanelController;
+import controllers.components.head_of_department.CreateProfessorController;
+import controllers.components.head_of_department.HodSidePanelController;
 import controllers.components.student.StudentSidePanelController;
 import controllers.components.students_affair.SA_SidePanelController;
 import javafx.fxml.FXML;
@@ -69,6 +71,15 @@ public class DashboardController implements Initializable {
             SA_SidePanelController controller = component.getLoader().getController();
             controller.getCreateStudent().setOnAction(e -> {
                 container.getChildren().setAll(ViewsManager.requestComponent("students_affair/CreateStudent"));
+            });
+            sidePanelController.getEmpty().getChildren().setAll(component.getRoot());
+        }
+        if(role.equals(("HEAD_OF_DEPARTMENT"))){
+            ViewsManager.DetailedComponent component =
+                    ViewsManager.requestDetailedComponent(("head_of_department/HodSidePanel"));
+            HodSidePanelController controller = component.getLoader().getController();
+            controller.getCreateProfessor().setOnAction(e -> {
+                container.getChildren().setAll(ViewsManager.requestComponent(("head_of_department/CreateProfessor")));
             });
             sidePanelController.getEmpty().getChildren().setAll(component.getRoot());
         }

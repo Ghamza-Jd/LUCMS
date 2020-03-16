@@ -10,15 +10,13 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class Alerts {
-    public static JFXAlert<String> createAlert(String title, String msg){
+    public static JFXAlert<String> createDefaultAlert(String title, String msg){
         JFXAlert<String> alert = new JFXAlert<>();
         alert.initModality(Modality.APPLICATION_MODAL);
         ((Stage) alert.getDialogPane().getScene().getWindow()).initStyle(StageStyle.UNDECORATED);
         alert.setOverlayClose(false);
 
-        JFXDialogLayout layout = new JFXDialogLayout();
-        layout.setHeading(new Label(title));
-        layout.setBody(new VBox(new Label(msg)));
+        JFXDialogLayout layout = createLayout(title, msg);
 
         JFXButton okBtn = new JFXButton("OK");
         okBtn.setDefaultButton(true);
@@ -26,5 +24,19 @@ public class Alerts {
         layout.setActions(okBtn);
         alert.setContent(layout);
         return alert;
+    }
+    public static JFXAlert<String> createAlert() {
+        JFXAlert<String> alert = new JFXAlert<>();
+        alert.initModality(Modality.APPLICATION_MODAL);
+        ((Stage) alert.getDialogPane().getScene().getWindow()).initStyle(StageStyle.UNDECORATED);
+        alert.setOverlayClose(false);
+        return alert;
+    }
+
+    public static JFXDialogLayout createLayout(String title, String msg) {
+        JFXDialogLayout layout = new JFXDialogLayout();
+        layout.setHeading(new Label(title));
+        layout.setBody(new VBox(new Label(msg)));
+        return layout;
     }
 }

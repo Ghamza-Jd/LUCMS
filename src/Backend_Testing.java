@@ -1,10 +1,8 @@
+import controllers.repos.HoDs;
 import controllers.repos.Professors;
 import controllers.repos.Students;
 import controllers.repos.StudentsAffairs;
-import models.Professor;
-import models.Student;
-import models.StudentsAffair;
-import models.User;
+import models.*;
 
 import java.sql.SQLException;
 import java.util.Date;
@@ -46,5 +44,17 @@ public class Backend_Testing {
         );
         StudentsAffair sa = new StudentsAffair(user3, "SJ@gmail.com");
         StudentsAffairs.getInstance().create(sa);
+
+        User user4 = new User(
+                "Marwan",
+                "Abdallah",
+                "Jadid",
+                "marwanjd",
+                "P@ssw0rd",
+                "78939614",
+                new Date()
+        );
+        HeadOfDepartment hod = new HeadOfDepartment(user4, "Applied Math");
+        HoDs.getInstance().create(hod);
     }
 }
