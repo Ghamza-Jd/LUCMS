@@ -1,4 +1,4 @@
-package controllers.components;
+package controllers.components.user;
 
 import com.jfoenix.controls.JFXAlert;
 import com.jfoenix.controls.JFXButton;
@@ -38,6 +38,7 @@ public class SidePanelController implements Initializable {
         JFXAlert<String> alert = Alerts.createAlert();
         JFXDialogLayout layout = Alerts.createLayout("Logout", "Are you sure?");
         JFXButton logout = new JFXButton("Logout");
+        logout.setStyle("-fx-background-color: green; -fx-text-fill: white;");
         logout.setOnAction(e -> {
             try {
                 ViewsManager.getActiveStage(event).setScene(ViewsManager.requestView("Login"));
@@ -51,6 +52,7 @@ public class SidePanelController implements Initializable {
         cancel.setOnAction(e -> {
             alert.hideWithAnimation();
         });
+        cancel.setStyle("-fx-background-color: red; -fx-text-fill: white;");
         layout.setActions(cancel, logout);
         alert.setContent(layout);
         alert.showAndWait();

@@ -4,7 +4,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import services.IModel;
 
-@DatabaseTable(tableName = "studentAffairs")
+@DatabaseTable(tableName = "student_affairs")
 public class StudentsAffair implements IModel {
     @DatabaseField(generatedId = true)
     private int id;

@@ -10,8 +10,12 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class ViewsManager {
-    public static Stage getActiveStage(ActionEvent event){
-        return (Stage) ((Node) event.getSource()).getScene().getWindow();
+    public static Stage getActiveStage(ActionEvent event) {
+        return (Stage) getActiveScene(event).getWindow();
+    }
+
+    public static Scene getActiveScene(ActionEvent event) {
+        return ((Node) event.getSource()).getScene();
     }
 
     public static Scene requestView(String path) throws IOException {

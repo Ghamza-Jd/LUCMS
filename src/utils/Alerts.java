@@ -22,6 +22,7 @@ public class Alerts {
         okBtn.setDefaultButton(true);
         okBtn.setOnAction(addEvent -> alert.hideWithAnimation());
         layout.setActions(okBtn);
+
         alert.setContent(layout);
         return alert;
     }

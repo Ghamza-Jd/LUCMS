@@ -3,8 +3,7 @@ package controllers;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
-import controllers.components.SidePanelController;
-import controllers.components.head_of_department.CreateProfessorController;
+import controllers.components.user.SidePanelController;
 import controllers.components.head_of_department.HodSidePanelController;
 import controllers.components.student.StudentSidePanelController;
 import controllers.components.students_affair.SA_SidePanelController;
@@ -35,17 +34,16 @@ public class DashboardController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        container.getChildren().setAll(ViewsManager.requestComponent("News"));
+        container.getChildren().setAll(ViewsManager.requestComponent("news/News"));
         burger = new HamburgerBackArrowBasicTransition(hamburger);
         drawer.setSidePane(sidePanel);
         burger.setRate(-1);
-        toggleBurger();
         hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, event -> toggleBurger());
         sidePanelController.getHome().setOnAction(e ->
-                container.getChildren().setAll(ViewsManager.requestComponent("News"))
+                container.getChildren().setAll(ViewsManager.requestComponent("news/News"))
         );
         sidePanelController.getProfile().setOnAction(e ->
-                container.getChildren().setAll(ViewsManager.requestComponent("Profile"))
+                container.getChildren().setAll(ViewsManager.requestComponent("user/Profile"))
         );
         roleSetup(((User) Session.getInstance().getValue("user")).getRole());
     }

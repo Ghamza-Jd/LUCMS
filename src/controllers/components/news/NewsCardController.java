@@ -1,4 +1,4 @@
-package controllers.components;
+package controllers.components.news;
 
 import com.jfoenix.controls.JFXTextArea;
 import javafx.fxml.FXML;

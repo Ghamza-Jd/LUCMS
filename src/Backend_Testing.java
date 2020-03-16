@@ -1,7 +1,4 @@
-import controllers.repos.HoDs;
-import controllers.repos.Professors;
-import controllers.repos.Students;
-import controllers.repos.StudentsAffairs;
+import controllers.repos.*;
 import models.*;
 
 import java.sql.SQLException;
@@ -56,5 +53,8 @@ public class Backend_Testing {
         );
         HeadOfDepartment hod = new HeadOfDepartment(user4, "Applied Math");
         HoDs.getInstance().create(hod);
+
+        News news1 = new News("Title", "Maakarona", "Danger");
+        NewsRepo.getInstance().create(news1);
     }
 }

@@ -1,9 +1,8 @@
-package controllers.components;
+package controllers.components.news;
 
 import controllers.repos.NewsRepo;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
 import models.News;
 import services.IModel;
@@ -17,8 +16,6 @@ import java.util.ResourceBundle;
 public class NewsController implements Initializable {
     @FXML
     private Pane pane;
-    @FXML
-    private ScrollPane scroll;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
@@ -26,7 +23,7 @@ public class NewsController implements Initializable {
             for (IModel m : news) {
                 News n = (News) m;
                 ViewsManager.DetailedComponent component =
-                        ViewsManager.requestDetailedComponent("NewsCard");
+                        ViewsManager.requestDetailedComponent("news/NewsCard");
                 pane.getChildren().add(component.getRoot());
                 NewsCardController controller = component.getLoader().getController();
                 controller.getTitle().setText(n.getTitle());

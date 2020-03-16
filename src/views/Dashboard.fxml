@@ -8,7 +8,7 @@
    <children>
       <JFXDrawer fx:id="drawer" cache="true" defaultDrawerSize="200.0" layoutY="1.0" prefHeight="511.0" prefWidth="165.0">
          <children>
-            <fx:include fx:id="sidePanel" source="components/SidePanel.fxml" />
+            <fx:include fx:id="sidePanel" source="components/user/SidePanel.fxml" />
          </children>
       </JFXDrawer>
       <JFXHamburger fx:id="hamburger" layoutX="917.0" layoutY="19.0" />

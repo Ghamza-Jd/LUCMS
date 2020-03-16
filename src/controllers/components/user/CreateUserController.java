@@ -1,36 +1,44 @@
-package controllers.components.head_of_department;
+package controllers.components.user;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
-import controllers.repos.Students;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import models.Student;
+import javafx.fxml.Initializable;
 import models.User;
 
-import java.sql.SQLException;
+import java.net.URL;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.ResourceBundle;
 
-public class CreateProfessorController {
+public class CreateUserController implements Initializable {
     @FXML
     private JFXTextField
             firstName,
             middleName,
             lastName,
             username,
-            phoneNumber;
+    phoneNumber;
     @FXML
     private JFXDatePicker dateOfBirth;
 
-    @FXML
-    void createStudent(ActionEvent event) throws SQLException {
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        dateOfBirth.setValue(LocalDate.of(2000, 1, 1));
+        phoneNumber.setOnKeyTyped(e -> {
+            if(!"0123456789".contains(e.getCharacter()))
+                e.consume();
+        });
+    }
+
+    public User getUser() {
         LocalDate localDate = dateOfBirth.getValue();
         Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
         Date date = Date.from(instant);
-        User user = new User(
+        return new User(
                 firstName.getText(),
                 middleName.getText(),
                 lastName.getText(),
