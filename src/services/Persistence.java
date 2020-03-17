@@ -5,6 +5,11 @@ import com.j256.ormlite.dao.Dao;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * Persistence Class
+ * An abstract class that facilitates the database CRUD operations
+ * for all subclasses that implements IModel
+ */
 public abstract class Persistence {
     private Dao<IModel, String> _accessObject;
 

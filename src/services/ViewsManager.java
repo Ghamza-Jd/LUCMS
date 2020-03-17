@@ -10,13 +10,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class ViewsManager {
-    public static Stage getActiveStage(ActionEvent event) {
-        return (Stage) getActiveScene(event).getWindow();
-    }
+    public static Stage getActiveStage(ActionEvent event) { return (Stage) getActiveScene(event).getWindow(); }
 
-    public static Scene getActiveScene(ActionEvent event) {
-        return ((Node) event.getSource()).getScene();
-    }
+    public static Scene getActiveScene(ActionEvent event) { return ((Node) event.getSource()).getScene(); }
 
     public static Scene requestView(String path) throws IOException {
         Parent root = FXMLLoader.load(ViewsManager.class.getResource(String.format("../views/%s.fxml", path)));

@@ -9,10 +9,18 @@ import config.Config;
 import java.sql.SQLException;
 import java.util.HashMap;
 
+/**
+ * Dao Factory
+ */
 public class DatabaseHandler {
     private static DatabaseHandler _db;
-    private HashMap<String, Object> accessObjects;
     private JdbcPooledConnectionSource connectionSource;
+
+    /**
+     * HashMap that has the name of the class as a key
+     * and the Dao as value
+     */
+    private HashMap<String, Object> accessObjects;
 
     private DatabaseHandler() throws SQLException {
         accessObjects = new HashMap<>();
@@ -31,6 +39,13 @@ public class DatabaseHandler {
         return _db;
     }
 
+    /**
+     *
+     * @param clazz class
+     * @param <T> extends IModel
+     * @return Database access object
+     * @throws SQLException
+     */
     public <T extends IModel> Dao<T, String> getDao(Class<T> clazz) throws SQLException {
         if(accessObjects.containsKey(clazz.getName())) return (Dao<T, String>) accessObjects.get(clazz.getName());
         Dao<T, String> dao = DaoManager.createDao(connectionSource, clazz);
