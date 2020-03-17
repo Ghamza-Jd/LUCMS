@@ -20,4 +20,12 @@ public class Constants {
             "Physics",
             "Electronics"
     };
+
+    public static final String [] NUMBER_OF_CREDITS = {
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"
+    };
 }

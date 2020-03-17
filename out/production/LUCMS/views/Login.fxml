@@ -28,7 +28,7 @@
             </font>
          </Label>
          <PasswordField id="password" fx:id="password" alignment="CENTER" promptText="Password" />
-         <JFXButton alignment="CENTER" defaultButton="true" onAction="#loginBtnHandler" text="Login" textFill="WHITE">
+         <JFXButton alignment="CENTER" defaultButton="true" onAction="#loginBtnHandler" style="-fx-background-color: #00000088;" text="Login" textFill="WHITE">
             <font>
                <Font name="Calibri Bold" size="32.0" />
             </font>

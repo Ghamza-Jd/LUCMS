@@ -19,7 +19,7 @@ public class Courses extends Persistence {
         _professorsAccessObject = Professors.getInstance().getAccessObject(Professor.class);
     }
 
-    public Courses getInstance() throws SQLException {
+    public static Courses getInstance() throws SQLException {
         if(_courses == null) _courses = new Courses();
         return _courses;
     }

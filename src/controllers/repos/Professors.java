@@ -36,7 +36,12 @@ public class Professors extends Persistence {
 
     @Override
     public List<IModel> retrieveAll() throws SQLException {
-        return null;
+        List<IModel> professors = _professorsAccessObject.queryBuilder().query();
+        for(IModel m : professors) {
+            Professor professor = (Professor) m;
+            _usersAccessObject.refresh(professor.getUser());
+        }
+        return professors;
     }
 
     @Override
@@ -62,5 +67,14 @@ public class Professors extends Persistence {
             return (Professor) professor;
         }
         return null;
+    }
+
+    public Professor retrieveByUsername(String username) throws SQLException {
+        List<IModel> users = _usersAccessObject
+                .queryBuilder()
+                .where().
+                eq("normalizedUsername", username.toUpperCase())
+                .query();
+        return users.size() > 0 ? retrieveSingle((User) users.get(0)) : null;
     }
 }
