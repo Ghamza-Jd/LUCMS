@@ -11,7 +11,7 @@
       <AnchorPane fx:id="user" prefHeight="200.0" prefWidth="600.0" />
       <Label layoutX="40.0" layoutY="225.0" text="Major:" />
       <JFXComboBox fx:id="major" layoutX="40.0" layoutY="259.0" prefHeight="21.0" prefWidth="135.0" />
-      <JFXButton fx:id="create" layoutX="258.0" layoutY="321.0" onAction="#createStudent" prefHeight="57.0" prefWidth="84.0" style="-fx-background-color: #ddd;" text="Create">
+      <JFXButton layoutX="258.0" layoutY="321.0" onAction="#createStudent" prefHeight="57.0" prefWidth="84.0" style="-fx-background-color: #ddd;" text="Create">
          <font>
             <Font size="18.0" />
          </font>

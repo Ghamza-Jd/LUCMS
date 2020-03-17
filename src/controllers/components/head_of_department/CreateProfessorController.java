@@ -1,43 +1,38 @@
 package controllers.components.head_of_department;
 
-import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
-import controllers.repos.Students;
+import controllers.components.user.CreateUserController;
+import controllers.repos.Professors;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import models.Student;
-import models.User;
+import javafx.fxml.Initializable;
+import javafx.scene.layout.Pane;
+import models.Professor;
+import services.ViewsManager;
 
+import java.net.URL;
 import java.sql.SQLException;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
+import java.util.ResourceBundle;
 
-public class CreateProfessorController {
+public class CreateProfessorController implements Initializable {
     @FXML
-    private JFXTextField
-            firstName,
-            middleName,
-            lastName,
-            username,
-            phoneNumber;
+    private Pane user;
     @FXML
-    private JFXDatePicker dateOfBirth;
+    private JFXTextField office;
+
+    private CreateUserController controller;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        ViewsManager.DetailedComponent component =
+                ViewsManager.requestDetailedComponent("user/CreateUser");
+        controller = component.getLoader().getController();
+        user.getChildren().setAll(component.getRoot());
+    }
 
     @FXML
-    void createStudent(ActionEvent event) throws SQLException {
-        LocalDate localDate = dateOfBirth.getValue();
-        Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
-        Date date = Date.from(instant);
-        User user = new User(
-                firstName.getText(),
-                middleName.getText(),
-                lastName.getText(),
-                username.getText(),
-                username.getText() + "123",
-                "+961" + phoneNumber.getText(),
-                date
-        );
+    public void createProfessor(ActionEvent event) throws SQLException {
+        Professor professor = new Professor(controller.getUser(), Integer.parseInt(office.getText()));
+        Professors.getInstance().create(professor);
     }
 }
