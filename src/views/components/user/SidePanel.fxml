@@ -20,6 +20,9 @@
                </padding>
             </Label>
          </children>
+         <opaqueInsets>
+            <Insets top="5.0" />
+         </opaqueInsets>
       </VBox>
       <VBox alignment="CENTER" prefHeight="281.0" prefWidth="167.0" spacing="30.0">
          <children>

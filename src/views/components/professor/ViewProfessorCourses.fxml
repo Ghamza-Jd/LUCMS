@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXListView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="460.0" prefWidth="790.0"
+            xmlns="http://javafx.com/javafx/8.0.171"
+            fx:controller="controllers.components.professor.ViewProfessorCoursesController"
+            xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <JFXListView fx:id="listView" layoutX="295.0" layoutY="30.0" />
+   </children>
+</AnchorPane>

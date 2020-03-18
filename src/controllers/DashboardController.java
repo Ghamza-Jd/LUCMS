@@ -3,6 +3,7 @@ package controllers;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import controllers.components.professor.ProfessorSidePanelController;
 import controllers.components.user.SidePanelController;
 import controllers.components.head_of_department.HodSidePanelController;
 import controllers.components.student.StudentSidePanelController;
@@ -58,11 +59,20 @@ public class DashboardController implements Initializable {
             );
             sidePanelController.getEmpty().getChildren().setAll(component.getRoot());
         }
+
         if(role.equals("PROFESSOR")) {
             ViewsManager.DetailedComponent component =
                     ViewsManager.requestDetailedComponent("professor/ProfessorSidePanel");
+            ProfessorSidePanelController controller = component.getLoader().getController();
+            controller.getCourses().setOnAction(e -> {
+                container.getChildren().setAll(ViewsManager.requestComponent("professor/ViewProfessorCourses"));
+            });
+            controller.getGrades().setOnAction(e -> {
+                container.getChildren().setAll(ViewsManager.requestComponent("professor/AssignGrades"));
+            });
             sidePanelController.getEmpty().getChildren().setAll(component.getRoot());
         }
+
         if(role.equals("STUDENT_AFFAIR")){
             ViewsManager.DetailedComponent component =
                     ViewsManager.requestDetailedComponent("students_affair/SA_SidePanel");
@@ -72,6 +82,7 @@ public class DashboardController implements Initializable {
             });
             sidePanelController.getEmpty().getChildren().setAll(component.getRoot());
         }
+
         if(role.equals(("HEAD_OF_DEPARTMENT"))){
             ViewsManager.DetailedComponent component =
                     ViewsManager.requestDetailedComponent(("head_of_department/HodSidePanel"));

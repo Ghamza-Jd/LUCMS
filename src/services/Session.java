@@ -18,7 +18,5 @@ public class Session {
         if(data.containsKey(key)) return data.get(key);
         return null;
     }
-    public void clearSession(){
-        data.clear();
-    }
+    public void clearSession(){ data.clear(); }
 }
