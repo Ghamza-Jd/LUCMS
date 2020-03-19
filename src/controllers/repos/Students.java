@@ -63,4 +63,33 @@ public class Students extends Persistence {
         }
         return null;
     }
+
+    public Student retrieveSingleByFileNb(int fileNb) throws SQLException {
+        List<IModel> students =
+                _studentsAccessObject
+                        .queryBuilder()
+                        .where()
+                        .eq("user_id", fileNb)
+                        .query();
+        if(students.size() > 0) {
+            IModel student = students.get(0);
+            _usersAccessObject.refresh(((Student) student).getUser());
+            return (Student) student;
+        }
+        return null;
+    }
+
+    public Student retrieveSingleByUsername(String username) throws SQLException {
+        List<IModel> users =
+                _usersAccessObject
+                        .queryBuilder()
+                        .where()
+                        .eq("normalizedUsername", username.toUpperCase())
+                        .query();
+        if(users.size() > 0) {
+            User user = (User) users.get(0);
+            return user.getRole().equals("STUDENT") ? retrieveSingleByFileNb((user).getId()) : null;
+        }
+        return null;
+    }
 }

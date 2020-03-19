@@ -7,6 +7,8 @@ import services.IModel;
 import services.Persistence;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class Courses extends Persistence {
@@ -43,5 +45,12 @@ public class Courses extends Persistence {
     @Override
     public void delete(IModel model) throws SQLException {
 
+    }
+
+    public ArrayList<Course> retrieveProfessorCourses(int id) throws SQLException {
+        List<IModel> models = _coursesAccessObject.queryBuilder().where().eq("professor_id", id).query();
+        ArrayList<Course> result = new ArrayList<>();
+        for(IModel m : models) result.add((Course) m);
+        return result;
     }
 }

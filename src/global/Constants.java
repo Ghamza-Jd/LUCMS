@@ -2,14 +2,14 @@ package global;
 
 public class Constants {
     public static final String [] MAJORS = {
-        "Computer Science",
-        "Mathematics",
-        "Chemistry",
-        "Biology",
-        "Physics",
-        "Electronics",
-        "Geology",
-        "Statistics"
+            "Computer Science",
+            "Biology",
+            "Chemistry",
+            "Statistics",
+            "Mathematics",
+            "Geology",
+            "Physics",
+            "Electronics"
     };
 
     public static final String [] DEPARTMENTS = {
@@ -27,5 +27,10 @@ public class Constants {
             "4",
             "5",
             "6"
+    };
+
+    public static final String [] LANGUAGES = {
+            "English",
+            "French"
     };
 }

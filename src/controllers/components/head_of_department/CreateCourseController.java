@@ -1,6 +1,5 @@
 package controllers.components.head_of_department;
 
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import controllers.repos.Courses;
@@ -24,18 +23,19 @@ public class CreateCourseController implements Initializable {
     @FXML
     private JFXTextField
             code,
-            name,
-            lang;
+            name;
     @FXML
     private JFXComboBox<String>
             credits,
+            lang,
             prof;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ObservableList<String> credit = FXCollections.observableArrayList(Constants.NUMBER_OF_CREDITS);
-        ObservableList<String> profs = FXCollections.observableArrayList();
-        credits.setItems(credit);
+        ObservableList<String>
+                credit = FXCollections.observableArrayList(Constants.NUMBER_OF_CREDITS),
+                languages = FXCollections.observableArrayList(Constants.LANGUAGES),
+                profs = FXCollections.observableArrayList();
         try {
             List<IModel> professors = Professors.getInstance().retrieveAll();
             for(IModel p : professors) {
@@ -45,6 +45,8 @@ public class CreateCourseController implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        credits.setItems(credit);
+        lang.setItems(languages);
         prof.setItems(profs);
     }
 
@@ -54,7 +56,7 @@ public class CreateCourseController implements Initializable {
                 code.getText(),
                 name.getText(),
                 Integer.parseInt(credits.getValue()),
-                lang.getText(),
+                lang.getValue(),
                 Professors.getInstance().retrieveByUsername(prof.getValue())
         );
         Courses.getInstance().create(course);

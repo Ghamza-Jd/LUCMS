@@ -75,10 +75,13 @@ public class DashboardController implements Initializable {
 
         if(role.equals("STUDENT_AFFAIR")){
             ViewsManager.DetailedComponent component =
-                    ViewsManager.requestDetailedComponent("students_affair/SA_SidePanel");
+                    ViewsManager.requestDetailedComponent("students_affair/SaSidePanel");
             SaSidePanelController controller = component.getLoader().getController();
             controller.getCreateStudent().setOnAction(e -> {
                 container.getChildren().setAll(ViewsManager.requestComponent("students_affair/CreateStudent"));
+            });
+            controller.getEnrollStudent().setOnAction(e -> {
+                container.getChildren().setAll(ViewsManager.requestComponent("students_affair/EnrollStudents"));
             });
             sidePanelController.getEmpty().getChildren().setAll(component.getRoot());
         }

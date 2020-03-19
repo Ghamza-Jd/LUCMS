@@ -13,11 +13,11 @@
       <Label layoutX="227.0" layoutY="46.0" text="Course Name:" />
       <JFXTextField fx:id="name" layoutX="225.0" layoutY="66.0" />
       <Label layoutX="394.0" layoutY="46.0" text="Number Of Credits:" />
+      <JFXComboBox fx:id="credits" layoutX="394.0" layoutY="68.0" prefHeight="0.0" prefWidth="135.0" />
       <Label layoutX="40.0" layoutY="140.0" text="Language:" />
-      <JFXTextField fx:id="lang" layoutX="40.0" layoutY="157.0" />
+      <JFXComboBox fx:id="lang" layoutX="40.0" layoutY="159.0" prefHeight="21.0" prefWidth="135.0" />
       <Label layoutX="227.0" layoutY="135.0" text="Professor:" />
       <JFXComboBox fx:id="prof" layoutX="218.0" layoutY="159.0" prefHeight="21.0" prefWidth="135.0" />
-      <JFXComboBox fx:id="credits" layoutX="394.0" layoutY="68.0" prefHeight="0.0" prefWidth="135.0" />
-      <JFXButton onAction="#createCourse" layoutX="251.0" layoutY="260.0" prefHeight="43.0" prefWidth="83.0" style="-fx-background-color: #ddd;" text="Create" />
+      <JFXButton layoutX="251.0" layoutY="260.0" onAction="#createCourse" prefHeight="43.0" prefWidth="83.0" style="-fx-background-color: #ddd;" text="Create" />
    </children>
 </AnchorPane>

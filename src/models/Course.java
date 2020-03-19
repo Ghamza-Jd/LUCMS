@@ -72,4 +72,8 @@ public class Course implements IModel {
     public void setProfessor(Professor professor) {
         this.professor = professor;
     }
+
+    public String printCourse() {
+        return String.format("%s %s %s", getCode(), getName(), getLanguage());
+    }
 }
