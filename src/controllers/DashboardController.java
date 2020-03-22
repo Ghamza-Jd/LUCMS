@@ -17,6 +17,7 @@ import services.Session;
 import services.ViewsManager;
 
 import java.net.URL;
+
 import java.util.ResourceBundle;
 
 public class DashboardController implements Initializable {
@@ -61,6 +62,7 @@ public class DashboardController implements Initializable {
         }
 
         if(role.equals("PROFESSOR")) {
+            // TODO: Give each student a grade
             ViewsManager.DetailedComponent component =
                     ViewsManager.requestDetailedComponent("professor/ProfessorSidePanel");
             ProfessorSidePanelController controller = component.getLoader().getController();
@@ -74,6 +76,7 @@ public class DashboardController implements Initializable {
         }
 
         if(role.equals("STUDENT_AFFAIR")){
+            // TODO: View all students
             ViewsManager.DetailedComponent component =
                     ViewsManager.requestDetailedComponent("students_affair/SaSidePanel");
             SaSidePanelController controller = component.getLoader().getController();
@@ -87,6 +90,8 @@ public class DashboardController implements Initializable {
         }
 
         if(role.equals(("HEAD_OF_DEPARTMENT"))){
+            // TODO: View all course
+            // TODO: View all doctors
             ViewsManager.DetailedComponent component =
                     ViewsManager.requestDetailedComponent(("head_of_department/HodSidePanel"));
             HodSidePanelController controller = component.getLoader().getController();
@@ -98,6 +103,8 @@ public class DashboardController implements Initializable {
             });
             sidePanelController.getEmpty().getChildren().setAll(component.getRoot());
         }
+
+        // TODO: Add admin role
     }
 
     private void toggleBurger() {

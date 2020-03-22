@@ -11,19 +11,11 @@ public class StudentCardController {
             major,
             birth;
 
-    public JFXTextField getName() {
-        return name;
-    }
+    public JFXTextField getName() { return name; }
 
-    public JFXTextField getFileNb() {
-        return fileNb;
-    }
+    public JFXTextField getFileNb() { return fileNb; }
 
-    public JFXTextField getMajor() {
-        return major;
-    }
+    public JFXTextField getMajor() { return major; }
 
-    public JFXTextField getBirth() {
-        return birth;
-    }
+    public JFXTextField getBirth() { return birth; }
 }

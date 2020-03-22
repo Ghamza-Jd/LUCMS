@@ -54,7 +54,21 @@ public class Backend_Testing {
         HeadOfDepartment hod = new HeadOfDepartment(user4, "Applied Math");
         HoDs.getInstance().create(hod);
 
-        News news1 = new News("Title", "Maakarona", "Danger");
-        NewsRepo.getInstance().create(news1);
+        News dangerNews = new News(
+                "Postponing Semester 2!",
+                "The administration of the Lebanese University decided to postpone the second semester" +
+                        " because of the pandemic of corona virus. Stay at home and take care",
+                "Danger");
+        News warningNews = new News(
+                "Evaluate your Professors",
+                "In order to check your marks you have to evaluate the professor that taught you a specific course.",
+                "Warning");
+        News infoNews = new News(
+                "Congrats for LU!",
+                "The Lebanese University wins third place in IBA-2020 competition in Bahrain.",
+                "Info");
+        NewsRepo.getInstance().create(dangerNews);
+        NewsRepo.getInstance().create(warningNews);
+        NewsRepo.getInstance().create(infoNews);
     }
 }

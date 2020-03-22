@@ -40,7 +40,6 @@ public class DatabaseHandler {
     }
 
     /**
-     *
      * @param clazz class
      * @param <T> extends IModel
      * @return Database access object

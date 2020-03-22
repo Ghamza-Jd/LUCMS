@@ -7,6 +7,7 @@ import javafx.scene.layout.Pane;
 import models.News;
 import services.IModel;
 import services.ViewsManager;
+import utils.Cards;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -28,6 +29,7 @@ public class NewsController implements Initializable {
                 NewsCardController controller = component.getLoader().getController();
                 controller.getTitle().setText(n.getTitle());
                 controller.getBody().setText(n.getBody());
+                controller.setCardColor(Cards.getColor(n.getLevel()));
             }
         } catch (SQLException e) {
             e.printStackTrace();

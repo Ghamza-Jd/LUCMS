@@ -6,7 +6,6 @@ import models.User;
 import services.IModel;
 import services.Persistence;
 import services.Security;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -44,12 +43,10 @@ public class Users extends Persistence {
 
     @Override
     public void update(IModel model) throws SQLException {
-        throw new NotImplementedException();
     }
 
     @Override
     public void delete(IModel model) throws SQLException {
-        throw new NotImplementedException();
     }
 
     public boolean exists(String username) throws SQLException {

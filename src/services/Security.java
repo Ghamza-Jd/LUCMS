@@ -18,9 +18,7 @@ public class Security {
             md.update(Config.PASSWORD_SALT.getBytes(StandardCharsets.UTF_8));
             byte[] bytes = md.digest(password.getBytes(StandardCharsets.UTF_8));
             StringBuilder sb = new StringBuilder();
-            for (byte aByte : bytes) {
-                sb.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1));
-            }
+            for (byte aByte : bytes) sb.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1));
             digest = sb.toString();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();

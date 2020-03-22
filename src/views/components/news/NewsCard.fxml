@@ -6,11 +6,11 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="219.0" prefWidth="390.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.components.news.NewsCardController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="390.0" style="-fx-background-color: #ddd;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.components.news.NewsCardController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#8383835c" height="219.0" stroke="BLACK" strokeType="INSIDE" width="390.0" />
-      <Line endX="100.0" layoutX="189.0" layoutY="37.0" startX="-100.0" />
-      <Text fx:id="title" layoutX="19.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" textAlignment="CENTER" wrappingWidth="347.13671875" />
-      <JFXTextArea fx:id="body" editable="false" layoutX="17.0" layoutY="80.0" prefHeight="125.0" prefWidth="357.0" unFocusColor="#ffffff00" />
+      <Line endX="100.0" layoutX="189.0" layoutY="68.0" startX="-100.0" />
+      <Text fx:id="title" layoutX="19.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" textAlignment="CENTER" wrappingWidth="347.13671875" />
+      <JFXTextArea fx:id="body" editable="false" layoutX="17.0" layoutY="111.0" prefHeight="125.0" prefWidth="357.0" unFocusColor="#ffffff00" />
+      <Rectangle fx:id="level" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="27.0" stroke="TRANSPARENT" strokeType="INSIDE" width="390.0" />
    </children>
 </AnchorPane>
