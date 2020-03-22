@@ -33,4 +33,10 @@ public class Constants {
             "English",
             "French"
     };
+
+    public static final String [] WARNING_LEVELS = {
+            "Info",
+            "Important",
+            "Urgent"
+    };
 }

@@ -95,12 +95,15 @@ public class DashboardController implements Initializable {
             ViewsManager.DetailedComponent component =
                     ViewsManager.requestDetailedComponent(("head_of_department/HodSidePanel"));
             HodSidePanelController controller = component.getLoader().getController();
-            controller.getCreateProfessor().setOnAction(e -> {
-                container.getChildren().setAll(ViewsManager.requestComponent("head_of_department/CreateProfessor"));
-            });
-            controller.getCreateCourse().setOnAction(e -> {
-                container.getChildren().setAll(ViewsManager.requestComponent("head_of_department/CreateCourse"));
-            });
+            controller.getCreateProfessor().setOnAction(e ->
+                container.getChildren().setAll(ViewsManager.requestComponent("head_of_department/CreateProfessor"))
+            );
+            controller.getCreateCourse().setOnAction(e ->
+                container.getChildren().setAll(ViewsManager.requestComponent("head_of_department/CreateCourse"))
+            );
+            controller.getCreateNews().setOnAction(e ->
+                container.getChildren().setAll(ViewsManager.requestComponent("head_of_department/CreateNews"))
+            );
             sidePanelController.getEmpty().getChildren().setAll(component.getRoot());
         }
 

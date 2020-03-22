@@ -112,13 +112,11 @@ public class User implements IModel {
     }
 
     public String getDateOfBirth() {
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         return df.format(dateOfBirth);
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
+    public void setDateOfBirth(Date dateOfBirth) { this.dateOfBirth = dateOfBirth; }
 
     @Override
     public String toString() {

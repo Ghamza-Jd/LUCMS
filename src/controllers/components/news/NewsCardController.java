@@ -1,6 +1,7 @@
 package controllers.components.news;
 
 import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.paint.Paint;
@@ -12,7 +13,7 @@ import java.util.ResourceBundle;
 
 public class NewsCardController {
     @FXML
-    private Text title;
+    private Text title, date;
     @FXML
     private JFXTextArea body;
     @FXML
@@ -25,6 +26,8 @@ public class NewsCardController {
     public JFXTextArea getBody() {
         return body;
     }
+
+    public void setDate(String date) { this.date.setText(String.format("Posted on: %s", date)); }
 
     public void setCardColor(String color) { level.setFill(Paint.valueOf(color)); }
 }

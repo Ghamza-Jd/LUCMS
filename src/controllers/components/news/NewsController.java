@@ -30,6 +30,7 @@ public class NewsController implements Initializable {
                 controller.getTitle().setText(n.getTitle());
                 controller.getBody().setText(n.getBody());
                 controller.setCardColor(Cards.getColor(n.getLevel()));
+                controller.setDate(n.getDate());
             }
         } catch (SQLException e) {
             e.printStackTrace();
