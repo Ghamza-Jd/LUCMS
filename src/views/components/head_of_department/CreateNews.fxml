@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="460.0" prefWidth="790.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.components.head_of_department.CreateNews">
+   <children>
+      <Label layoutX="44.0" layoutY="61.0" text="News Title:" />
+      <Label layoutX="44.0" layoutY="126.0" text="News Content:" />
+      <Label layoutX="44.0" layoutY="320.0" text="Warning Level:" />
+      <JFXTextField fx:id="title" layoutX="163.0" layoutY="69.0" />
+      <JFXTextArea fx:id="body" layoutX="163.0" layoutY="129.0" prefHeight="150.0" prefWidth="463.0" />
+      <JFXComboBox fx:id="level" layoutX="163.0" layoutY="328.0" prefHeight="21.0" prefWidth="135.0" />
+      <JFXButton layoutX="356.0" layoutY="392.0" onAction="#postNews" prefHeight="32.0" prefWidth="78.0" style="-fx-background-color: #ddd;" text="Post News" />
+   </children>
+</AnchorPane>

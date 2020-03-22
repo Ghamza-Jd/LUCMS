@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 
 public class HodSidePanelController {
     @FXML
+    private JFXButton createNews;
+    @FXML
     private JFXButton createCourse;
     @FXML
     private JFXButton createProfessor;
@@ -16,4 +18,6 @@ public class HodSidePanelController {
     public JFXButton getCreateProfessor() {
         return createProfessor;
     }
+
+    public JFXButton getCreateNews() { return createNews; }
 }
