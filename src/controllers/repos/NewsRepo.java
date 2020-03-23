@@ -6,6 +6,7 @@ import services.IModel;
 import services.Persistence;
 
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
 
 public class NewsRepo extends Persistence {
@@ -29,7 +30,9 @@ public class NewsRepo extends Persistence {
 
     @Override
     public List<IModel> retrieveAll() throws SQLException {
-        return _accessObject.queryBuilder().query();
+        List<IModel> models = _accessObject.queryBuilder().query();
+        Collections.reverse(models);
+        return models;
     }
 
     @Override

@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import models.User;
 import services.Session;
 import services.ViewsManager;
@@ -21,6 +22,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class DashboardController implements Initializable {
+    @FXML
+    private Text title;
     @FXML
     private JFXHamburger hamburger;
     @FXML
@@ -36,17 +39,20 @@ public class DashboardController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        setTitleText("Home");
         container.getChildren().setAll(ViewsManager.requestComponent("news/News"));
         burger = new HamburgerBackArrowBasicTransition(hamburger);
         drawer.setSidePane(sidePanel);
         burger.setRate(-1);
         hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, event -> toggleBurger());
-        sidePanelController.getHome().setOnAction(e ->
-                container.getChildren().setAll(ViewsManager.requestComponent("news/News"))
-        );
-        sidePanelController.getProfile().setOnAction(e ->
-                container.getChildren().setAll(ViewsManager.requestComponent("user/Profile"))
-        );
+        sidePanelController.getHome().setOnAction(e -> {
+            container.getChildren().setAll(ViewsManager.requestComponent("news/News"));
+            setTitleText("Home");
+        });
+        sidePanelController.getProfile().setOnAction(e -> {
+            container.getChildren().setAll(ViewsManager.requestComponent("user/Profile"));
+            setTitleText("My Profile");
+        });
         roleSetup(((User) Session.getInstance().getValue("user")).getRole());
     }
 
@@ -55,9 +61,10 @@ public class DashboardController implements Initializable {
             ViewsManager.DetailedComponent component =
                     ViewsManager.requestDetailedComponent("student/StudentSidePanel");
             StudentSidePanelController controller = component.getLoader().getController();
-            controller.getMarks().setOnAction(e ->
-                    container.getChildren().setAll(ViewsManager.requestComponent("student/Marks"))
-            );
+            controller.getMarks().setOnAction(e -> {
+                container.getChildren().setAll(ViewsManager.requestComponent("student/Marks"));
+                setTitleText("Marks");
+            });
             sidePanelController.getEmpty().getChildren().setAll(component.getRoot());
         }
 
@@ -68,9 +75,11 @@ public class DashboardController implements Initializable {
             ProfessorSidePanelController controller = component.getLoader().getController();
             controller.getCourses().setOnAction(e -> {
                 container.getChildren().setAll(ViewsManager.requestComponent("professor/ViewProfessorCourses"));
+                setTitleText("My Courses");
             });
             controller.getGrades().setOnAction(e -> {
                 container.getChildren().setAll(ViewsManager.requestComponent("professor/AssignGrades"));
+                setTitleText("Grades");
             });
             sidePanelController.getEmpty().getChildren().setAll(component.getRoot());
         }
@@ -82,9 +91,11 @@ public class DashboardController implements Initializable {
             SaSidePanelController controller = component.getLoader().getController();
             controller.getCreateStudent().setOnAction(e -> {
                 container.getChildren().setAll(ViewsManager.requestComponent("students_affair/CreateStudent"));
+                setTitleText("New Student");
             });
             controller.getEnrollStudent().setOnAction(e -> {
                 container.getChildren().setAll(ViewsManager.requestComponent("students_affair/EnrollStudents"));
+                setTitleText("Enroll a Student");
             });
             sidePanelController.getEmpty().getChildren().setAll(component.getRoot());
         }
@@ -95,15 +106,18 @@ public class DashboardController implements Initializable {
             ViewsManager.DetailedComponent component =
                     ViewsManager.requestDetailedComponent(("head_of_department/HodSidePanel"));
             HodSidePanelController controller = component.getLoader().getController();
-            controller.getCreateProfessor().setOnAction(e ->
-                container.getChildren().setAll(ViewsManager.requestComponent("head_of_department/CreateProfessor"))
-            );
-            controller.getCreateCourse().setOnAction(e ->
-                container.getChildren().setAll(ViewsManager.requestComponent("head_of_department/CreateCourse"))
-            );
-            controller.getCreateNews().setOnAction(e ->
-                container.getChildren().setAll(ViewsManager.requestComponent("head_of_department/CreateNews"))
-            );
+            controller.getCreateProfessor().setOnAction(e -> {
+                container.getChildren().setAll(ViewsManager.requestComponent("head_of_department/CreateProfessor"));
+                setTitleText("New Professor");
+            });
+            controller.getCreateCourse().setOnAction(e ->{
+                container.getChildren().setAll(ViewsManager.requestComponent("head_of_department/CreateCourse"));
+                setTitleText("New Course");
+            });
+            controller.getCreateNews().setOnAction(e ->{
+                container.getChildren().setAll(ViewsManager.requestComponent("head_of_department/CreateNews"));
+                setTitleText("Post News");
+            });
             sidePanelController.getEmpty().getChildren().setAll(component.getRoot());
         }
 
@@ -115,4 +129,6 @@ public class DashboardController implements Initializable {
         burger.play();
         drawer.toggle();
     }
+
+    private void setTitleText(String text) { title.setText(text); }
 }

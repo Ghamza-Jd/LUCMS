@@ -56,13 +56,13 @@ public class Backend_Testing {
 
         News dangerNews = new News(
                 "Postponing Semester 2!",
-                "The administration of the Lebanese University decided to postpone the second semester" +
-                        " because of the pandemic of corona virus. Stay at home and take care",
-                "Danger");
+                "The administration of the Lebanese University decided to postpone the second semester " +
+                        "because of the pandemic of corona virus. Stay at home and take care",
+                "Urgent");
         News warningNews = new News(
                 "Evaluate your Professors",
                 "In order to check your marks you have to evaluate the professor that taught you a specific course.",
-                "Warning");
+                "Important");
         News infoNews = new News(
                 "Congrats for LU!",
                 "The Lebanese University wins third place in IBA-2020 competition in Bahrain.",

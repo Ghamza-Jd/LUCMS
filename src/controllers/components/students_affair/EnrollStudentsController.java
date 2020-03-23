@@ -45,7 +45,7 @@ public class EnrollStudentsController {
             student = Students.getInstance().retrieveSingleByUsername(username.getText());
         }
         if(student == null) {
-            Alerts.createDefaultAlert("Not Found", "No such a student with the provided file number and username").showAndWait();
+            Alerts.createDefaultAlert("Not Found", "No such a student with the provided file number or username").showAndWait();
             return;
         }
         fillStudentCard(student);
@@ -61,7 +61,13 @@ public class EnrollStudentsController {
         if(!code.getText().equals("")) {
             course = Courses.getInstance().retrieveCourseByCode(code.getText());
         }
-
+        if(course == null && !courseName.getText().equals("")) {
+            course = Courses.getInstance().retrieveCourseByName(courseName.getText());
+        }
+        if(course == null) {
+            Alerts.createDefaultAlert("Not Found", "No such a course with the provided code or name").showAndWait();
+            return;
+        }
         fillCourseCard(course);
     }
 

@@ -55,7 +55,8 @@ public class Students extends Persistence {
                         .queryBuilder()
                         .where()
                         .eq("user_id", user)
-                        .query();
+                        .query()
+        ;
         if(students.size() > 0) {
             IModel student = students.get(0);
             _usersAccessObject.refresh(((Student) student).getUser());
@@ -69,8 +70,9 @@ public class Students extends Persistence {
                 _studentsAccessObject
                         .queryBuilder()
                         .where()
-                        .eq("user_id", fileNb)
-                        .query();
+                        .eq("id", fileNb)
+                        .query()
+        ;
         if(students.size() > 0) {
             IModel student = students.get(0);
             _usersAccessObject.refresh(((Student) student).getUser());
@@ -85,7 +87,8 @@ public class Students extends Persistence {
                         .queryBuilder()
                         .where()
                         .eq("normalizedUsername", username.toUpperCase())
-                        .query();
+                        .query()
+        ;
         if(users.size() > 0) {
             User user = (User) users.get(0);
             return user.getRole().equals("STUDENT") ? retrieveSingleByFileNb((user).getId()) : null;
