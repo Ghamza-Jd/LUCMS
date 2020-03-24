@@ -4,32 +4,47 @@ import com.jfoenix.controls.JFXTextField;
 import controllers.components.cards.CourseCardController;
 import controllers.components.cards.StudentCardController;
 import controllers.repos.Courses;
+import controllers.repos.Enrollment;
 import controllers.repos.Students;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.layout.Pane;
 import models.Course;
+import models.Enroll;
 import models.Student;
 import models.User;
 import services.ViewsManager;
 import utils.Alerts;
 
+import java.net.URL;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
-public class EnrollStudentsController {
+public class EnrollStudentsController implements Initializable {
 
     @FXML
     private JFXTextField
             fileNb,
             username,
             code,
-            courseName;
+            courseName
+    ;
 
     @FXML
     private Pane
             studentCard,
             courseCard
     ;
+
+    private Student student;
+    private Course course;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        student = null;
+        courseName = null;
+    }
 
     @FXML
     void searchStudent(ActionEvent event) throws SQLException {
@@ -72,11 +87,14 @@ public class EnrollStudentsController {
     }
 
     @FXML
-    void enroll(ActionEvent event) {
-
+    private void enroll(ActionEvent event) throws SQLException {
+        if (student == null || course == null) return;
+        Enroll e = new Enroll(student, course);
+        Enrollment.getInstance().create(e);
     }
 
     private void fillStudentCard(Student student) {
+        this.student = student;
         String
                 fileNb = String.valueOf(student.getId()),
                 fullName = String.format("%s %s %s",
@@ -97,6 +115,7 @@ public class EnrollStudentsController {
     }
 
     private void fillCourseCard(Course course) {
+        this.course = course;
         User user = course.getProfessor().getUser();
         String
                 code = course.getCode(),

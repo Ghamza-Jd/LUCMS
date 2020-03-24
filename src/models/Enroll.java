@@ -14,14 +14,17 @@ public class Enroll implements IModel {
     private Course course;
     @DatabaseField
     private float grade;
+    @DatabaseField
+    private boolean assigned;
 
     public Enroll() { }
 
-    public Enroll(Student student, Course course, float grade) {
+    public Enroll(Student student, Course course) {
         this.id = String.format("s%dc%d", student.getId(), course.getId());
         this.course = course;
         this.student = student;
-        this.grade = grade;
+        this.grade = 0;
+        this.assigned = false;
     }
 
     public String getId() {
@@ -50,5 +53,13 @@ public class Enroll implements IModel {
 
     public void setGrade(float grade) {
         this.grade = grade;
+    }
+
+    public boolean isAssigned() {
+        return assigned;
+    }
+
+    public void setAssigned(boolean assigned) {
+        this.assigned = assigned;
     }
 }
