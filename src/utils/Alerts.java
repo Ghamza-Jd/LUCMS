@@ -3,11 +3,16 @@ package utils;
 import com.jfoenix.controls.JFXAlert;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialogLayout;
+import com.jfoenix.controls.JFXSnackbar;
+import controllers.components.cards.SnackbarController;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
+import services.ViewsManager;
 
 public class Alerts {
     /**
@@ -56,5 +61,23 @@ public class Alerts {
         layout.setHeading(new Label(title));
         layout.setBody(new VBox(new Label(msg)));
         return layout;
+    }
+
+    public static void createSnackbar(Pane pane, String message, double timeInSeconds) {
+        JFXSnackbar bar = new JFXSnackbar(pane);
+        ViewsManager.DetailedComponent component = ViewsManager.requestDetailedComponent("cards/Snackbar");
+        SnackbarController controller = component.getLoader().getController();
+        controller.setText(message);
+        bar.enqueue(new JFXSnackbar.SnackbarEvent(component.getRoot(), new Duration(timeInSeconds * 1000), null));
+    }
+
+    public static void createSnackbar(Pane pane, String message, double timeInSeconds, String backgroundColor, String textFill) {
+        JFXSnackbar bar = new JFXSnackbar(pane);
+        ViewsManager.DetailedComponent component = ViewsManager.requestDetailedComponent("cards/Snackbar");
+        SnackbarController controller = component.getLoader().getController();
+        controller.setText(message);
+        controller.setBackgroundColor(backgroundColor);
+        controller.setTextColor(textFill);
+        bar.enqueue(new JFXSnackbar.SnackbarEvent(component.getRoot(), new Duration(timeInSeconds * 1000), null));
     }
 }

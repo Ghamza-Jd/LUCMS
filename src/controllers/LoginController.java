@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import models.User;
 import services.Session;
 import services.ViewsManager;
@@ -22,6 +23,8 @@ public class LoginController {
     private TextField username;
     @FXML
     private PasswordField password;
+    @FXML
+    private Pane pane;
 
     @FXML
     public void loginBtnHandler(ActionEvent event) throws SQLException, IOException {

@@ -3,11 +3,12 @@ package controllers;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
-import controllers.components.professor.ProfessorSidePanelController;
-import controllers.components.user.SidePanelController;
+import controllers.components.head_of_department.CreateProfessorController;
 import controllers.components.head_of_department.HodSidePanelController;
+import controllers.components.professor.ProfessorSidePanelController;
 import controllers.components.student.StudentSidePanelController;
 import controllers.components.students_affair.SaSidePanelController;
+import controllers.components.user.SidePanelController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
@@ -16,9 +17,9 @@ import javafx.scene.text.Text;
 import models.User;
 import services.Session;
 import services.ViewsManager;
+import utils.Alerts;
 
 import java.net.URL;
-
 import java.util.ResourceBundle;
 
 public class DashboardController implements Initializable {
@@ -29,9 +30,11 @@ public class DashboardController implements Initializable {
     @FXML
     private JFXDrawer drawer;
     @FXML
-    private Pane sidePanel;
-    @FXML
-    private Pane container;
+    private Pane
+            sidePanel,
+            container,
+            dashboard
+    ;
     @FXML
     private SidePanelController sidePanelController;
 
@@ -40,6 +43,7 @@ public class DashboardController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setTitleText("Home");
+        Alerts.createSnackbar(dashboard, "Successfully logged in.", 1, "#0A0", "#FFF");
         container.getChildren().setAll(ViewsManager.requestComponent("news/News"));
         burger = new HamburgerBackArrowBasicTransition(hamburger);
         drawer.setSidePane(sidePanel);
@@ -107,7 +111,11 @@ public class DashboardController implements Initializable {
                     ViewsManager.requestDetailedComponent(("head_of_department/HodSidePanel"));
             HodSidePanelController controller = component.getLoader().getController();
             controller.getCreateProfessor().setOnAction(e -> {
-                container.getChildren().setAll(ViewsManager.requestComponent("head_of_department/CreateProfessor"));
+                ViewsManager.DetailedComponent comp =
+                        ViewsManager.requestDetailedComponent("head_of_department/CreateProfessor");
+                CreateProfessorController cont = comp.getLoader().getController();
+                cont.setDashboard(dashboard);
+                container.getChildren().setAll(comp.getRoot());
                 setTitleText("New Professor");
             });
             controller.getCreateCourse().setOnAction(e ->{

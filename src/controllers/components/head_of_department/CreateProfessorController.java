@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.Pane;
 import models.Professor;
 import services.ViewsManager;
+import utils.Alerts;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -22,6 +23,8 @@ public class CreateProfessorController implements Initializable {
 
     private CreateUserController controller;
 
+    private Pane dashboard;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ViewsManager.DetailedComponent component =
@@ -32,7 +35,25 @@ public class CreateProfessorController implements Initializable {
 
     @FXML
     public void createProfessor(ActionEvent event) throws SQLException {
+        if(!validateInput().equals("")){
+            Alerts.createSnackbar(
+                    dashboard,
+                    "Please fill of the fields first",
+                    4, "#D00", "#FFF");
+            return;
+        }
         Professor professor = new Professor(controller.getUser(), Integer.parseInt(office.getText()));
         Professors.getInstance().create(professor);
+        Alerts.createSnackbar(dashboard, "Professor created successfully", 2);
+    }
+
+    private String validateInput() {
+        StringBuilder errors = new StringBuilder(controller.validateInput());
+        if(office.getText().equals("")) errors.append("office ");
+        return errors.toString();
+    }
+
+    public void setDashboard(Pane pane) {
+        dashboard = pane;
     }
 }

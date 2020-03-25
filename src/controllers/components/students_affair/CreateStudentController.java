@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.Pane;
 import models.Student;
 import services.ViewsManager;
+import utils.Alerts;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -24,6 +25,8 @@ public class CreateStudentController implements Initializable {
     private JFXComboBox<String> major;
 
     private CreateUserController controller;
+
+    private Pane dashboard;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -39,5 +42,10 @@ public class CreateStudentController implements Initializable {
     public void createStudent(ActionEvent event) throws SQLException {
         Student student = new Student(controller.getUser(), major.getValue());
         Students.getInstance().create(student);
+        Alerts.createSnackbar(dashboard, "Student Created Successfully", 2);
+    }
+
+    public void setDashboardPane(Pane pane) {
+        dashboard = pane;
     }
 }

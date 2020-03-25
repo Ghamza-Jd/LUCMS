@@ -47,4 +47,15 @@ public class CreateUserController implements Initializable {
                 date
         );
     }
+
+    public String validateInput() {
+        StringBuilder errors = new StringBuilder();
+        if(username.getText().equals(""))                   errors.append("username ");
+        if(lastName.getText().equals(""))                   errors.append("last name ");
+        if(firstName.getText().equals(""))                  errors.append("first name ");
+        if(middleName.getText().equals(""))                 errors.append("middle name ");
+        if(phoneNumber.getText().equals(""))                errors.append("phone number ");
+        if(dateOfBirth.getValue().toString().equals(""))    errors.append("date of birth ");
+        return errors.toString();
+    }
 }
