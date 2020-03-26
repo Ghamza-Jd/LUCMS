@@ -6,6 +6,7 @@ import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import config.Config;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
 
@@ -39,11 +40,15 @@ public class DatabaseHandler {
         return _db;
     }
 
+    public void close() throws IOException {
+        if(_db != null) connectionSource.close();
+    }
+
     /**
      * @param clazz class
      * @param <T> extends IModel
      * @return Database access object
-     * @throws SQLException
+     * @throws SQLException SQLException
      */
     public <T extends IModel> Dao<T, String> getDao(Class<T> clazz) throws SQLException {
         if(accessObjects.containsKey(clazz.getName())) return (Dao<T, String>) accessObjects.get(clazz.getName());

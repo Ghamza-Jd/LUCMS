@@ -16,7 +16,6 @@ import services.ViewsManager;
 
 public class Alerts {
     /**
-     *
      * @param title alert title
      * @param msg alert message to be displayed
      * @return Alert having a default OK button
@@ -39,7 +38,6 @@ public class Alerts {
     }
 
     /**
-     *
      * @return Empty Alert
      */
     public static JFXAlert<String> createAlert() {
@@ -51,7 +49,6 @@ public class Alerts {
     }
 
     /**
-     *
      * @param title title for the Dialog
      * @param msg message to be displayed on the dialog body
      * @return Layout containing the title and the message
@@ -63,14 +60,25 @@ public class Alerts {
         return layout;
     }
 
+
+    /**
+     * Create a snackbar using default color
+     * @param pane The target pane to display the snackbar
+     * @param message message to be displayed
+     * @param timeInSeconds display time
+     */
     public static void createSnackbar(Pane pane, String message, double timeInSeconds) {
-        JFXSnackbar bar = new JFXSnackbar(pane);
-        ViewsManager.DetailedComponent component = ViewsManager.requestDetailedComponent("cards/Snackbar");
-        SnackbarController controller = component.getLoader().getController();
-        controller.setText(message);
-        bar.enqueue(new JFXSnackbar.SnackbarEvent(component.getRoot(), new Duration(timeInSeconds * 1000), null));
+        createSnackbar(pane, message, timeInSeconds, "#222", "#FFF");
     }
 
+    /**
+     * Create a snackbar using custom colors
+     * @param pane the target pane to display the snackbar
+     * @param message message to be displayed
+     * @param timeInSeconds display time
+     * @param backgroundColor snackbar color
+     * @param textFill text color
+     */
     public static void createSnackbar(Pane pane, String message, double timeInSeconds, String backgroundColor, String textFill) {
         JFXSnackbar bar = new JFXSnackbar(pane);
         ViewsManager.DetailedComponent component = ViewsManager.requestDetailedComponent("cards/Snackbar");

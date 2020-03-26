@@ -10,9 +10,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.layout.Pane;
 import models.Course;
 import models.Professor;
 import services.IModel;
+import utils.Alerts;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -29,6 +31,8 @@ public class CreateCourseController implements Initializable {
             credits,
             lang,
             prof;
+
+    private Pane dashboard;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -60,5 +64,10 @@ public class CreateCourseController implements Initializable {
                 Professors.getInstance().retrieveByUsername(prof.getValue())
         );
         Courses.getInstance().create(course);
+        Alerts.createSnackbar(dashboard, "Course Created", 2);
+    }
+
+    public void setDashboard(Pane pane) {
+        dashboard = pane;
     }
 }

@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.layout.Pane;
 import models.News;
 
 import java.net.URL;
@@ -24,6 +25,8 @@ public class CreateNews implements Initializable {
     @FXML
     private JFXComboBox<String> level;
 
+    private Pane dashboard;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ObservableList<String> levelOption = FXCollections.observableArrayList();
@@ -34,5 +37,9 @@ public class CreateNews implements Initializable {
     @FXML
     void postNews(ActionEvent event) throws SQLException {
         NewsRepo.getInstance().create(new News(title.getText(), body.getText(), level.getValue()));
+    }
+
+    public void setDashboard(Pane pane) {
+        dashboard = pane;
     }
 }

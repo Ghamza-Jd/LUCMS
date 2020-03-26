@@ -3,10 +3,14 @@ package controllers;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import controllers.components.head_of_department.CreateCourseController;
+import controllers.components.head_of_department.CreateNews;
 import controllers.components.head_of_department.CreateProfessorController;
 import controllers.components.head_of_department.HodSidePanelController;
 import controllers.components.professor.ProfessorSidePanelController;
 import controllers.components.student.StudentSidePanelController;
+import controllers.components.students_affair.CreateStudentController;
+import controllers.components.students_affair.EnrollStudentsController;
 import controllers.components.students_affair.SaSidePanelController;
 import controllers.components.user.SidePanelController;
 import javafx.fxml.FXML;
@@ -73,7 +77,7 @@ public class DashboardController implements Initializable {
         }
 
         if(role.equals("PROFESSOR")) {
-            // TODO: Give each student a grade
+            // TODO: Assign grades to students
             ViewsManager.DetailedComponent component =
                     ViewsManager.requestDetailedComponent("professor/ProfessorSidePanel");
             ProfessorSidePanelController controller = component.getLoader().getController();
@@ -94,11 +98,18 @@ public class DashboardController implements Initializable {
                     ViewsManager.requestDetailedComponent("students_affair/SaSidePanel");
             SaSidePanelController controller = component.getLoader().getController();
             controller.getCreateStudent().setOnAction(e -> {
-                container.getChildren().setAll(ViewsManager.requestComponent("students_affair/CreateStudent"));
+                ViewsManager.DetailedComponent comp =
+                        ViewsManager.requestDetailedComponent("students_affair/CreateStudent");
+                CreateStudentController cont = comp.getLoader().getController();
+                cont.setDashboardPane(dashboard);
+                container.getChildren().setAll(comp.getRoot());
                 setTitleText("New Student");
             });
             controller.getEnrollStudent().setOnAction(e -> {
-                container.getChildren().setAll(ViewsManager.requestComponent("students_affair/EnrollStudents"));
+                ViewsManager.DetailedComponent comp =
+                        ViewsManager.requestDetailedComponent("students_affair/EnrollStudents");
+                EnrollStudentsController cont = comp.getLoader().getController();
+                container.getChildren().setAll(comp.getRoot());
                 setTitleText("Enroll a Student");
             });
             sidePanelController.getEmpty().getChildren().setAll(component.getRoot());
@@ -108,7 +119,7 @@ public class DashboardController implements Initializable {
             // TODO: View all course
             // TODO: View all doctors
             ViewsManager.DetailedComponent component =
-                    ViewsManager.requestDetailedComponent(("head_of_department/HodSidePanel"));
+                    ViewsManager.requestDetailedComponent("head_of_department/HodSidePanel");
             HodSidePanelController controller = component.getLoader().getController();
             controller.getCreateProfessor().setOnAction(e -> {
                 ViewsManager.DetailedComponent comp =
@@ -119,16 +130,22 @@ public class DashboardController implements Initializable {
                 setTitleText("New Professor");
             });
             controller.getCreateCourse().setOnAction(e ->{
-                container.getChildren().setAll(ViewsManager.requestComponent("head_of_department/CreateCourse"));
+                ViewsManager.DetailedComponent comp =
+                        ViewsManager.requestDetailedComponent("head_of_department/CreateCourse");
+                CreateCourseController cont = comp.getLoader().getController();
+                container.getChildren().setAll(comp.getRoot());
                 setTitleText("New Course");
             });
             controller.getCreateNews().setOnAction(e ->{
-                container.getChildren().setAll(ViewsManager.requestComponent("head_of_department/CreateNews"));
+                ViewsManager.DetailedComponent comp =
+                        ViewsManager.requestDetailedComponent("head_of_department/CreateNews");
+                CreateNews cont = comp.getLoader().getController();
+                cont.setDashboard(dashboard);
+                container.getChildren().setAll(comp.getRoot());
                 setTitleText("Post News");
             });
             sidePanelController.getEmpty().getChildren().setAll(component.getRoot());
         }
-
         // TODO: Add admin role
     }
 
