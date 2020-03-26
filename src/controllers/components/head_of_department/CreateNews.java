@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.Pane;
 import models.News;
+import utils.Alerts;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -37,6 +38,7 @@ public class CreateNews implements Initializable {
     @FXML
     void postNews(ActionEvent event) throws SQLException {
         NewsRepo.getInstance().create(new News(title.getText(), body.getText(), level.getValue()));
+        Alerts.createSnackbar(dashboard, "Your news post have been uploaded!", 2);
     }
 
     public void setDashboard(Pane pane) {

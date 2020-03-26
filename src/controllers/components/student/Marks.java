@@ -64,7 +64,7 @@ public class Marks implements Initializable {
         table.setShowRoot(false);
     }
 
-    static class MarkRow extends RecursiveTreeObject<MarkRow> {
+    private static class MarkRow extends RecursiveTreeObject<MarkRow> {
         StringProperty code;
         StringProperty name;
         StringProperty numberOfCredits;

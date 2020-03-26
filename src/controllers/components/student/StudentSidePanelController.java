@@ -12,4 +12,8 @@ public class StudentSidePanelController {
     public JFXButton getMarks() {
         return marks;
     }
+
+    public JFXButton getCourses() {
+        return courses;
+    }
 }
