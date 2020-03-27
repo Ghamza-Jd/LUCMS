@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import controllers.repos.Enrollment;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -11,8 +12,14 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TreeItem;
+import models.Course;
+import models.Enroll;
+import models.Student;
+import services.Session;
 
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class Marks implements Initializable {
@@ -49,14 +56,31 @@ public class Marks implements Initializable {
         grade.setCellValueFactory(cell -> cell.getValue().getValue().grade);
 
         ObservableList<MarkRow> rows = FXCollections.observableArrayList();
-        /*
-        TODO: Query the Enrollment and fill the List above ^
-         */
-        rows.add(new MarkRow("I2210", "Database", "5", "EN", "60"));
-        rows.add(new MarkRow("I2209", "Prolog", "4", "EN", "38"));
-        rows.add(new MarkRow("I2208", "Networking", "5", "EN", "70"));
-        rows.add(new MarkRow("I2206", "Data structure", "5", "EN", "80"));
-        rows.add(new MarkRow("I2210", "OOP", "5", "EN", "90"));
+        try {
+            ArrayList<Enroll> enrolls =
+                    Enrollment
+                            .getInstance()
+                            .retrieveAllGradesByStudentsId(
+                                    ((Student) Session
+                                            .getInstance()
+                                            .getValue("student")
+                                    ).getId()
+                            )
+                    ;
+            for(Enroll enroll : enrolls) {
+                rows.add(
+                        new MarkRow(
+                                enroll.getCourse().getCode(),
+                                enroll.getCourse().getName(),
+                                String.valueOf(enroll.getCourse().getName()),
+                                enroll.getCourse().getLanguage(),
+                                String.valueOf(enroll.getGrade())
+                        )
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         final TreeItem<MarkRow> root = new RecursiveTreeItem<>(rows, RecursiveTreeObject::getChildren);
         table.getColumns().setAll(code, name, nbCredits, language, grade);

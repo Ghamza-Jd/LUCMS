@@ -68,4 +68,24 @@ public class Enrollment extends Persistence {
         }
         return courses;
     }
+
+    public ArrayList<Enroll> retrieveAllGradesByStudentsId(int id) throws SQLException {
+        List<IModel> enrollments =
+                _enrollmentAccessObject
+                        .queryBuilder()
+                        .where()
+                        .eq("student_id", id)
+                        .query()
+                ;
+        if(enrollments.size() <= 0) return null;
+        ArrayList<Enroll> enrolls = new ArrayList<>();
+        for(IModel model : enrollments) {
+            Enroll enroll = (Enroll) model;
+            if(enroll.isAssigned()) {
+                _coursesAccessObject.refresh(enroll.getCourse());
+                enrolls.add(enroll);
+            }
+        }
+        return enrolls;
+    }
 }

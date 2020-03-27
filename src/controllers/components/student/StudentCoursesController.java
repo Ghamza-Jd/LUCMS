@@ -33,7 +33,8 @@ public class StudentCoursesController implements Initializable {
                 code        = new JFXTreeTableColumn<>("Code"),
                 name        = new JFXTreeTableColumn<>("Name"),
                 professor   = new JFXTreeTableColumn<>("Professor"),
-                credits     = new JFXTreeTableColumn<>("Credits");
+                credits     = new JFXTreeTableColumn<>("Credits")
+        ;
 
         code.setPrefWidth(width / 4 - 1);
         name.setPrefWidth(width / 4 - 1);
@@ -83,10 +84,12 @@ public class StudentCoursesController implements Initializable {
     }
 
     private static class CourseRow extends RecursiveTreeObject<StudentCoursesController.CourseRow> {
-        StringProperty code;
-        StringProperty name;
-        StringProperty professor;
-        StringProperty credits;
+        StringProperty
+                code,
+                name,
+                professor,
+                credits
+        ;
 
         public CourseRow(String code, String name, String professor, String credits) {
             this.code = new SimpleStringProperty(code);
