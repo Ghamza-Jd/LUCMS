@@ -3,6 +3,7 @@ package controllers.components.user;
 import com.jfoenix.controls.JFXAlert;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialogLayout;
+import controllers.LoginController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,6 +13,7 @@ import models.User;
 import services.Session;
 import services.ViewsManager;
 import utils.Alerts;
+import utils.FlashMessages;
 
 import java.io.IOException;
 import java.net.URL;
@@ -42,12 +44,15 @@ public class SidePanelController implements Initializable {
         logout.setStyle("-fx-background-color: green; -fx-text-fill: white;");
         logout.setOnAction(e -> {
             try {
+                FlashMessages.getInstance().sendMessage(LoginController.class, "Successfully logged out!");
                 ViewsManager.getActiveStage(event).setScene(ViewsManager.requestView("Login"));
+                Session.getInstance().clearSession();
             } catch (IOException ex) {
+                FlashMessages.getInstance().deleteMessage(LoginController.class);
                 ex.printStackTrace();
+            } finally {
+                alert.hideWithAnimation();
             }
-            alert.hideWithAnimation();
-            Session.getInstance().clearSession();
         });
         JFXButton cancel = new JFXButton("Cancel");
         cancel.setOnAction(e -> {

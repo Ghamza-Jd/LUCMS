@@ -4,7 +4,7 @@ import models.*;
 import java.sql.SQLException;
 import java.util.Date;
 
-public class Backend_Testing {
+public class DummyData {
     public static void main(String[] args) throws SQLException {
         User user = new User(
                 "Hamza",
@@ -15,7 +15,7 @@ public class Backend_Testing {
                 "78939614",
                 new Date()
         );
-        Student student = new Student(user, "Comp science");
+        Student student = new Student(user, "Computer science");
         Students.getInstance().create(student);
 
         User user2 = new User(

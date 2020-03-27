@@ -121,7 +121,7 @@ public class DashboardController implements Initializable {
 
         if(role.equals(("HEAD_OF_DEPARTMENT"))) {
             // TODO: View all course
-            // TODO: View all doctors
+            // TODO: View all professors
             ViewsManager.DetailedComponent component =
                     ViewsManager.requestDetailedComponent("head_of_department/HodSidePanel");
             HodSidePanelController controller = component.getLoader().getController();
