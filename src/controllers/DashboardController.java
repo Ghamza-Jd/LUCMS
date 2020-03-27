@@ -96,7 +96,7 @@ public class DashboardController implements Initializable {
             sidePanelController.getEmpty().getChildren().setAll(component.getRoot());
         }
 
-        if(role.equals("STUDENT_AFFAIR")){
+        if(role.equals("STUDENT_AFFAIR")) {
             // TODO: View all students
             ViewsManager.DetailedComponent component =
                     ViewsManager.requestDetailedComponent("students_affair/SaSidePanel");
@@ -119,7 +119,7 @@ public class DashboardController implements Initializable {
             sidePanelController.getEmpty().getChildren().setAll(component.getRoot());
         }
 
-        if(role.equals(("HEAD_OF_DEPARTMENT"))){
+        if(role.equals(("HEAD_OF_DEPARTMENT"))) {
             // TODO: View all course
             // TODO: View all doctors
             ViewsManager.DetailedComponent component =

@@ -3,6 +3,7 @@ package controllers.components.student;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import controllers.repos.Enrollment;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -11,8 +12,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableView;
+import models.Course;
+import models.Student;
+import services.Session;
 
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class StudentCoursesController implements Initializable {
@@ -45,14 +51,30 @@ public class StudentCoursesController implements Initializable {
         credits.setCellValueFactory(cell -> cell.getValue().getValue().credits);
 
         ObservableList<CourseRow> rows = FXCollections.observableArrayList();
-        /*
-        TODO: Query the Enrollment and fill the List above ^
-         */
-        rows.add(new CourseRow("I2210", "Database", "5", "EN"));
-        rows.add(new CourseRow("I2209", "Prolog", "4", "EN"));
-        rows.add(new CourseRow("I2208", "Networking", "5", "EN"));
-        rows.add(new CourseRow("I2206", "Data structure", "5", "EN"));
-        rows.add(new CourseRow("I2210", "OOP", "5", "EN"));
+        try {
+            ArrayList<Course> courses =
+                    Enrollment
+                            .getInstance()
+                            .retrieveAllCoursesByStudentId(
+                                    ((Student) Session
+                                            .getInstance()
+                                            .getValue("student")
+                                    ).getId()
+                            )
+            ;
+            for(Course course : courses) {
+                rows.add(
+                        new CourseRow(
+                            course.getCode(),
+                            course.getName(),
+                            course.getProfessor().getUser().getUsername(),
+                            String.valueOf(course.getNumberOfCredits())
+                        )
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         final TreeItem<CourseRow> root = new RecursiveTreeItem<>(rows, RecursiveTreeObject::getChildren);
         table.getColumns().setAll(code, name, professor, credits);
