@@ -10,6 +10,8 @@ import services.ViewsManager;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class ProfileController implements Initializable {
@@ -44,5 +46,9 @@ public class ProfileController implements Initializable {
         username.setText(user.getUsername());
         phoneNumber.setText(user.getPhone());
         dateOfBirth.setText(user.getDateOfBirth());
+    }
+
+    public ArrayList<JFXTextField> getAllTextFields() {
+        return new ArrayList<>(Arrays.asList(firstName, middleName, lastName, username, phoneNumber, dateOfBirth));
     }
 }

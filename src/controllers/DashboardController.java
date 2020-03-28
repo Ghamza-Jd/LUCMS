@@ -97,7 +97,6 @@ public class DashboardController implements Initializable {
         }
 
         if(role.equals("STUDENT_AFFAIR")) {
-            // TODO: View all students
             ViewsManager.DetailedComponent component =
                     ViewsManager.requestDetailedComponent("students_affair/SaSidePanel");
             SaSidePanelController controller = component.getLoader().getController();
