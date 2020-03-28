@@ -7,7 +7,9 @@ public class SaSidePanelController {
     @FXML
     private JFXButton
             createStudent,
-            enrollStudent;
+            enrollStudent,
+            viewStudents
+    ;
 
     public JFXButton getCreateStudent() {
         return createStudent;
@@ -15,5 +17,9 @@ public class SaSidePanelController {
 
     public JFXButton getEnrollStudent() {
         return enrollStudent;
+    }
+
+    public JFXButton getViewStudents() {
+        return viewStudents;
     }
 }

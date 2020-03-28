@@ -116,6 +116,9 @@ public class DashboardController implements Initializable {
                 container.getChildren().setAll(comp.getRoot());
                 setTitleText("Enroll a Student");
             });
+            controller.getViewStudents().setOnAction(e -> {
+                container.getChildren().setAll(ViewsManager.requestComponent("students_affair/ViewStudents"));
+            });
             sidePanelController.getEmpty().getChildren().setAll(component.getRoot());
         }
 
