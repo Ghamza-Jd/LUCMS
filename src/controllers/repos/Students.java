@@ -47,7 +47,9 @@ public class Students extends Persistence {
 
     @Override
     public void delete(IModel model) throws SQLException {
-
+        Student student = (Student) model;
+        _studentsAccessObject.delete(student);
+        _usersAccessObject.delete(student.getUser());
     }
 
     public Student retrieveSingle(User user) throws SQLException {

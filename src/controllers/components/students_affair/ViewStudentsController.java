@@ -21,7 +21,6 @@ import javafx.scene.control.TreeTableColumn;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.text.Text;
 import javafx.util.Callback;
 import models.Student;
 import services.ViewsManager;
@@ -36,8 +35,11 @@ public class ViewStudentsController implements Initializable {
     @FXML
     private JFXTreeTableView<StudentRow> table;
 
+    private ObservableList<StudentRow> rows;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        rows = FXCollections.observableArrayList();
         double width = table.getPrefWidth();
 
         JFXTreeTableColumn<StudentRow, String>
@@ -88,7 +90,16 @@ public class ViewStudentsController implements Initializable {
                                         ex.printStackTrace();
                                     }
                                 });
-                                controller.getDelete().setOnAction(e -> {});
+                                controller.getDelete().setOnAction(e -> {
+                                    try {
+                                        String id  = this.getTreeTableRow().getTreeItem().getValue().fileNumber.getValue();
+                                        Student student = Students.getInstance().retrieveSingleByFileNb(Integer.parseInt(id));
+                                        deleteStudent(student);
+                                        rows.remove(getIndex());
+                                    } catch (SQLException ex) {
+                                        ex.printStackTrace();
+                                    }
+                                });
                             }
                             final Parent root = component.getRoot();
                             @Override
@@ -109,23 +120,8 @@ public class ViewStudentsController implements Initializable {
         ;
         actions.setCellFactory(actionsCell);
 
-        ObservableList<StudentRow> rows = FXCollections.observableArrayList();
-
         try {
-            ArrayList<Student> students = Students.getInstance().retrieveAllStudents();
-            for(Student s : students) {
-                rows.add(
-                        new StudentRow(
-                                String.valueOf(s.getId()),
-                                String.format(
-                                        "%s %s %s",
-                                        s.getUser().getFirstName(),
-                                        s.getUser().getMiddleName(),
-                                        s.getUser().getLastName()),
-                                s.getUser().getUsername()
-                        )
-                );
-            }
+            getStudents();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -136,15 +132,34 @@ public class ViewStudentsController implements Initializable {
         table.setShowRoot(false);
     }
 
+    private void getStudents() throws SQLException {
+        ArrayList<Student> students = Students.getInstance().retrieveAllStudents();
+        for(Student s : students) {
+            rows.add(
+                    new StudentRow(
+                            String.valueOf(s.getId()),
+                            String.format(
+                                    "%s %s %s",
+                                    s.getUser().getFirstName(),
+                                    s.getUser().getMiddleName(),
+                                    s.getUser().getLastName()),
+                            s.getUser().getUsername()
+                    )
+            );
+        }
+    }
+
     private void displayStudentDetails(Student student) {
         final JFXAlert<String> alert = Alerts.createAlert();
         final JFXDialogLayout layout = new JFXDialogLayout();
-
-        final JFXButton exit = new JFXButton("Exit");
+        final JFXButton exit = new JFXButton("");
         final Region region = new Region();
         final HBox heading = new HBox(new Label("Details"), region, exit);
+        final ImageView exitIcon = new ImageView(new Image("/icons/close.png"));
 
-        exit.setStyle("-fx-background-color: red; -fx-text-fill: white;");
+        exitIcon.setFitHeight(32);
+        exitIcon.setFitWidth(32);
+        exit.setGraphic(exitIcon);
         exit.setOnAction(e -> alert.hideWithAnimation());
 
         HBox.setHgrow(region, Priority.ALWAYS);
@@ -157,23 +172,23 @@ public class ViewStudentsController implements Initializable {
         switchToDetails(controller);
         controller.fillFields(student.getUser());
 
-        final JFXButton edit = new JFXButton("");
-        final JFXButton update = new JFXButton("");
-        final JFXButton cancel = new JFXButton("");
+        final JFXButton edit    = new JFXButton("Edit");
+        final JFXButton update  = new JFXButton("Update");
+        final JFXButton cancel  = new JFXButton("Cancel");
 
-        ImageView editIcon = new ImageView(new Image("/views/components/icons/edit.png"));
-        editIcon.setFitWidth(32);
-        editIcon.setFitHeight(32);
+        final ImageView editIcon = new ImageView(new Image("/icons/edit.png"));
+        editIcon.setFitWidth(24);
+        editIcon.setFitHeight(24);
         edit.setGraphic(editIcon);
 
-        ImageView updateIcon = new ImageView(new Image("/views/components/icons/update.png"));
-        updateIcon.setFitWidth(32);
-        updateIcon.setFitHeight(32);
+        final ImageView updateIcon = new ImageView(new Image("/icons/update.png"));
+        updateIcon.setFitWidth(24);
+        updateIcon.setFitHeight(24);
         update.setGraphic(updateIcon);
 
-        ImageView cancelIcon = new ImageView(new Image("/views/components/icons/cancel.png"));
-        cancelIcon.setFitWidth(32);
-        cancelIcon.setFitHeight(32);
+        final ImageView cancelIcon = new ImageView(new Image("/icons/cancel.png"));
+        cancelIcon.setFitWidth(24);
+        cancelIcon.setFitHeight(24);
         cancel.setGraphic(cancelIcon);
 
 
@@ -183,7 +198,7 @@ public class ViewStudentsController implements Initializable {
         final VBox body = new VBox(component.getRoot(), stackPane);
 
         actions.setAlignment(Pos.CENTER);
-        actions.setSpacing(10);
+        actions.setSpacing(30);
         actions.setVisible(false);
 
         body.setAlignment(Pos.CENTER);
@@ -211,26 +226,33 @@ public class ViewStudentsController implements Initializable {
     }
 
     private void displayStudentEdit(Student student) {
-        JFXAlert<String> alert = Alerts.createAlert();
-        JFXDialogLayout layout = new JFXDialogLayout();
+        final JFXAlert<String> alert = Alerts.createAlert();
+        final JFXDialogLayout layout = new JFXDialogLayout();
         layout.setStyle("-fx-border-color: grey;");
 
-        JFXButton exit = new JFXButton("Exit");
-        exit.setStyle("-fx-background-color: red; -fx-text-fill: white;");
+        final JFXButton exit = new JFXButton("");
+        final ImageView exitIcon = new ImageView(new Image("/icons/close.png"));
+        exitIcon.setFitHeight(32);
+        exitIcon.setFitWidth(32);
+        exit.setGraphic(exitIcon);
+
         exit.setOnAction(e -> alert.hideWithAnimation());
-        Region region = new Region();
+        final Region region = new Region();
         HBox.setHgrow(region, Priority.ALWAYS);
-        HBox heading = new HBox(new Label("Details"), region, exit);
+        final HBox heading = new HBox(new Label("Details"), region, exit);
         layout.setHeading(heading);
 
         ViewsManager.DetailedComponent component = ViewsManager.requestDetailedComponent("user/Profile");
         ProfileController controller = component.getLoader().getController();
         controller.fillFields(student.getUser());
 
-
         layout.setBody(component.getRoot());
         alert.setContent(layout);
         alert.showAndWait();
+    }
+
+    public void displayDeleteDialog() {
+
     }
 
     private void switchToEdit(ProfileController controller) {
@@ -253,6 +275,10 @@ public class ViewStudentsController implements Initializable {
 
     private void updateAction(ActionEvent event) {
 
+    }
+
+    private void deleteStudent(Student student) throws SQLException {
+        Students.getInstance().delete(student);
     }
 
     private static class StudentRow extends RecursiveTreeObject<StudentRow> {
