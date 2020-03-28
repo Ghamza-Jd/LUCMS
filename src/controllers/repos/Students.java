@@ -7,6 +7,7 @@ import services.IModel;
 import services.Persistence;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Students extends Persistence {
@@ -94,5 +95,16 @@ public class Students extends Persistence {
             return user.getRole().equals("STUDENT") ? retrieveSingleByFileNb((user).getId()) : null;
         }
         return null;
+    }
+
+    public ArrayList<Student> retrieveAllStudents() throws SQLException {
+        List<IModel> models = _studentsAccessObject.queryBuilder().query();
+        ArrayList<Student> students = new ArrayList<>();
+        for(IModel m : models) {
+            Student student = (Student) m;
+            _usersAccessObject.refresh(student.getUser());
+            students.add(student);
+        }
+        return students;
     }
 }

@@ -28,17 +28,21 @@ public class ProfileController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         User user = (User) Session.getInstance().getValue("user");
-        firstName.setText(user.getFirstName());
-        middleName.setText(user.getMiddleName());
-        lastName.setText(user.getLastName());
-        username.setText(user.getUsername());
-        phoneNumber.setText(user.getPhone());
-        dateOfBirth.setText(user.getDateOfBirth());
+        fillFields(user);
         if(user.getRole().equals("STUDENT")) {
             addition.getChildren().setAll(ViewsManager.requestComponent("student/StudentProfile"));
         }
         if(user.getRole().equals("PROFESSOR")) {
             addition.getChildren().setAll(ViewsManager.requestComponent("professor/ProfessorProfile"));
         }
+    }
+
+    public void fillFields(User user) {
+        firstName.setText(user.getFirstName());
+        middleName.setText(user.getMiddleName());
+        lastName.setText(user.getLastName());
+        username.setText(user.getUsername());
+        phoneNumber.setText(user.getPhone());
+        dateOfBirth.setText(user.getDateOfBirth());
     }
 }
