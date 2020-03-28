@@ -10,6 +10,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import models.News;
 import utils.Alerts;
@@ -25,14 +28,30 @@ public class CreateNews implements Initializable {
     private JFXTextArea body;
     @FXML
     private JFXComboBox<String> level;
+    @FXML
+    private Label counter;
 
     private Pane dashboard;
+
+    private int count;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ObservableList<String> levelOption = FXCollections.observableArrayList();
         levelOption.setAll(Constants.WARNING_LEVELS);
         level.setItems(levelOption);
+        body.addEventHandler(KeyEvent.KEY_PRESSED, e -> {
+            count = body.getText().length() + 1;
+            if(body.getText().length() >= 255 && !(e.getCode() == KeyCode.BACK_SPACE)) {
+                e.consume();
+                body.setText(body.getText().substring(0, 255));
+                body.end();
+                return;
+            }
+            if(e.getCode() == KeyCode.BACK_SPACE) count -= 2;
+            if(count < 0) count = 0;
+            counter.setText(String.format("%d / 255", count));
+        });
     }
 
     @FXML

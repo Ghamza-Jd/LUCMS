@@ -14,9 +14,7 @@ public class Users extends Persistence {
     private static Users _users;
     private Dao<IModel, String> _accessObject;
 
-    private Users() throws SQLException {
-        _accessObject = getAccessObject(User.class);
-    }
+    private Users() throws SQLException { _accessObject = getAccessObject(User.class); }
 
     public static Users getInstance() throws SQLException {
         if(_users == null) _users = new Users();
@@ -37,17 +35,13 @@ public class Users extends Persistence {
     }
 
     @Override
-    public List<IModel> retrieveAll() throws SQLException {
-        return _accessObject.queryBuilder().query();
-    }
+    public List<IModel> retrieveAll() throws SQLException { return _accessObject.queryBuilder().query(); }
 
     @Override
-    public void update(IModel model) throws SQLException {
-    }
+    public void update(IModel model) throws SQLException { }
 
     @Override
-    public void delete(IModel model) throws SQLException {
-    }
+    public void delete(IModel model) throws SQLException { }
 
     public boolean exists(String username) throws SQLException {
         List<IModel> users =
@@ -55,7 +49,8 @@ public class Users extends Persistence {
                     .queryBuilder()
                     .where()
                     .eq("normalizedUsername", username)
-                    .query();
+                    .query()
+        ;
         return users.size() > 0;
     }
 
@@ -65,7 +60,8 @@ public class Users extends Persistence {
                         .queryBuilder()
                         .where()
                         .eq("normalizedUsername", username)
-                        .query();
+                        .query()
+        ;
         return (users.size() > 0 ? (User) users.get(0) : null);
     }
 }

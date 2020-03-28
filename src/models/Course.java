@@ -8,6 +8,8 @@ import services.IModel;
 public class Course implements IModel {
     @DatabaseField(generatedId = true)
     private int id;
+    @DatabaseField(foreign = true, uniqueIndex = true)
+    private Professor professor;
     @DatabaseField
     private String code;
     @DatabaseField
@@ -16,8 +18,6 @@ public class Course implements IModel {
     private int numberOfCredits;
     @DatabaseField
     private String language;
-    @DatabaseField(foreign = true)
-    private Professor professor;
 
     public Course() { }
 
