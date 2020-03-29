@@ -11,6 +11,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -26,10 +28,13 @@ import models.Student;
 import services.Session;
 import services.ViewsManager;
 
+import java.awt.event.KeyEvent;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AssignGradesController implements Initializable {
     @FXML
@@ -40,10 +45,12 @@ public class AssignGradesController implements Initializable {
     private JFXTextField search;
 
     private ObservableList<AssignmentRow> rows;
+    private ObservableList<AssignmentRow> displayedRows;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         rows = FXCollections.observableArrayList();
+        displayedRows = FXCollections.observableArrayList();
         double width = table.getPrefWidth();
 
         JFXTreeTableColumn<AssignmentRow, String>
@@ -103,20 +110,17 @@ public class AssignGradesController implements Initializable {
         courses.getSelectionModel().selectedItemProperty().addListener((option, oldVal, newVale) -> {
             try {
                 String code = newVale.split(" ")[0];
-                populateTable("Info3350");
+                populateTable(code);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         });
 
-        try {
-            populateTable("Info3350");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        search.setOnKeyReleased(e -> searchTable(search.getText()));
+
         populateComboBox();
 
-        final TreeItem<AssignmentRow> root = new RecursiveTreeItem<>(rows, RecursiveTreeObject::getChildren);
+        final TreeItem<AssignmentRow> root = new RecursiveTreeItem<>(displayedRows, RecursiveTreeObject::getChildren);
         table.getColumns().setAll(fileNumber, fullName, grade, actions);
         table.setRoot(root);
         table.setShowRoot(false);
@@ -140,6 +144,8 @@ public class AssignGradesController implements Initializable {
                     )
             );
         }
+        displayedRows.clear();
+        displayedRows.setAll(rows);
     }
 
     private void populateComboBox() {
@@ -155,6 +161,19 @@ public class AssignGradesController implements Initializable {
         }
         ObservableList<String> coursesItems = FXCollections.observableArrayList(coursesInfo);
         courses.setItems(coursesItems);
+    }
+
+    private void searchTable(String regex) {
+        ObservableList<AssignmentRow> newRows = FXCollections.observableArrayList();
+        for(AssignmentRow assignmentRow : rows) {
+            Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+            Matcher fullNameMatcher = pattern.matcher(assignmentRow.fullName.getValue());
+            Matcher fileNumberMatcher = pattern.matcher(assignmentRow.fileNumber.getValue());
+            Matcher gradeMatcher = pattern.matcher(assignmentRow.grade.getValue());
+            if(fullNameMatcher.find() || fileNumberMatcher.find() || gradeMatcher.find()) newRows.add(assignmentRow);
+        }
+        displayedRows.clear();
+        displayedRows.setAll(newRows);
     }
 
     private static class AssignmentRow extends RecursiveTreeObject<AssignmentRow> {

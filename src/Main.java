@@ -13,7 +13,7 @@ public class Main extends Application {
         Scene scene = ViewsManager.requestView("Login");
         primaryStage.getIcons().add(new Image("/images/lu_logo.png"));
         primaryStage.setScene(scene);
-        primaryStage.setTitle("LebCoursera");
+        primaryStage.setTitle("LUMS");
         primaryStage.setResizable(false);
         primaryStage.show();
     }

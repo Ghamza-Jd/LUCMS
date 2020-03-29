@@ -4,12 +4,9 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="68.0" prefWidth="160.0"
-            xmlns="http://javafx.com/javafx/8.0.171"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="controllers.components.professor.ProfessorProfileController">
+<AnchorPane prefHeight="185.0" prefWidth="412.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.components.professor.ProfessorProfileController">
    <children>
-      <Label layoutY="14.0" text="Office:" />
-      <JFXTextField fx:id="office" editable="false" layoutY="31.0" />
+      <Label layoutX="191.0" layoutY="34.0" text="Office:" />
+      <JFXTextField fx:id="office" editable="false" layoutX="191.0" layoutY="51.0" />
    </children>
 </AnchorPane>
