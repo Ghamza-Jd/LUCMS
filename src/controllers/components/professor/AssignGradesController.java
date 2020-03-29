@@ -1,11 +1,11 @@
 package controllers.components.professor;
 
-import com.jfoenix.controls.JFXTreeTableColumn;
-import com.jfoenix.controls.JFXTreeTableView;
-import com.jfoenix.controls.RecursiveTreeItem;
+import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import controllers.components.students_affair.ViewStudentsController;
 import controllers.components.user.ActionsController;
+import controllers.repos.Courses;
+import controllers.repos.Enrollment;
 import controllers.repos.Students;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -19,16 +19,26 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableCell;
 import javafx.scene.control.TreeTableColumn;
 import javafx.util.Callback;
+import models.Course;
+import models.Enroll;
+import models.Professor;
 import models.Student;
+import services.Session;
 import services.ViewsManager;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class AssignGradesController implements Initializable {
     @FXML
     private JFXTreeTableView<AssignmentRow> table;
+    @FXML
+    private JFXComboBox<String> courses;
+    @FXML
+    private JFXTextField search;
+
     private ObservableList<AssignmentRow> rows;
 
     @Override
@@ -90,7 +100,21 @@ public class AssignGradesController implements Initializable {
         ;
         actions.setCellFactory(actionsCell);
 
-        populateTable();
+        courses.getSelectionModel().selectedItemProperty().addListener((option, oldVal, newVale) -> {
+            try {
+                String code = newVale.split(" ")[0];
+                populateTable("Info3350");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
+
+        try {
+            populateTable("Info3350");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        populateComboBox();
 
         final TreeItem<AssignmentRow> root = new RecursiveTreeItem<>(rows, RecursiveTreeObject::getChildren);
         table.getColumns().setAll(fileNumber, fullName, grade, actions);
@@ -98,8 +122,39 @@ public class AssignGradesController implements Initializable {
         table.setShowRoot(false);
     }
 
-    private void populateTable() {
-        rows.add(new AssignmentRow("86611", "Hamza Abdallah Jadid", "0"));
+    private void populateTable(String courseCode) throws SQLException {
+        if(courseCode.equals("")) return;
+        rows.clear();
+        ArrayList<Enroll> enrolls = Enrollment.getInstance().retrieveStudentsByCourseCode(courseCode);
+        for(Enroll enroll : enrolls) {
+            rows.add(
+                    new AssignmentRow(
+                            String.valueOf(enroll.getStudent().getId()),
+                            String.format(
+                                    "%s %s %s",
+                                    enroll.getStudent().getUser().getFirstName(),
+                                    enroll.getStudent().getUser().getMiddleName(),
+                                    enroll.getStudent().getUser().getLastName()
+                            ),
+                            String.valueOf(enroll.getGrade())
+                    )
+            );
+        }
+    }
+
+    private void populateComboBox() {
+        ArrayList<String> coursesInfo = new ArrayList<>();
+        int prof_id = ((Professor) Session.getInstance().getValue("professor")).getId();
+        try {
+            ArrayList<Course> courses = Courses.getInstance().retrieveProfessorCourses(prof_id);
+            for(Course course : courses){
+                coursesInfo.add(course.printCourse());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        ObservableList<String> coursesItems = FXCollections.observableArrayList(coursesInfo);
+        courses.setItems(coursesItems);
     }
 
     private static class AssignmentRow extends RecursiveTreeObject<AssignmentRow> {

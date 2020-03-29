@@ -15,11 +15,13 @@ public class Enrollment extends Persistence {
     private Dao<IModel, String> _professorsAccessObject;
     private Dao<IModel, String> _coursesAccessObject;
     private Dao<IModel, String> _usersAccessObject;
+    private Dao<IModel, String> _studentsAccessObject;
 
     private Enrollment() throws SQLException {
         _enrollmentAccessObject = getAccessObject(Enroll.class);
         _usersAccessObject      = Users.getInstance().getAccessObject(User.class);
         _coursesAccessObject    = Courses.getInstance().getAccessObject(Course.class);
+        _studentsAccessObject   = Students.getInstance().getAccessObject(Student.class);
         _professorsAccessObject = Professors.getInstance().getAccessObject(Professor.class);
     }
 
@@ -85,6 +87,27 @@ public class Enrollment extends Persistence {
                 _coursesAccessObject.refresh(enroll.getCourse());
                 enrolls.add(enroll);
             }
+        }
+        return enrolls;
+    }
+
+    public ArrayList<Enroll> retrieveStudentsByCourseCode(String code) throws SQLException {
+        Course course = Courses.getInstance().retrieveCourseByCode(code);
+        List<IModel> enrollments =
+                _enrollmentAccessObject
+                        .queryBuilder()
+                        .where()
+                        .eq("course_id", course.getId())
+                        .query()
+        ;
+        if(enrollments.size() <= 0) return null;
+        ArrayList<Enroll> enrolls = new ArrayList<>();
+        for(IModel model : enrollments) {
+            Enroll enroll = (Enroll) model;
+            _coursesAccessObject.refresh(enroll.getCourse());
+            _studentsAccessObject.refresh(enroll.getStudent());
+            _usersAccessObject.refresh(enroll.getStudent().getUser());
+            enrolls.add(enroll);
         }
         return enrolls;
     }

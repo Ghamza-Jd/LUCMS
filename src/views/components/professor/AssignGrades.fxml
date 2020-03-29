@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="460.0" prefWidth="790.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.components.professor.AssignGradesController">
    <children>
-      <JFXTreeTableView fx:id="table" prefHeight="460.0" prefWidth="790.0" />
+      <JFXTreeTableView fx:id="table" layoutY="43.0" prefHeight="417.0" prefWidth="790.0" />
+      <Label layoutX="47.0" layoutY="14.0" prefHeight="21.0" prefWidth="53.0" text="Course:" />
+      <JFXComboBox fx:id="courses" layoutX="111.0" layoutY="14.0" prefHeight="21.0" prefWidth="157.0" />
+      <Label layoutX="381.0" layoutY="16.0" text="Search:" />
+      <JFXTextField fx:id="search" layoutX="444.0" layoutY="12.0" />
    </children>
 </AnchorPane>
