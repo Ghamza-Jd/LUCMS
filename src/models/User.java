@@ -13,25 +13,25 @@ import java.text.SimpleDateFormat;
 public class User implements IModel {
     @DatabaseField(generatedId = true)
     private int id;
-    @DatabaseField
+    @DatabaseField(width = 30)
     private String firstName;
-    @DatabaseField
+    @DatabaseField(width = 30)
     private String middleName;
-    @DatabaseField
+    @DatabaseField(width = 30)
     private String lastName;
-    @DatabaseField
+    @DatabaseField(width = 30)
     private String username;
-    @DatabaseField
+    @DatabaseField(width = 30)
     private String normalizedUsername;
     @DatabaseField(width = 256)
     private String password;
-    @DatabaseField
+    @DatabaseField(width = 30)
     private String phone;
-    @DatabaseField
+    @DatabaseField(width = 30)
     private String role;
     @DatabaseField(dataType = DataType.DATE)
     private Date dateOfBirth;
-    @DatabaseField
+    @DatabaseField(width = 7)
     private String gender;
 
     public User(){ }

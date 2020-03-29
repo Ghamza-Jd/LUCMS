@@ -12,6 +12,7 @@ import controllers.components.student.StudentSidePanelController;
 import controllers.components.students_affair.CreateStudentController;
 import controllers.components.students_affair.EnrollStudentsController;
 import controllers.components.students_affair.SaSidePanelController;
+import controllers.components.students_affair.ViewStudentsController;
 import controllers.components.user.SidePanelController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -116,7 +117,11 @@ public class DashboardController implements Initializable {
                 setTitleText("Enroll a Student");
             });
             controller.getViewStudents().setOnAction(e -> {
-                container.getChildren().setAll(ViewsManager.requestComponent("students_affair/ViewStudents"));
+                ViewsManager.DetailedComponent comp =
+                        ViewsManager.requestDetailedComponent("students_affair/ViewStudents");
+                ViewStudentsController cont = comp.getLoader().getController();
+                cont.setDashboard(dashboard);
+                container.getChildren().setAll(comp.getRoot());
                 setTitleText("Students");
             });
             sidePanelController.getEmpty().getChildren().setAll(component.getRoot());

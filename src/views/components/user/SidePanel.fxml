@@ -13,7 +13,7 @@
    <children>
       <VBox alignment="CENTER" prefHeight="12.0" prefWidth="165.0">
          <children>
-            <ImageView fitHeight="54.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="48.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@/images/icons/user.png" />
                </image>
@@ -31,7 +31,7 @@
             <Insets top="5.0" />
          </opaqueInsets>
       </VBox>
-      <VBox alignment="CENTER" prefHeight="320.0" prefWidth="165.0" spacing="30.0">
+      <VBox alignment="CENTER" prefHeight="320.0" prefWidth="165.0" spacing="10.0">
          <children>
             <JFXButton fx:id="home" layoutX="10.0" layoutY="89.0" maxWidth="1.7976931348623157E308" text="Home" />
             <JFXButton fx:id="profile" maxWidth="1.7976931348623157E308" text="Profile" />

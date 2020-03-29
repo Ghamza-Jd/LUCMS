@@ -6,22 +6,21 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="231.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.components.user.CreateUserController">
+<AnchorPane prefHeight="250.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.components.user.CreateUserController">
    <children>
-      <Label layoutX="14.0" layoutY="17.0" text="First Name:" />
+      <Label layoutX="14.0" layoutY="14.0" text="First Name:" />
       <JFXTextField fx:id="firstName" layoutX="14.0" layoutY="34.0" />
       <Label layoutX="201.0" layoutY="14.0" text="Middle Name:" />
       <JFXTextField fx:id="middleName" layoutX="199.0" layoutY="34.0" />
       <Label layoutX="384.0" layoutY="14.0" text="Last Name:" />
-      <JFXTextField fx:id="lastName" layoutX="384.0" layoutY="31.0" />
-      <Label layoutX="14.0" layoutY="108.0" text="Username:" />
-      <JFXTextField fx:id="username" layoutX="14.0" layoutY="125.0" />
+      <JFXTextField fx:id="lastName" layoutX="384.0" layoutY="34.0" />
+      <Label layoutX="14.0" layoutY="103.0" text="Username:" />
+      <JFXTextField fx:id="username" layoutX="14.0" layoutY="123.0" />
       <Label layoutX="201.0" layoutY="103.0" text="Phone Number:" />
-      <JFXTextField fx:id="phoneNumber" layoutX="229.0" layoutY="123.0" prefHeight="24.0" prefWidth="105.0" />
-      <Label layoutX="384.0" layoutY="105.0" text="Date of Birth:" />
-      <JFXDatePicker fx:id="dateOfBirth" defaultColor="#4059a9" editable="false" layoutX="379.0" layoutY="126.0" />
-      <Label layoutX="199.0" layoutY="127.0" text="+961" />
-      <Label layoutX="14.0" layoutY="176.0" text="Gender:" />
-      <JFXComboBox fx:id="gender" layoutX="14.0" layoutY="193.0" prefHeight="21.0" prefWidth="135.0" />
+      <JFXTextField fx:id="phoneNumber" layoutX="199.0" layoutY="123.0" prefHeight="24.0" prefWidth="135.0" />
+      <Label layoutX="384.0" layoutY="103.0" text="Date of Birth:" />
+      <JFXDatePicker fx:id="dateOfBirth" defaultColor="#4059a9" editable="false" layoutX="381.0" layoutY="123.0" prefHeight="22.0" prefWidth="179.0" />
+      <Label layoutX="14.0" layoutY="196.0" text="Gender:" />
+      <JFXComboBox fx:id="gender" layoutX="14.0" layoutY="216.0" prefHeight="21.0" prefWidth="135.0" />
    </children>
 </AnchorPane>

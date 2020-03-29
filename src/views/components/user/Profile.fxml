@@ -6,20 +6,20 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.components.user.ProfileController">
    <children>
-      <Label layoutX="14.0" layoutY="17.0" text="First Name:" />
+      <Label layoutX="14.0" layoutY="14.0" text="First Name:" />
       <JFXTextField fx:id="firstName" editable="false" layoutX="14.0" layoutY="34.0" />
       <Label layoutX="201.0" layoutY="14.0" text="Middle Name:" />
       <JFXTextField fx:id="middleName" editable="false" layoutX="199.0" layoutY="34.0" />
       <Label layoutX="384.0" layoutY="14.0" text="Last Name:" />
-      <JFXTextField fx:id="lastName" editable="false" layoutX="384.0" layoutY="31.0" />
-      <Label layoutX="14.0" layoutY="106.0" text="Username:" />
+      <JFXTextField fx:id="lastName" editable="false" layoutX="384.0" layoutY="34.0" />
+      <Label layoutX="14.0" layoutY="103.0" text="Username:" />
       <JFXTextField fx:id="username" editable="false" layoutX="14.0" layoutY="123.0" />
       <Label layoutX="201.0" layoutY="103.0" text="Phone Number:" />
       <JFXTextField fx:id="phoneNumber" editable="false" layoutX="199.0" layoutY="123.0" />
-      <Label layoutX="384.0" layoutY="105.0" text="Date of Birth:" />
-      <JFXTextField fx:id="dateOfBirth" editable="false" layoutX="384.0" layoutY="122.0" />
-      <Label layoutX="201.0" layoutY="177.0" text="Gender:" />
+      <Label layoutX="384.0" layoutY="103.0" text="Date of Birth:" />
+      <JFXTextField fx:id="dateOfBirth" editable="false" layoutX="384.0" layoutY="123.0" />
+      <Label layoutX="14.0" layoutY="196.0" text="Gender:" />
       <AnchorPane fx:id="addition" layoutX="12.0" layoutY="166.0" prefHeight="220.0" prefWidth="541.0" />
-      <JFXTextField fx:id="gender" editable="false" layoutX="199.0" layoutY="199.0" />
+      <JFXTextField fx:id="gender" editable="false" layoutX="14.0" layoutY="216.0" />
    </children>
 </AnchorPane>

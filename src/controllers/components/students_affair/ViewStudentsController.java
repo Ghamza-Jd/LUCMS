@@ -3,6 +3,7 @@ package controllers.components.students_affair;
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import controllers.components.user.ActionsController;
+import controllers.components.user.CreateUserController;
 import controllers.components.user.ProfileController;
 import controllers.repos.Students;
 import controllers.repos.Users;
@@ -30,7 +31,13 @@ import utils.Alerts;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class ViewStudentsController implements Initializable {
@@ -38,6 +45,7 @@ public class ViewStudentsController implements Initializable {
     private JFXTreeTableView<StudentRow> table;
 
     private ObservableList<StudentRow> rows;
+    private Pane dashboard;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -133,6 +141,10 @@ public class ViewStudentsController implements Initializable {
         table.setShowRoot(false);
     }
 
+    public void setDashboard(Pane dashboard) {
+        this.dashboard = dashboard;
+    }
+
     private void getStudents() throws SQLException {
         ArrayList<Student> students = Students.getInstance().retrieveAllStudents();
         for(Student s : students) {
@@ -169,10 +181,14 @@ public class ViewStudentsController implements Initializable {
         layout.setStyle("-fx-border-color: grey;");
         layout.setHeading(heading);
 
-        ViewsManager.DetailedComponent component = ViewsManager.requestDetailedComponent("user/Profile");
-        ProfileController controller = component.getLoader().getController();
-        switchToDetails(controller);
-        controller.fillFields(student.getUser());
+        ViewsManager.DetailedComponent readOnlyComponent = ViewsManager.requestDetailedComponent("user/Profile");
+        ProfileController readOnlyController = readOnlyComponent.getLoader().getController();
+        readOnlyController.fillFields(student.getUser());
+
+        ViewsManager.DetailedComponent editableComponent = ViewsManager.requestDetailedComponent("user/CreateUser");
+        CreateUserController editableController = editableComponent.getLoader().getController();
+        editableController.fillFields(student.getUser());
+        editableComponent.getRoot().setVisible(false);
 
         final JFXButton edit    = new JFXButton("Edit");
         final JFXButton update  = new JFXButton("Update");
@@ -193,11 +209,10 @@ public class ViewStudentsController implements Initializable {
         cancelIcon.setFitHeight(24);
         cancel.setGraphic(cancelIcon);
 
-
-
         final HBox actions = new HBox(cancel, update);
-        final StackPane stackPane = new StackPane(edit, actions);
-        final VBox body = new VBox(component.getRoot(), stackPane);
+        final StackPane buttonsStackPane = new StackPane(edit, actions);
+        final StackPane viewsStackPane = new StackPane(readOnlyComponent.getRoot(), editableComponent.getRoot());
+        final VBox body = new VBox(viewsStackPane, buttonsStackPane);
 
         actions.setAlignment(Pos.CENTER);
         actions.setSpacing(30);
@@ -207,21 +222,23 @@ public class ViewStudentsController implements Initializable {
         body.setSpacing(10);
 
         edit.setOnAction(e -> {
-            switchToEdit(controller);
+            readOnlyComponent.getRoot().setVisible(false);
+            editableComponent.getRoot().setVisible(true);
             actions.setVisible(true);
             edit.setVisible(false);
         });
 
         update.setOnAction(e -> {
             try {
-                updateStudent(getStudentFields(controller, student));
+                updateStudent(getStudentFields(editableController, student));
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
         });
 
         cancel.setOnAction(e -> {
-            switchToDetails(controller);
+            editableComponent.getRoot().setVisible(false);
+            readOnlyComponent.getRoot().setVisible(true);
             actions.setVisible(false);
             edit.setVisible(true);
         });
@@ -248,11 +265,41 @@ public class ViewStudentsController implements Initializable {
         final HBox heading = new HBox(new Label("Details"), region, exit);
         layout.setHeading(heading);
 
-        ViewsManager.DetailedComponent component = ViewsManager.requestDetailedComponent("user/Profile");
-        ProfileController controller = component.getLoader().getController();
+        ViewsManager.DetailedComponent component = ViewsManager.requestDetailedComponent("user/CreateUser");
+        CreateUserController controller = component.getLoader().getController();
         controller.fillFields(student.getUser());
 
-        layout.setBody(component.getRoot());
+        final JFXButton update = new JFXButton("Update");
+        final ImageView updateIcon = new ImageView(new Image("/icons/update.png"));
+        updateIcon.setFitWidth(24);
+        updateIcon.setFitHeight(24);
+        update.setGraphic(updateIcon);
+
+        final JFXButton undoChanges = new JFXButton("Undo Changes");
+        final ImageView undoChangesIcon = new ImageView(new Image("/icons/cancel.png"));
+        undoChangesIcon.setFitWidth(24);
+        undoChangesIcon.setFitHeight(24);
+        undoChanges.setGraphic(undoChangesIcon);
+
+
+        final VBox body = new VBox(component.getRoot(), update, undoChanges);
+        body.setAlignment(Pos.CENTER);
+
+        update.setOnAction(e -> {
+            try {
+                updateStudent(getStudentFields(controller, student));
+                Alerts.createSnackbar(dashboard, "Update the student wit File # " + student.getId(), 2);
+                alert.hideWithAnimation();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        undoChanges.setOnAction(e -> {
+            controller.fillFields(student.getUser());
+        });
+
+        layout.setBody(body);
         alert.setContent(layout);
         alert.showAndWait();
     }
@@ -262,27 +309,19 @@ public class ViewStudentsController implements Initializable {
         rows.remove(index);
     }
 
-    private void switchToEdit(ProfileController controller) {
-        for(JFXTextField tf : controller.getAllTextFields()) {
-            tf.setDisable(false);
-            tf.setEditable(true);
-        }
-    }
+    public User getStudentFields(CreateUserController controller, Student student) {
+        HashMap<String, String> fields = controller.getUserFields();
+        student.getUser().setFirstName(fields.get("first_name"));
+        student.getUser().setMiddleName(fields.get("middle_name"));
+        student.getUser().setLastName(fields.get("last_name"));
+        student.getUser().setUsername(fields.get("username"));
 
-    private void switchToDetails(ProfileController controller) {
-        for(JFXTextField tf : controller.getAllTextFields()) {
-            tf.setDisable(true);
-            tf.setEditable(false);
-        }
-    }
+        LocalDate localDate = LocalDate.parse(fields.get("date"), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
+        Date date = Date.from(instant);
+        student.getUser().setDateOfBirth(date);
 
-    public User getStudentFields(ProfileController controller, Student student) {
-        ArrayList<JFXTextField> field = controller.getAllTextFields();
-        student.getUser().setFirstName(field.get(0).getText());
-        student.getUser().setMiddleName(field.get(1).getText());
-        student.getUser().setLastName(field.get(2).getText());
-        student.getUser().setUsername(field.get(3).getText());
-        student.getUser().setPhone(field.get(4).getText());
+        student.getUser().setGender(fields.get("gender"));
         return student.getUser();
     }
 
@@ -298,13 +337,11 @@ public class ViewStudentsController implements Initializable {
         StringProperty fileNumber;
         StringProperty fullName;
         StringProperty username;
-        JFXButton edit;
 
         public StudentRow(String fileNumber, String fullName, String username) {
             this.fileNumber = new SimpleStringProperty(fileNumber);
             this.fullName = new SimpleStringProperty(fullName);
             this.username = new SimpleStringProperty(username);
-            edit = new JFXButton("edit");
         }
     }
 }

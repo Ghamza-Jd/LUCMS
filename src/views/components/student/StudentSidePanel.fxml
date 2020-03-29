@@ -3,10 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefWidth="164.0" spacing="30.0"
-      xmlns="http://javafx.com/javafx/8.0.171"
-      fx:controller="controllers.components.student.StudentSidePanelController"
-      xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefWidth="164.0" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.components.student.StudentSidePanelController">
    <children>
       <JFXButton fx:id="marks" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="22.0" prefWidth="164.0" text="Marks" textAlignment="CENTER" />
       <JFXButton fx:id="courses" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="22.0" prefWidth="164.0" text="Courses" textAlignment="CENTER" />

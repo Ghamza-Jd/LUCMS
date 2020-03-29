@@ -1,18 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXDrawer?>
 <?import com.jfoenix.controls.JFXHamburger?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="dashboard" prefHeight="520.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DashboardController">
    <children>
-      <JFXDrawer fx:id="drawer" cache="true" defaultDrawerSize="200.0" layoutY="1.0" prefHeight="511.0" prefWidth="165.0">
+      <StackPane prefHeight="520.0" prefWidth="165.0">
          <children>
-            <fx:include fx:id="sidePanel" source="components/user/SidePanel.fxml" />
+            <VBox alignment="CENTER_LEFT" prefHeight="520.0" prefWidth="100.0" spacing="20.0">
+               <children>
+                  <JFXButton text=" ">
+                     <graphic>
+                        <ImageView fitHeight="53.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@/images/icons/home.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton layoutX="10.0" layoutY="259.0" text=" " />
+                  <JFXButton layoutX="10.0" layoutY="280.0" text=" " />
+               </children>
+            </VBox>
+            <JFXDrawer fx:id="drawer" cache="true" defaultDrawerSize="200.0" prefHeight="520.0" prefWidth="165.0">
+               <children>
+                  <fx:include fx:id="sidePanel" source="components/user/SidePanel.fxml" />
+               </children>
+            </JFXDrawer>
          </children>
-      </JFXDrawer>
+      </StackPane>
       <JFXHamburger fx:id="hamburger" layoutX="917.0" layoutY="19.0" />
       <AnchorPane fx:id="container" layoutX="171.0" layoutY="46.0" prefHeight="460.0" prefWidth="790.0" />
       <Text fx:id="title" fill="#666666" layoutX="351.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" textAlignment="CENTER" wrappingWidth="430.13671875">
