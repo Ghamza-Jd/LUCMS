@@ -3,6 +3,8 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -11,10 +13,17 @@
       <AnchorPane fx:id="user" prefHeight="219.0" prefWidth="600.0" />
       <Label layoutX="200.0" layoutY="196.0" text="Major:" />
       <JFXComboBox fx:id="major" layoutX="200.0" layoutY="216.0" prefHeight="21.0" prefWidth="135.0" />
-      <JFXButton layoutX="258.0" layoutY="321.0" onAction="#createStudent" prefHeight="31.0" prefWidth="84.0" style="-fx-background-color: #ddd;" text="Create">
+      <JFXButton layoutX="237.0" layoutY="317.0" onAction="#createStudent" prefHeight="31.0" prefWidth="99.0" style="-fx-background-color: #ddd;" text="Create">
          <font>
-            <Font size="18.0" />
+            <Font size="14.0" />
          </font>
+         <graphic>
+            <ImageView fitHeight="22.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/images/icons/createUser.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </JFXButton>
    </children>
 </AnchorPane>

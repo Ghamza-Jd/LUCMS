@@ -1,5 +1,6 @@
 package controllers;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
@@ -14,6 +15,7 @@ import controllers.components.students_affair.EnrollStudentsController;
 import controllers.components.students_affair.SaSidePanelController;
 import controllers.components.students_affair.ViewStudentsController;
 import controllers.components.user.SidePanelController;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
@@ -41,6 +43,12 @@ public class DashboardController implements Initializable {
             dashboard
     ;
     @FXML
+    private JFXButton
+            home,
+            profile,
+            logout
+    ;
+    @FXML
     private SidePanelController sidePanelController;
 
     private HamburgerBackArrowBasicTransition burger;
@@ -52,8 +60,13 @@ public class DashboardController implements Initializable {
         container.getChildren().setAll(ViewsManager.requestComponent("news/News"));
         burger = new HamburgerBackArrowBasicTransition(hamburger);
         drawer.setSidePane(sidePanel);
+        drawer.setOnDrawerClosed(event -> {
+            drawer.setVisible(false);
+        });
+        drawer.setVisible(false);
         burger.setRate(-1);
         hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, event -> toggleBurger());
+
         sidePanelController.getHome().setOnAction(e -> {
             container.getChildren().setAll(ViewsManager.requestComponent("news/News"));
             setTitleText("Home");
@@ -62,6 +75,13 @@ public class DashboardController implements Initializable {
             container.getChildren().setAll(ViewsManager.requestComponent("user/Profile"));
             setTitleText("My Profile");
         });
+
+        home.setOnAction(sidePanelController.getHome().getOnAction());
+        profile.setOnAction(sidePanelController.getProfile().getOnAction());
+        logout.setOnAction(e -> {
+            sidePanelController.logout(e);
+        });
+
         roleSetup(((User) Session.getInstance().getValue("user")).getRole());
     }
 
@@ -162,6 +182,7 @@ public class DashboardController implements Initializable {
     }
 
     private void toggleBurger() {
+        if(burger.getRate() < 0) drawer.setVisible(true);
         burger.setRate(-burger.getRate());
         burger.play();
         drawer.toggle();

@@ -36,7 +36,7 @@ public class SidePanelController implements Initializable {
     }
 
     @FXML
-    void logout(ActionEvent event) {
+    public void logout(ActionEvent event) {
         JFXAlert<String> alert = Alerts.createAlert();
         JFXDialogLayout layout = Alerts.createLayout("Logout", "Are you sure?");
         layout.setStyle("-fx-border-color: grey;");

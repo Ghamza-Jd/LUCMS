@@ -57,6 +57,7 @@ public class Alerts {
         JFXDialogLayout layout = new JFXDialogLayout();
         layout.setHeading(new Label(title));
         layout.setBody(new VBox(new Label(msg)));
+        layout.setStyle("-fx-border-color: grey;");
         return layout;
     }
 

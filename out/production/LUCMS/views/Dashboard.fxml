@@ -17,17 +17,33 @@
          <children>
             <VBox alignment="CENTER_LEFT" prefHeight="520.0" prefWidth="100.0" spacing="20.0">
                <children>
-                  <JFXButton text=" ">
+                  <JFXButton fx:id="home">
                      <graphic>
-                        <ImageView fitHeight="53.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@/images/icons/home.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <JFXButton layoutX="10.0" layoutY="259.0" text=" " />
-                  <JFXButton layoutX="10.0" layoutY="280.0" text=" " />
+                  <JFXButton fx:id="profile" layoutX="10.0" layoutY="241.0">
+                     <graphic>
+                        <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@/images/icons/profile.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="logout" layoutX="10.0" layoutY="280.0">
+                     <graphic>
+                        <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@/images/icons/exit.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
                </children>
             </VBox>
             <JFXDrawer fx:id="drawer" cache="true" defaultDrawerSize="200.0" prefHeight="520.0" prefWidth="165.0">

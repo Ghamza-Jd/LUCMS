@@ -11,7 +11,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -43,7 +42,6 @@ import java.util.ResourceBundle;
 public class ViewStudentsController implements Initializable {
     @FXML
     private JFXTreeTableView<StudentRow> table;
-
     private ObservableList<StudentRow> rows;
     private Pane dashboard;
 
@@ -130,7 +128,7 @@ public class ViewStudentsController implements Initializable {
         actions.setCellFactory(actionsCell);
 
         try {
-            getStudents();
+            populateTable();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -145,7 +143,7 @@ public class ViewStudentsController implements Initializable {
         this.dashboard = dashboard;
     }
 
-    private void getStudents() throws SQLException {
+    private void populateTable() throws SQLException {
         ArrayList<Student> students = Students.getInstance().retrieveAllStudents();
         for(Student s : students) {
             rows.add(
@@ -305,8 +303,34 @@ public class ViewStudentsController implements Initializable {
     }
 
     public void displayDeleteDialog(Student student, int index) throws SQLException {
-        deleteStudent(student);
-        rows.remove(index);
+        final JFXAlert<String> alert = Alerts.createAlert();
+        final JFXDialogLayout layout = Alerts.createLayout("Remove Student", String.format(
+                "Are you sure you want to remove %s %s %s having file# %d",
+                student.getUser().getFirstName(),
+                student.getUser().getMiddleName(),
+                student.getUser().getLastName(),
+                student.getId())
+        );
+        final JFXButton yes = new JFXButton("yes");
+        final JFXButton no = new JFXButton("no");
+
+        yes.setOnAction(e -> {
+            try {
+                deleteStudent(student);
+                rows.remove(index);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            } finally {
+                alert.hideWithAnimation();
+            }
+        });
+        no.setOnAction(e -> {
+            alert.hideWithAnimation();
+        });
+
+        layout.setActions(yes, no);
+        alert.setContent(layout);
+        alert.showAndWait();
     }
 
     public User getStudentFields(CreateUserController controller, Student student) {
