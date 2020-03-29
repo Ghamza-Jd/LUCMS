@@ -1,6 +1,5 @@
 package controllers;
 
-import controllers.components.cards.SnackbarController;
 import controllers.repos.Professors;
 import controllers.repos.Students;
 import controllers.repos.StudentsAffairs;
@@ -35,7 +34,7 @@ public class LoginController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         String message = FlashMessages.getInstance().receiveMessages(getClass());
         if(message == null) return;
-        Alerts.createSnackbar(pane, message, 1, "#0A0", "#FFF");
+        Alerts.createSnackbar(pane, message, 1, "#080", "#FFF");
     }
 
     @FXML

@@ -8,6 +8,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import models.User;
 import services.Session;
@@ -28,6 +30,8 @@ public class SidePanelController implements Initializable {
             home;
     @FXML
     private Pane empty;
+    @FXML
+    private ImageView profilePic;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -37,11 +41,22 @@ public class SidePanelController implements Initializable {
 
     @FXML
     public void logout(ActionEvent event) {
-        JFXAlert<String> alert = Alerts.createAlert();
-        JFXDialogLayout layout = Alerts.createLayout("Logout", "Are you sure?");
-        layout.setStyle("-fx-border-color: grey;");
-        JFXButton logout = new JFXButton("Logout");
-        logout.setStyle("-fx-background-color: green; -fx-text-fill: white;");
+        final JFXAlert<String> alert = Alerts.createAlert();
+        final JFXDialogLayout layout = Alerts.createLayout("Logout", "Are you sure?");
+
+        final JFXButton logout = new JFXButton("");
+        final ImageView logoutIcon = new ImageView(new Image("/icons/ok.png"));
+
+        logoutIcon.setFitWidth(32);
+        logoutIcon.setFitHeight(32);
+        logout.setGraphic(logoutIcon);
+
+        final JFXButton cancel = new JFXButton("");
+        final ImageView cancelIcon = new ImageView(new Image("/icons/close.png"));
+        cancelIcon.setFitWidth(32);
+        cancelIcon.setFitHeight(32);
+        cancel.setGraphic(cancelIcon);
+
         logout.setOnAction(e -> {
             try {
                 FlashMessages.getInstance().sendMessage(LoginController.class, "Successfully logged out!");
@@ -54,11 +69,11 @@ public class SidePanelController implements Initializable {
                 alert.hideWithAnimation();
             }
         });
-        JFXButton cancel = new JFXButton("Cancel");
+
         cancel.setOnAction(e -> {
             alert.hideWithAnimation();
         });
-        cancel.setStyle("-fx-background-color: red; -fx-text-fill: white;");
+
         layout.setActions(cancel, logout);
         alert.setContent(layout);
         alert.showAndWait();
@@ -70,5 +85,9 @@ public class SidePanelController implements Initializable {
 
     public Pane getEmpty() {
         return empty;
+    }
+
+    public void setProfilePic(String path) {
+        profilePic.setImage(new Image(path));
     }
 }

@@ -311,8 +311,19 @@ public class ViewStudentsController implements Initializable {
                 student.getUser().getLastName(),
                 student.getId())
         );
-        final JFXButton yes = new JFXButton("yes");
-        final JFXButton no = new JFXButton("no");
+        final JFXButton yes = new JFXButton("");
+
+        final JFXButton no = new JFXButton("");
+
+        final ImageView yesIcon = new ImageView(new Image("/icons/ok.png"));
+        yesIcon.setFitWidth(32);
+        yesIcon.setFitHeight(32);
+        yes.setGraphic(yesIcon);
+
+        final ImageView noIcon = new ImageView(new Image("/icons/close.png"));
+        noIcon.setFitWidth(32);
+        noIcon.setFitHeight(32);
+        no.setGraphic(noIcon);
 
         yes.setOnAction(e -> {
             try {

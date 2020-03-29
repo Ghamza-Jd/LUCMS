@@ -71,6 +71,7 @@ public class DashboardController implements Initializable {
             container.getChildren().setAll(ViewsManager.requestComponent("news/News"));
             setTitleText("Home");
         });
+
         sidePanelController.getProfile().setOnAction(e -> {
             container.getChildren().setAll(ViewsManager.requestComponent("user/Profile"));
             setTitleText("My Profile");
@@ -81,6 +82,9 @@ public class DashboardController implements Initializable {
         logout.setOnAction(e -> {
             sidePanelController.logout(e);
         });
+
+        if(((User) Session.getInstance().getValue("user")).getGender().toLowerCase().equals("female"))
+            sidePanelController.setProfilePic("/icons/femaleUser.png");
 
         roleSetup(((User) Session.getInstance().getValue("user")).getRole());
     }
