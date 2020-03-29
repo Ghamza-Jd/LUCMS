@@ -22,7 +22,9 @@ public class ProfileController implements Initializable {
             lastName,
             username,
             phoneNumber,
-            dateOfBirth;
+            dateOfBirth,
+            gender
+    ;
 
     @FXML
     private Pane addition;
@@ -46,9 +48,10 @@ public class ProfileController implements Initializable {
         username.setText(user.getUsername());
         phoneNumber.setText(user.getPhone());
         dateOfBirth.setText(user.getDateOfBirth());
+        gender.setText(user.getGender());
     }
 
     public ArrayList<JFXTextField> getAllTextFields() {
-        return new ArrayList<>(Arrays.asList(firstName, middleName, lastName, username, phoneNumber, dateOfBirth));
+        return new ArrayList<>(Arrays.asList(firstName, middleName, lastName, username, phoneNumber, dateOfBirth, gender));
     }
 }

@@ -13,7 +13,8 @@ public class DummyData {
                 "hamzajd",
                 "P@ssw0rd",
                 "78939614",
-                new Date()
+                new Date(),
+                "Male"
         );
         Student student = new Student(user, "Computer science");
         Students.getInstance().create(student);
@@ -25,7 +26,8 @@ public class DummyData {
                 "rosa",
                 "P@ssw0rd",
                 "78939614",
-                new Date()
+                new Date(),
+                "Female"
         );
         Professor professor = new Professor(user2, 2214);
         Professors.getInstance().create(professor);
@@ -37,7 +39,8 @@ public class DummyData {
                 "sarajd",
                 "P@ssw0rd",
                 "78939614",
-                new Date()
+                new Date(),
+                "Female"
         );
         StudentsAffair sa = new StudentsAffair(user3, "SJ@gmail.com");
         StudentsAffairs.getInstance().create(sa);
@@ -49,7 +52,8 @@ public class DummyData {
                 "marwanjd",
                 "P@ssw0rd",
                 "78939614",
-                new Date()
+                new Date(),
+                "Male"
         );
         HeadOfDepartment hod = new HeadOfDepartment(user4, "Applied Math");
         HoDs.getInstance().create(hod);

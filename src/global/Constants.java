@@ -39,4 +39,9 @@ public class Constants {
             "Important",
             "Urgent"
     };
+
+    public static final String [] GENDERS = {
+            "Male",
+            "Female"
+    };
 }

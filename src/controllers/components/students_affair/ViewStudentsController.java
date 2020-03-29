@@ -5,6 +5,7 @@ import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import controllers.components.user.ActionsController;
 import controllers.components.user.ProfileController;
 import controllers.repos.Students;
+import controllers.repos.Users;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -23,6 +24,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.util.Callback;
 import models.Student;
+import models.User;
 import services.ViewsManager;
 import utils.Alerts;
 
@@ -94,8 +96,7 @@ public class ViewStudentsController implements Initializable {
                                     try {
                                         String id  = this.getTreeTableRow().getTreeItem().getValue().fileNumber.getValue();
                                         Student student = Students.getInstance().retrieveSingleByFileNb(Integer.parseInt(id));
-                                        deleteStudent(student);
-                                        rows.remove(getIndex());
+                                        displayDeleteDialog(student, getIndex());
                                     } catch (SQLException ex) {
                                         ex.printStackTrace();
                                     }
@@ -142,7 +143,8 @@ public class ViewStudentsController implements Initializable {
                                     "%s %s %s",
                                     s.getUser().getFirstName(),
                                     s.getUser().getMiddleName(),
-                                    s.getUser().getLastName()),
+                                    s.getUser().getLastName()
+                            ),
                             s.getUser().getUsername()
                     )
             );
@@ -211,7 +213,11 @@ public class ViewStudentsController implements Initializable {
         });
 
         update.setOnAction(e -> {
-
+            try {
+                updateStudent(getStudentFields(controller, student));
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         });
 
         cancel.setOnAction(e -> {
@@ -251,8 +257,9 @@ public class ViewStudentsController implements Initializable {
         alert.showAndWait();
     }
 
-    public void displayDeleteDialog() {
-
+    public void displayDeleteDialog(Student student, int index) throws SQLException {
+        deleteStudent(student);
+        rows.remove(index);
     }
 
     private void switchToEdit(ProfileController controller) {
@@ -269,12 +276,18 @@ public class ViewStudentsController implements Initializable {
         }
     }
 
-    private void editAction(ActionEvent event) {
-
+    public User getStudentFields(ProfileController controller, Student student) {
+        ArrayList<JFXTextField> field = controller.getAllTextFields();
+        student.getUser().setFirstName(field.get(0).getText());
+        student.getUser().setMiddleName(field.get(1).getText());
+        student.getUser().setLastName(field.get(2).getText());
+        student.getUser().setUsername(field.get(3).getText());
+        student.getUser().setPhone(field.get(4).getText());
+        return student.getUser();
     }
 
-    private void updateAction(ActionEvent event) {
-
+    private void updateStudent(User user) throws SQLException {
+        Users.getInstance().update(user);
     }
 
     private void deleteStudent(Student student) throws SQLException {

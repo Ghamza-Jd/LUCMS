@@ -1,5 +1,6 @@
 package controllers.components.user;
 
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
@@ -23,6 +24,8 @@ public class CreateUserController implements Initializable {
             phoneNumber;
     @FXML
     private JFXDatePicker dateOfBirth;
+    @FXML
+    private JFXComboBox<String> gender;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -44,12 +47,14 @@ public class CreateUserController implements Initializable {
                 username.getText(),
                 username.getText() + "123",
                 "+961" + phoneNumber.getText(),
-                date
+                date,
+                gender.getValue()
         );
     }
 
     public String validateInput() {
         StringBuilder errors = new StringBuilder();
+        if(gender.getValue().equals(""))                    errors.append("gender ");
         if(username.getText().equals(""))                   errors.append("username ");
         if(lastName.getText().equals(""))                   errors.append("last name ");
         if(firstName.getText().equals(""))                  errors.append("first name ");

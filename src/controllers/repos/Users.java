@@ -38,7 +38,9 @@ public class Users extends Persistence {
     public List<IModel> retrieveAll() throws SQLException { return _accessObject.queryBuilder().query(); }
 
     @Override
-    public void update(IModel model) throws SQLException { }
+    public void update(IModel model) throws SQLException {
+        _accessObject.update(model);
+    }
 
     @Override
     public void delete(IModel model) throws SQLException { }

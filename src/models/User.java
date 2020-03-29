@@ -31,11 +31,14 @@ public class User implements IModel {
     private String role;
     @DatabaseField(dataType = DataType.DATE)
     private Date dateOfBirth;
+    @DatabaseField
+    private String gender;
 
     public User(){ }
 
     public User(String firstName, String middleName, String lastName,
-                String username, String password, String phone, Date dateOfBirth) {
+                String username, String password, String phone,
+                Date dateOfBirth, String gender) {
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
@@ -44,6 +47,7 @@ public class User implements IModel {
         this.password = Security.hash(password);
         this.phone = phone;
         this.dateOfBirth = dateOfBirth;
+        this.gender = gender;
     }
 
     public int getId() {
@@ -117,6 +121,14 @@ public class User implements IModel {
     }
 
     public void setDateOfBirth(Date dateOfBirth) { this.dateOfBirth = dateOfBirth; }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 
     @Override
     public String toString() {
