@@ -29,7 +29,16 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/src/dependencies/jfoenix-8.0.8.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/dependencies/jfoenix-9.0.8.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/src/dependencies/mysql-connector-java-8.0.19.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
