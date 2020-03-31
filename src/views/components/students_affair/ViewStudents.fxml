@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TreeTableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="460.0" prefWidth="790.0"
-            xmlns="http://javafx.com/javafx/8.0.171"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="controllers.components.students_affair.ViewStudentsController">
+<AnchorPane prefHeight="460.0" prefWidth="790.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.components.students_affair.ViewStudentsController">
    <children>
-      <JFXTreeTableView fx:id="table" layoutX="-1.0" prefHeight="460.0" prefWidth="790.0">
+      <JFXTreeTableView fx:id="table" layoutX="-1.0" layoutY="42.0" prefHeight="418.0" prefWidth="790.0">
          <columnResizePolicy>
             <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy></JFXTreeTableView>
+      <Label layoutX="54.0" layoutY="14.0" text="Search:" />
+      <JFXTextField fx:id="search" layoutX="112.0" layoutY="11.0" prefHeight="24.0" prefWidth="198.0" />
    </children>
 </AnchorPane>

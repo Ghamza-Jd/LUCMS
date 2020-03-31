@@ -4,6 +4,8 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="359.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.components.head_of_department.CreateCourseController">
@@ -18,6 +20,13 @@
       <JFXComboBox fx:id="lang" layoutX="40.0" layoutY="159.0" prefHeight="21.0" prefWidth="135.0" />
       <Label layoutX="227.0" layoutY="135.0" text="Professor:" />
       <JFXComboBox fx:id="prof" layoutX="218.0" layoutY="159.0" prefHeight="21.0" prefWidth="135.0" />
-      <JFXButton layoutX="251.0" layoutY="260.0" onAction="#createCourse" prefHeight="43.0" prefWidth="83.0" style="-fx-background-color: #ddd;" text="Create" />
+      <JFXButton layoutX="235.0" layoutY="260.0" onAction="#createCourse" prefHeight="43.0" prefWidth="116.0" style="-fx-background-color: #ddd;" text="Create">
+         <graphic>
+            <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/icons/createCourse.png" />
+               </image>
+            </ImageView>
+         </graphic></JFXButton>
    </children>
 </AnchorPane>

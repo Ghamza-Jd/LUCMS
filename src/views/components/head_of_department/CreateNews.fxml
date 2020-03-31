@@ -19,7 +19,7 @@
       <JFXComboBox fx:id="level" layoutX="163.0" layoutY="328.0" prefHeight="21.0" prefWidth="135.0" />
       <JFXButton layoutX="334.0" layoutY="391.0" onAction="#postNews" prefHeight="36.0" prefWidth="122.0" style="-fx-background-color: #ddd;" text="Post News">
          <graphic>
-            <ImageView fitHeight="31.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@/images/icons/news.png" />
                </image>
