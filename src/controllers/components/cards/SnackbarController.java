@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
-public class SnackbarController {
+public final class SnackbarController {
     @FXML
     private Text text;
     @FXML
@@ -15,10 +15,10 @@ public class SnackbarController {
     }
 
     public void setTextColor(String color) {
-        this.text.setStyle(String.format("-fx-fill: %s ;", color));
+        this.text.setStyle(String.format("-fx-fill: %s;", color));
     }
 
     public void setBackgroundColor(String color) {
-        this.pane.setStyle(String.format("-fx-background-color: %s ;", color));
+        this.pane.setStyle(String.format("-fx-background-color: %s;", color));
     }
 }

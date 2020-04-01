@@ -9,9 +9,9 @@ import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
-public class NewsRepo extends Persistence {
+public final class NewsRepo extends Persistence {
     private static NewsRepo _news;
-    private Dao<IModel, String> _accessObject;
+    private final Dao<IModel, String> _accessObject;
 
     private NewsRepo() throws SQLException {
         _accessObject = getAccessObject(News.class);
@@ -24,13 +24,13 @@ public class NewsRepo extends Persistence {
 
     @Override
     public void create(IModel model) throws SQLException {
-        News news = (News) model;
+        final News news = (News) model;
         _accessObject.create(news);
     }
 
     @Override
     public List<IModel> retrieveAll() throws SQLException {
-        List<IModel> models = _accessObject.queryBuilder().query();
+        final List<IModel> models = _accessObject.queryBuilder().query();
         Collections.reverse(models);
         return models;
     }

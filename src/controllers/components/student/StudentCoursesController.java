@@ -21,15 +21,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class StudentCoursesController implements Initializable {
+public final class StudentCoursesController implements Initializable {
     @FXML
     private TreeTableView<CourseRow> table;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        double width = table.getPrefWidth();
+        final double width = table.getPrefWidth();
 
-        JFXTreeTableColumn<CourseRow, String>
+        final JFXTreeTableColumn<CourseRow, String>
                 code        = new JFXTreeTableColumn<>("Code"),
                 name        = new JFXTreeTableColumn<>("Name"),
                 professor   = new JFXTreeTableColumn<>("Professor"),
@@ -51,9 +51,9 @@ public class StudentCoursesController implements Initializable {
         professor.setCellValueFactory(cell -> cell.getValue().getValue().professor);
         credits.setCellValueFactory(cell -> cell.getValue().getValue().credits);
 
-        ObservableList<CourseRow> rows = FXCollections.observableArrayList();
+        final ObservableList<CourseRow> rows = FXCollections.observableArrayList();
         try {
-            ArrayList<Course> courses =
+            final ArrayList<Course> courses =
                     Enrollment
                             .getInstance()
                             .retrieveAllCoursesByStudentId(

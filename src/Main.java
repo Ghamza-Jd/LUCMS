@@ -10,11 +10,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Scene scene = ViewsManager.requestView("Login");
         primaryStage.getIcons().add(new Image("/images/lu_logo.png"));
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("LUMS");
+        primaryStage.setScene(ViewsManager.requestView("Login"));
         primaryStage.setResizable(false);
+        primaryStage.setTitle("LUMS");
         primaryStage.show();
     }
 

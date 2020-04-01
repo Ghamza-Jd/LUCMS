@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class SidePanelController implements Initializable {
+public final class SidePanelController implements Initializable {
     @FXML
     private Label username;
     @FXML
@@ -35,7 +35,7 @@ public class SidePanelController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        String greeting = String.format("Welcome %s!", ((User) Session.getInstance().getValue("user")).getUsername());
+        final String greeting = String.format("Welcome %s!", ((User) Session.getInstance().getValue("user")).getUsername());
         username.setText(greeting);
     }
 

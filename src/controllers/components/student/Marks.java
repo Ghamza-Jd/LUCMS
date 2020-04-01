@@ -22,20 +22,21 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class Marks implements Initializable {
+public final class Marks implements Initializable {
     @FXML
     private JFXTreeTableView<MarkRow> table;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        double width = table.getPrefWidth();
+        final double width = table.getPrefWidth();
 
-        JFXTreeTableColumn<MarkRow, String>
+        final JFXTreeTableColumn<MarkRow, String>
                 code        = new JFXTreeTableColumn<>("Code"),
                 name        = new JFXTreeTableColumn<>("Name"),
                 nbCredits   = new JFXTreeTableColumn<>("Credits"),
                 language    = new JFXTreeTableColumn<>("Language"),
-                grade       = new JFXTreeTableColumn<>("Grade");
+                grade       = new JFXTreeTableColumn<>("Grade")
+        ;
 
         code.setPrefWidth(width / 5 - 1);
         name.setPrefWidth(width / 5 - 1);
@@ -55,9 +56,9 @@ public class Marks implements Initializable {
         language.setCellValueFactory(cell -> cell.getValue().getValue().language);
         grade.setCellValueFactory(cell -> cell.getValue().getValue().grade);
 
-        ObservableList<MarkRow> rows = FXCollections.observableArrayList();
+        final ObservableList<MarkRow> rows = FXCollections.observableArrayList();
         try {
-            ArrayList<Enroll> enrolls =
+            final ArrayList<Enroll> enrolls =
                     Enrollment
                             .getInstance()
                             .retrieveAllGradesByStudentsId(

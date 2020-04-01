@@ -21,7 +21,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class EnrollStudentsController implements Initializable {
+public final class EnrollStudentsController implements Initializable {
 
     @FXML
     private JFXTextField
@@ -39,6 +39,7 @@ public class EnrollStudentsController implements Initializable {
 
     private Student student;
     private Course course;
+    private Pane dashboard;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -46,8 +47,12 @@ public class EnrollStudentsController implements Initializable {
         courseName = null;
     }
 
+    public void setDashboard(Pane dashboard) {
+        this.dashboard = dashboard;
+    }
+
     @FXML
-    void searchStudent(ActionEvent event) throws SQLException {
+    private void searchStudent(ActionEvent event) throws SQLException {
         if(fileNb.getText().equals("") && username.getText().equals("")) {
             Alerts.createDefaultAlert("Error", "Please enter either a file number or username").showAndWait();
             return;
@@ -67,7 +72,7 @@ public class EnrollStudentsController implements Initializable {
     }
 
     @FXML
-    void searchCourse(ActionEvent event) throws SQLException {
+    private void searchCourse(ActionEvent event) throws SQLException {
         if(code.getText().equals("") && courseName.getText().equals("")) {
             Alerts.createDefaultAlert("Error", "Please enter either a course code or course name").showAndWait();
             return;
@@ -89,13 +94,14 @@ public class EnrollStudentsController implements Initializable {
     @FXML
     private void enroll(ActionEvent event) throws SQLException {
         if (student == null || course == null) return;
-        Enroll e = new Enroll(student, course);
+        final Enroll e = new Enroll(student, course);
         Enrollment.getInstance().create(e);
+        Alerts.createSnackbar(dashboard, student.getUser().getUsername() + " enrolled to " + course.getName(), 2);
     }
 
     private void fillStudentCard(Student student) {
         this.student = student;
-        String
+        final String
                 fileNb = String.valueOf(student.getId()),
                 fullName = String.format("%s %s %s",
                         student.getUser().getFirstName(),
@@ -104,9 +110,9 @@ public class EnrollStudentsController implements Initializable {
                 major = student.getMajor(),
                 birth = student.getUser().getDateOfBirth()
         ;
-        ViewsManager.DetailedComponent component =
-                ViewsManager.requestDetailedComponent("cards/studentCard");
-        StudentCardController controller = component.getLoader().getController();
+        final ViewsManager.DetailedComponent component =
+                ViewsManager.requestDetailedComponent("cards/StudentCard");
+        final StudentCardController controller = component.getLoader().getController();
         controller.getFileNb().setText(fileNb);
         controller.getName().setText(fullName);
         controller.getMajor().setText(major);
@@ -116,8 +122,8 @@ public class EnrollStudentsController implements Initializable {
 
     private void fillCourseCard(Course course) {
         this.course = course;
-        User user = course.getProfessor().getUser();
-        String
+        final User user = course.getProfessor().getUser();
+        final String
                 code = course.getCode(),
                 name = course.getName(),
                 lang = course.getLanguage(),
@@ -126,9 +132,9 @@ public class EnrollStudentsController implements Initializable {
                         user.getMiddleName(),
                         user.getLastName())
         ;
-        ViewsManager.DetailedComponent component =
-                ViewsManager.requestDetailedComponent("cards/courseCard");
-        CourseCardController controller = component.getLoader().getController();
+        final ViewsManager.DetailedComponent component =
+                ViewsManager.requestDetailedComponent("cards/CourseCard");
+        final CourseCardController controller = component.getLoader().getController();
         controller.getCode().setText(code);
         controller.getName().setText(name);
         controller.getLang().setText(lang);

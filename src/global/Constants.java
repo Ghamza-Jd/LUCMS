@@ -1,6 +1,6 @@
 package global;
 
-public class Constants {
+public final class Constants {
     public static final String [] MAJORS = {
             "Computer Science",
             "Biology",

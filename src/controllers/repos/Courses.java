@@ -12,11 +12,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class Courses extends Persistence {
+public final class Courses extends Persistence {
     private static Courses _courses;
-    private Dao<IModel, String> _coursesAccessObject;
-    private Dao<IModel, String> _professorsAccessObject;
-    private Dao<IModel, String> _userAccessObject;
+    private final Dao<IModel, String> _coursesAccessObject;
+    private final Dao<IModel, String> _professorsAccessObject;
+    private final Dao<IModel, String> _userAccessObject;
 
     private Courses() throws SQLException {
         _coursesAccessObject = getAccessObject(Course.class);
@@ -51,26 +51,28 @@ public class Courses extends Persistence {
     }
 
     public ArrayList<Course> retrieveProfessorCourses(int id) throws SQLException {
-        List<IModel> models =
+        final List<IModel> models =
                 _coursesAccessObject
                         .queryBuilder()
                         .where()
                         .eq("professor_id", id)
-                        .query();
-        ArrayList<Course> result = new ArrayList<>();
+                        .query()
+        ;
+        final ArrayList<Course> result = new ArrayList<>();
         for(IModel m : models) result.add((Course) m);
         return result;
     }
 
     public Course retrieveCourseByCode(String code) throws SQLException {
-        List<IModel> models =
+        final List<IModel> models =
                 _coursesAccessObject
                         .queryBuilder()
                         .where()
                         .eq("code", code)
-                        .query();
+                        .query()
+        ;
         if(models.size() > 0) {
-            Course course = (Course) models.get(0);
+            final Course course = (Course) models.get(0);
             _professorsAccessObject.refresh(course.getProfessor());
             _userAccessObject.refresh(course.getProfessor().getUser());
             return course;

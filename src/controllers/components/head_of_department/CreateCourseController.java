@@ -21,27 +21,30 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class CreateCourseController implements Initializable {
+public final class CreateCourseController implements Initializable {
     @FXML
     private JFXTextField
             code,
-            name;
+            name
+    ;
+
     @FXML
     private JFXComboBox<String>
             credits,
             lang,
-            prof;
+            prof
+    ;
 
     private Pane dashboard;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ObservableList<String>
+        final ObservableList<String>
                 credit = FXCollections.observableArrayList(Constants.NUMBER_OF_CREDITS),
                 languages = FXCollections.observableArrayList(Constants.LANGUAGES),
                 profs = FXCollections.observableArrayList();
         try {
-            List<IModel> professors = Professors.getInstance().retrieveAll();
+            final List<IModel> professors = Professors.getInstance().retrieveAll();
             for(IModel p : professors) {
                 Professor professor = (Professor) p;
                 profs.add(professor.getUser().getUsername());
@@ -56,7 +59,7 @@ public class CreateCourseController implements Initializable {
 
     @FXML
     void createCourse(ActionEvent event) throws SQLException {
-        Course course = new Course(
+        final Course course = new Course(
                 code.getText(),
                 name.getText(),
                 Integer.parseInt(credits.getValue()),

@@ -39,7 +39,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
-public class ViewStudentsController implements Initializable {
+public final class ViewStudentsController implements Initializable {
     @FXML
     private JFXTreeTableView<StudentRow> table;
     private ObservableList<StudentRow> rows;
@@ -48,9 +48,9 @@ public class ViewStudentsController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         rows = FXCollections.observableArrayList();
-        double width = table.getPrefWidth();
+        final double width = table.getPrefWidth();
 
-        JFXTreeTableColumn<StudentRow, String>
+        final JFXTreeTableColumn<StudentRow, String>
                 fileNumber        = new JFXTreeTableColumn<>("File #"),
                 fullName          = new JFXTreeTableColumn<>("Full Name"),
                 username          = new JFXTreeTableColumn<>("Username"),
@@ -71,19 +71,20 @@ public class ViewStudentsController implements Initializable {
         fullName.setCellValueFactory(cell -> cell.getValue().getValue().fullName);
         username.setCellValueFactory(cell -> cell.getValue().getValue().username);
 
-        Callback<TreeTableColumn<StudentRow, String>, TreeTableCell<StudentRow, String>> actionsCell =
-                new Callback<TreeTableColumn<StudentRow, String>, TreeTableCell<StudentRow, String>>() {
+        final Callback<TreeTableColumn<StudentRow, String>, TreeTableCell<StudentRow, String>> actionsCell =
+                new Callback<>() {
                     @Override
                     public TreeTableCell<StudentRow, String> call(TreeTableColumn<StudentRow, String> param) {
-                        return new TreeTableCell<StudentRow, String>() {
-                            ViewsManager.DetailedComponent component =
+                        return new TreeTableCell<>() {
+                            final ViewsManager.DetailedComponent component =
                                     ViewsManager.requestDetailedComponent("user/Actions");
-                            ActionsController controller = component.getLoader().getController();
+                            final ActionsController controller = component.getLoader().getController();
+
                             {
                                 controller.getEdit().setOnAction(e -> {
                                     try {
-                                        String id  = this.getTreeTableRow().getTreeItem().getValue().fileNumber.getValue();
-                                        Student student = Students.getInstance().retrieveSingleByFileNb(Integer.parseInt(id));
+                                        final String id = this.getTreeTableRow().getTreeItem().getValue().fileNumber.getValue();
+                                        final Student student = Students.getInstance().retrieveSingleByFileNb(Integer.parseInt(id));
                                         displayStudentEdit(student);
                                     } catch (SQLException ex) {
                                         ex.printStackTrace();
@@ -91,8 +92,8 @@ public class ViewStudentsController implements Initializable {
                                 });
                                 controller.getDetails().setOnAction(e -> {
                                     try {
-                                        String id  = this.getTreeTableRow().getTreeItem().getValue().fileNumber.getValue();
-                                        Student student = Students.getInstance().retrieveSingleByFileNb(Integer.parseInt(id));
+                                        final String id = this.getTreeTableRow().getTreeItem().getValue().fileNumber.getValue();
+                                        final Student student = Students.getInstance().retrieveSingleByFileNb(Integer.parseInt(id));
                                         displayStudentDetails(student);
                                     } catch (SQLException ex) {
                                         ex.printStackTrace();
@@ -100,22 +101,23 @@ public class ViewStudentsController implements Initializable {
                                 });
                                 controller.getDelete().setOnAction(e -> {
                                     try {
-                                        String id  = this.getTreeTableRow().getTreeItem().getValue().fileNumber.getValue();
-                                        Student student = Students.getInstance().retrieveSingleByFileNb(Integer.parseInt(id));
+                                        final String id = this.getTreeTableRow().getTreeItem().getValue().fileNumber.getValue();
+                                        final Student student = Students.getInstance().retrieveSingleByFileNb(Integer.parseInt(id));
                                         displayDeleteDialog(student, getIndex());
                                     } catch (SQLException ex) {
                                         ex.printStackTrace();
                                     }
                                 });
                             }
+
                             final Parent root = component.getRoot();
+
                             @Override
                             protected void updateItem(String item, boolean empty) {
                                 super.updateItem(item, empty);
-                                if(empty) {
+                                if (empty) {
                                     setGraphic(null);
-                                }
-                                else {
+                                } else {
                                     setGraphic(root);
                                     setAlignment(Pos.CENTER);
                                 }
@@ -144,7 +146,7 @@ public class ViewStudentsController implements Initializable {
     }
 
     private void populateTable() throws SQLException {
-        ArrayList<Student> students = Students.getInstance().retrieveAllStudents();
+        final ArrayList<Student> students = Students.getInstance().retrieveAllStudents();
         for(Student s : students) {
             rows.add(
                     new StudentRow(
@@ -179,12 +181,12 @@ public class ViewStudentsController implements Initializable {
         layout.setStyle("-fx-border-color: grey;");
         layout.setHeading(heading);
 
-        ViewsManager.DetailedComponent readOnlyComponent = ViewsManager.requestDetailedComponent("user/Profile");
-        ProfileController readOnlyController = readOnlyComponent.getLoader().getController();
+        final ViewsManager.DetailedComponent readOnlyComponent = ViewsManager.requestDetailedComponent("user/Profile");
+        final ProfileController readOnlyController = readOnlyComponent.getLoader().getController();
         readOnlyController.fillFields(student.getUser());
 
-        ViewsManager.DetailedComponent editableComponent = ViewsManager.requestDetailedComponent("user/CreateUser");
-        CreateUserController editableController = editableComponent.getLoader().getController();
+        final ViewsManager.DetailedComponent editableComponent = ViewsManager.requestDetailedComponent("user/CreateUser");
+        final CreateUserController editableController = editableComponent.getLoader().getController();
         editableController.fillFields(student.getUser());
         editableComponent.getRoot().setVisible(false);
 
@@ -263,8 +265,8 @@ public class ViewStudentsController implements Initializable {
         final HBox heading = new HBox(new Label("Details"), region, exit);
         layout.setHeading(heading);
 
-        ViewsManager.DetailedComponent component = ViewsManager.requestDetailedComponent("user/CreateUser");
-        CreateUserController controller = component.getLoader().getController();
+        final ViewsManager.DetailedComponent component = ViewsManager.requestDetailedComponent("user/CreateUser");
+        final CreateUserController controller = component.getLoader().getController();
         controller.fillFields(student.getUser());
 
         final JFXButton update = new JFXButton("Update");
@@ -302,7 +304,7 @@ public class ViewStudentsController implements Initializable {
         alert.showAndWait();
     }
 
-    public void displayDeleteDialog(Student student, int index) throws SQLException {
+    public void displayDeleteDialog(Student student, int index) {
         final JFXAlert<String> alert = Alerts.createAlert();
         final JFXDialogLayout layout = Alerts.createLayout("Remove Student", String.format(
                 "Are you sure you want to remove %s %s %s having file# %d",
@@ -345,15 +347,15 @@ public class ViewStudentsController implements Initializable {
     }
 
     public User getStudentFields(CreateUserController controller, Student student) {
-        HashMap<String, String> fields = controller.getUserFields();
+        final HashMap<String, String> fields = controller.getUserFields();
         student.getUser().setFirstName(fields.get("first_name"));
         student.getUser().setMiddleName(fields.get("middle_name"));
         student.getUser().setLastName(fields.get("last_name"));
         student.getUser().setUsername(fields.get("username"));
 
-        LocalDate localDate = LocalDate.parse(fields.get("date"), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
-        Date date = Date.from(instant);
+        final LocalDate localDate = LocalDate.parse(fields.get("date"), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        final Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
+        final Date date = Date.from(instant);
         student.getUser().setDateOfBirth(date);
 
         student.getUser().setGender(fields.get("gender"));

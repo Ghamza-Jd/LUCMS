@@ -13,15 +13,15 @@ import java.util.HashMap;
 /**
  * Dao Factory
  */
-public class DatabaseHandler {
+public final class DatabaseHandler {
     private static DatabaseHandler _db;
-    private JdbcPooledConnectionSource connectionSource;
+    private final JdbcPooledConnectionSource connectionSource;
 
     /**
      * HashMap that has the name of the class as a key
      * and the Dao as value
      */
-    private HashMap<String, Object> accessObjects;
+    private final HashMap<String, Object> accessObjects;
 
     private DatabaseHandler() throws SQLException {
         accessObjects = new HashMap<>();
@@ -53,7 +53,7 @@ public class DatabaseHandler {
      */
     public <T extends IModel> Dao<T, String> getDao(Class<T> clazz) throws SQLException {
         if(accessObjects.containsKey(clazz.getName())) return (Dao<T, String>) accessObjects.get(clazz.getName());
-        Dao<T, String> dao = DaoManager.createDao(connectionSource, clazz);
+        final Dao<T, String> dao = DaoManager.createDao(connectionSource, clazz);
         TableUtils.createTableIfNotExists(connectionSource, clazz);
         accessObjects.put(clazz.getName(), dao);
         return dao;

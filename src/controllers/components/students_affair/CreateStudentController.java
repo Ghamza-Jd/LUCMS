@@ -18,7 +18,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class CreateStudentController implements Initializable {
+public final class CreateStudentController implements Initializable {
     @FXML
     private Pane user;
     @FXML
@@ -30,17 +30,17 @@ public class CreateStudentController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ViewsManager.DetailedComponent component =
+        final ViewsManager.DetailedComponent component =
                 ViewsManager.requestDetailedComponent("user/CreateUser");
         controller = component.getLoader().getController();
         user.getChildren().setAll(component.getRoot());
-        ObservableList<String> majors = FXCollections.observableArrayList(Constants.MAJORS);
+        final ObservableList<String> majors = FXCollections.observableArrayList(Constants.MAJORS);
         major.setItems(majors);
     }
 
     @FXML
     public void createStudent(ActionEvent event) throws SQLException {
-        Student student = new Student(controller.getUser(), major.getValue());
+        final Student student = new Student(controller.getUser(), major.getValue());
         Students.getInstance().create(student);
         Alerts.createSnackbar(dashboard, "Student Created Successfully", 2);
     }

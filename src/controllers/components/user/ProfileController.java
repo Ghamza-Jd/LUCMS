@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
-public class ProfileController implements Initializable {
+public final class ProfileController implements Initializable {
     @FXML
     private JFXTextField
             firstName,
@@ -31,7 +31,7 @@ public class ProfileController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        User user = (User) Session.getInstance().getValue("user");
+        final User user = (User) Session.getInstance().getValue("user");
         fillFields(user);
         if(user.getRole().equals("STUDENT")) {
             addition.getChildren().setAll(ViewsManager.requestComponent("student/StudentProfile"));

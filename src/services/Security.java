@@ -6,7 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class Security {
+public final class Security {
     /**
      * @param password plain password to be hashed
      * @return digested password
@@ -14,10 +14,10 @@ public class Security {
     public static String hash(String password){
         String digest = null;
         try {
-            MessageDigest md = MessageDigest.getInstance("SHA-512");
+            final MessageDigest md = MessageDigest.getInstance("SHA-512");
             md.update(Config.PASSWORD_SALT.getBytes(StandardCharsets.UTF_8));
             byte[] bytes = md.digest(password.getBytes(StandardCharsets.UTF_8));
-            StringBuilder sb = new StringBuilder();
+            final StringBuilder sb = new StringBuilder();
             for (byte aByte : bytes)
                 sb.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1));
             digest = sb.toString();

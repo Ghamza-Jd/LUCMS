@@ -9,7 +9,7 @@ import services.Session;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class StudentProfileController implements Initializable {
+public final class StudentProfileController implements Initializable {
     @FXML
     private JFXTextField major;
 

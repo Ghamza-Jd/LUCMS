@@ -8,7 +8,7 @@ import javafx.scene.control.Tooltip;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ActionsController implements Initializable {
+public final class ActionsController implements Initializable {
     @FXML
     private JFXButton
             edit,

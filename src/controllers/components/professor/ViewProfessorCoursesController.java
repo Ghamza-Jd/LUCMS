@@ -23,23 +23,23 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class ViewProfessorCoursesController implements Initializable {
+public final class ViewProfessorCoursesController implements Initializable {
     @FXML
     private JFXListView<String> listView;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         listView.setCellFactory(stringListView -> new CenteredListViewCell());
-        ArrayList<String> coursesInfo = new ArrayList<>();
-        int prof_id = ((Professor) Session.getInstance().getValue("professor")).getId();
+        final ArrayList<String> coursesInfo = new ArrayList<>();
+        final int prof_id = ((Professor) Session.getInstance().getValue("professor")).getId();
         try {
-            ArrayList<Course> courses = Courses.getInstance().retrieveProfessorCourses(prof_id);
+            final ArrayList<Course> courses = Courses.getInstance().retrieveProfessorCourses(prof_id);
             for(Course course : courses){
                 coursesInfo.add(course.printCourse());
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        ObservableList<String> coursesItems = FXCollections.observableArrayList(coursesInfo);
+        final ObservableList<String> coursesItems = FXCollections.observableArrayList(coursesInfo);
         listView.setItems(coursesItems);
     }
 
@@ -50,11 +50,11 @@ public class ViewProfessorCoursesController implements Initializable {
             if (empty) {
                 setGraphic(null);
             } else {
-                HBox hBox = new HBox();
+                final HBox hBox = new HBox();
                 hBox.setAlignment(Pos.CENTER);
                 hBox.setPrefHeight(20);
 
-                Label label = new Label(item);
+                final Label label = new Label(item);
                 label.setAlignment(Pos.CENTER);
                 label.setFont(Font.font("System", FontWeight.NORMAL, 14));
 

@@ -3,7 +3,7 @@ package controllers.components.head_of_department;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 
-public class HodSidePanelController {
+public final class HodSidePanelController {
     @FXML
     private JFXButton createNews;
     @FXML

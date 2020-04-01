@@ -3,13 +3,14 @@ package controllers.components.cards;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 
-public class CourseCardController {
+public final class CourseCardController {
     @FXML
     private JFXTextField
             name,
             code,
             lang,
-            prof;
+            prof
+    ;
 
     public JFXTextField getName() { return name; }
 

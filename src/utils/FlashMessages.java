@@ -2,9 +2,9 @@ package utils;
 
 import java.util.HashMap;
 
-public class FlashMessages {
+public final class FlashMessages {
     private static FlashMessages _instance;
-    private HashMap<String, String> _messages;
+    private final HashMap<String, String> _messages;
 
     private FlashMessages() { _messages = new HashMap<>(); }
 
@@ -13,7 +13,9 @@ public class FlashMessages {
         return _instance;
     }
 
-    public <T> void sendMessage(Class<T> clazz, String message) { _messages.put(clazz.getName(), message); }
+    public <T> void sendMessage(Class<T> clazz, String message) {
+        _messages.put(clazz.getName(), message);
+    }
 
     public <T> String receiveMessages(Class<T> clazz) {
         String message = null;
@@ -24,5 +26,7 @@ public class FlashMessages {
         return message;
     }
 
-    public <T> void deleteMessage(Class<T> clazz) { _messages.remove(clazz.getName()); }
+    public <T> void deleteMessage(Class<T> clazz) {
+        _messages.remove(clazz.getName());
+    }
 }

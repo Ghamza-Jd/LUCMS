@@ -9,7 +9,7 @@ import services.Session;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ProfessorProfileController implements Initializable {
+public final class ProfessorProfileController implements Initializable {
     @FXML
     private JFXTextField office;
     @Override

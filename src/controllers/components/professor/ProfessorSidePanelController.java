@@ -3,11 +3,12 @@ package controllers.components.professor;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 
-public class ProfessorSidePanelController {
+public final class ProfessorSidePanelController {
     @FXML
     private JFXButton
             grades,
-            courses;
+            courses
+    ;
 
     public JFXButton getCourses() {
         return courses;

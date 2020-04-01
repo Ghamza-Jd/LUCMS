@@ -11,7 +11,7 @@ import javafx.scene.text.Text;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class NewsCardController {
+public final class NewsCardController {
     @FXML
     private Text title, date;
     @FXML

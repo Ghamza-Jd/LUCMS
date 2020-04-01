@@ -10,10 +10,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Students extends Persistence {
+public final class Students extends Persistence {
     private static Students _students;
-    private Dao<IModel, String> _studentsAccessObject;
-    private Dao<IModel, String> _usersAccessObject;
+    private final Dao<IModel, String> _studentsAccessObject;
+    private final Dao<IModel, String> _usersAccessObject;
 
     private Students() throws SQLException {
         _studentsAccessObject = getAccessObject(Student.class);
@@ -27,8 +27,8 @@ public class Students extends Persistence {
 
     @Override
     public void create(IModel model) throws SQLException {
-        Student student = (Student) model;
-        User user = student.getUser();
+        final Student student = (Student) model;
+        final User user = student.getUser();
         user.setRole("STUDENT");
         student.setUser(user);
         _usersAccessObject.create(user);
@@ -47,13 +47,13 @@ public class Students extends Persistence {
 
     @Override
     public void delete(IModel model) throws SQLException {
-        Student student = (Student) model;
+        final Student student = (Student) model;
         _studentsAccessObject.delete(student);
         _usersAccessObject.delete(student.getUser());
     }
 
     public Student retrieveSingle(User user) throws SQLException {
-        List<IModel> students =
+        final List<IModel> students =
                 _studentsAccessObject
                         .queryBuilder()
                         .where()
@@ -61,7 +61,7 @@ public class Students extends Persistence {
                         .query()
         ;
         if(students.size() > 0) {
-            IModel student = students.get(0);
+            final IModel student = students.get(0);
             _usersAccessObject.refresh(((Student) student).getUser());
             return (Student) student;
         }
@@ -69,7 +69,7 @@ public class Students extends Persistence {
     }
 
     public Student retrieveSingleByFileNb(int fileNb) throws SQLException {
-        List<IModel> students =
+        final List<IModel> students =
                 _studentsAccessObject
                         .queryBuilder()
                         .where()
@@ -77,7 +77,7 @@ public class Students extends Persistence {
                         .query()
         ;
         if(students.size() > 0) {
-            IModel student = students.get(0);
+            final IModel student = students.get(0);
             _usersAccessObject.refresh(((Student) student).getUser());
             return (Student) student;
         }
@@ -85,7 +85,7 @@ public class Students extends Persistence {
     }
 
     public Student retrieveSingleByUsername(String username) throws SQLException {
-        List<IModel> users =
+        final List<IModel> users =
                 _usersAccessObject
                         .queryBuilder()
                         .where()
@@ -93,17 +93,17 @@ public class Students extends Persistence {
                         .query()
         ;
         if(users.size() > 0) {
-            User user = (User) users.get(0);
+            final User user = (User) users.get(0);
             return user.getRole().equals("STUDENT") ? retrieveSingleByFileNb((user).getId()) : null;
         }
         return null;
     }
 
     public ArrayList<Student> retrieveAllStudents() throws SQLException {
-        List<IModel> models = _studentsAccessObject.queryBuilder().query();
-        ArrayList<Student> students = new ArrayList<>();
+        final List<IModel> models = _studentsAccessObject.queryBuilder().query();
+        final ArrayList<Student> students = new ArrayList<>();
         for(IModel m : models) {
-            Student student = (Student) m;
+            final Student student = (Student) m;
             _usersAccessObject.refresh(student.getUser());
             students.add(student);
         }

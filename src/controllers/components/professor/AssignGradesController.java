@@ -36,7 +36,7 @@ import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class AssignGradesController implements Initializable {
+public final class AssignGradesController implements Initializable {
     @FXML
     private JFXTreeTableView<AssignmentRow> table;
     @FXML
@@ -53,7 +53,7 @@ public class AssignGradesController implements Initializable {
         displayedRows = FXCollections.observableArrayList();
         double width = table.getPrefWidth();
 
-        JFXTreeTableColumn<AssignmentRow, String>
+        final JFXTreeTableColumn<AssignmentRow, String>
                 fileNumber  = new JFXTreeTableColumn<>("File #"),
                 fullName    = new JFXTreeTableColumn<>("Full Name"),
                 grade       = new JFXTreeTableColumn<>("Grade"),
@@ -74,14 +74,14 @@ public class AssignGradesController implements Initializable {
         fullName.setCellValueFactory(cell -> cell.getValue().getValue().fullName);
         grade.setCellValueFactory(cell -> cell.getValue().getValue().grade);
 
-        Callback<TreeTableColumn<AssignmentRow, String>, TreeTableCell<AssignmentRow, String>> actionsCell =
+        final Callback<TreeTableColumn<AssignmentRow, String>, TreeTableCell<AssignmentRow, String>> actionsCell =
                 new Callback<TreeTableColumn<AssignmentRow, String>, TreeTableCell<AssignmentRow, String>>() {
                     @Override
                     public TreeTableCell<AssignmentRow, String> call(TreeTableColumn<AssignmentRow, String> param) {
                         return new TreeTableCell<AssignmentRow, String>() {
-                            ViewsManager.DetailedComponent component =
+                            final ViewsManager.DetailedComponent component =
                                     ViewsManager.requestDetailedComponent("user/Actions");
-                            ActionsController controller = component.getLoader().getController();
+                            final ActionsController controller = component.getLoader().getController();
                             {
                                 controller.getEdit().setOnAction(e -> { });
                                 controller.getDetails().setOnAction(e -> { });
@@ -109,7 +109,7 @@ public class AssignGradesController implements Initializable {
 
         courses.getSelectionModel().selectedItemProperty().addListener((option, oldVal, newVale) -> {
             try {
-                String code = newVale.split(" ")[0];
+                final String code = newVale.split(" ")[0];
                 populateTable(code);
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -129,7 +129,7 @@ public class AssignGradesController implements Initializable {
     private void populateTable(String courseCode) throws SQLException {
         if(courseCode.equals("")) return;
         rows.clear();
-        ArrayList<Enroll> enrolls = Enrollment.getInstance().retrieveStudentsByCourseCode(courseCode);
+        final ArrayList<Enroll> enrolls = Enrollment.getInstance().retrieveStudentsByCourseCode(courseCode);
         for(Enroll enroll : enrolls) {
             rows.add(
                     new AssignmentRow(
@@ -149,27 +149,29 @@ public class AssignGradesController implements Initializable {
     }
 
     private void populateComboBox() {
-        ArrayList<String> coursesInfo = new ArrayList<>();
-        int prof_id = ((Professor) Session.getInstance().getValue("professor")).getId();
+        final int prof_id = ((Professor) Session.getInstance().getValue("professor")).getId();
+        final ArrayList<String> coursesInfo = new ArrayList<>();
         try {
-            ArrayList<Course> courses = Courses.getInstance().retrieveProfessorCourses(prof_id);
+            final ArrayList<Course> courses = Courses.getInstance().retrieveProfessorCourses(prof_id);
             for(Course course : courses){
                 coursesInfo.add(course.printCourse());
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        ObservableList<String> coursesItems = FXCollections.observableArrayList(coursesInfo);
+        final ObservableList<String> coursesItems = FXCollections.observableArrayList(coursesInfo);
         courses.setItems(coursesItems);
     }
 
     private void searchTable(String regex) {
-        ObservableList<AssignmentRow> newRows = FXCollections.observableArrayList();
+        final ObservableList<AssignmentRow> newRows = FXCollections.observableArrayList();
         for(AssignmentRow assignmentRow : rows) {
-            Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
-            Matcher fullNameMatcher = pattern.matcher(assignmentRow.fullName.getValue());
-            Matcher fileNumberMatcher = pattern.matcher(assignmentRow.fileNumber.getValue());
-            Matcher gradeMatcher = pattern.matcher(assignmentRow.grade.getValue());
+            final Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+            final Matcher
+                    fullNameMatcher = pattern.matcher(assignmentRow.fullName.getValue()),
+                    fileNumberMatcher = pattern.matcher(assignmentRow.fileNumber.getValue()),
+                    gradeMatcher = pattern.matcher(assignmentRow.grade.getValue())
+            ;
             if(fullNameMatcher.find() || fileNumberMatcher.find() || gradeMatcher.find()) newRows.add(assignmentRow);
         }
         displayedRows.clear();

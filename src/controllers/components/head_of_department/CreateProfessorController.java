@@ -15,7 +15,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class CreateProfessorController implements Initializable {
+public final class CreateProfessorController implements Initializable {
     @FXML
     private Pane user;
     @FXML
@@ -27,7 +27,7 @@ public class CreateProfessorController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ViewsManager.DetailedComponent component =
+        final ViewsManager.DetailedComponent component =
                 ViewsManager.requestDetailedComponent("user/CreateUser");
         controller = component.getLoader().getController();
         user.getChildren().setAll(component.getRoot());
@@ -42,13 +42,13 @@ public class CreateProfessorController implements Initializable {
                     4, "#D00", "#FFF");
             return;
         }
-        Professor professor = new Professor(controller.getUser(), Integer.parseInt(office.getText()));
+        final Professor professor = new Professor(controller.getUser(), Integer.parseInt(office.getText()));
         Professors.getInstance().create(professor);
         Alerts.createSnackbar(dashboard, "Professor created successfully", 2);
     }
 
     private String validateInput() {
-        StringBuilder errors = new StringBuilder(controller.validateInput());
+        final StringBuilder errors = new StringBuilder(controller.validateInput());
         if(office.getText().equals("")) errors.append("office ");
         return errors.toString();
     }

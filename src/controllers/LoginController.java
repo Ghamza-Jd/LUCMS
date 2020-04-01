@@ -22,7 +22,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class LoginController implements Initializable {
+public final class LoginController implements Initializable {
     @FXML
     private TextField username;
     @FXML
@@ -32,15 +32,15 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        String message = FlashMessages.getInstance().receiveMessages(getClass());
+        final String message = FlashMessages.getInstance().receiveMessages(getClass());
         if(message == null) return;
         Alerts.createSnackbar(pane, message, 1, "#080", "#FFF");
     }
 
     @FXML
     public void loginBtnHandler(ActionEvent event) throws SQLException, IOException {
-        String username = this.username.getText();
-        String password = this.password.getText();
+        final String username = this.username.getText();
+        final String password = this.password.getText();
         try {
             if (Users.getInstance().isUser(username, password)) {
                 login(username);
@@ -55,7 +55,7 @@ public class LoginController implements Initializable {
     private void login(String username) throws SQLException {
         // TODO: Fix the roles when logging in
         Session.getInstance().addToSession("user", Users.getInstance().retrieveSingle(username));
-        User user = (User) Session.getInstance().getValue("user");
+        final User user = (User) Session.getInstance().getValue("user");
         if(user.getRole().equals("STUDENT")) {
             Session.getInstance().addToSession("student", Students.getInstance().retrieveSingle(user));
         }

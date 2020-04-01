@@ -9,13 +9,17 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class ViewsManager {
-    public static Stage getActiveStage(ActionEvent event) { return (Stage) getActiveScene(event).getWindow(); }
+public final class ViewsManager {
+    public static Stage getActiveStage(ActionEvent event) {
+        return (Stage) getActiveScene(event).getWindow();
+    }
 
-    public static Scene getActiveScene(ActionEvent event) { return ((Node) event.getSource()).getScene(); }
+    public static Scene getActiveScene(ActionEvent event) {
+        return ((Node) event.getSource()).getScene();
+    }
 
     public static Scene requestView(String path) throws IOException {
-        Parent root = FXMLLoader.load(ViewsManager.class.getResource(String.format("../views/%s.fxml", path)));
+        final Parent root = FXMLLoader.load(ViewsManager.class.getResource(String.format("../views/%s.fxml", path)));
         return new Scene(root);
     }
 
@@ -29,7 +33,7 @@ public class ViewsManager {
     }
 
     public static DetailedComponent requestDetailedComponent(String path) {
-        FXMLLoader loader = new FXMLLoader(ViewsManager.class.getResource(String.format("../views/components/%s.fxml", path)));
+        final FXMLLoader loader = new FXMLLoader(ViewsManager.class.getResource(String.format("../views/components/%s.fxml", path)));
         Parent root = null;
         try {
             root = loader.load();

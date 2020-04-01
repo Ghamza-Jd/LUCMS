@@ -10,9 +10,9 @@ import services.Security;
 import java.sql.SQLException;
 import java.util.List;
 
-public class Users extends Persistence {
+public final class Users extends Persistence {
     private static Users _users;
-    private Dao<IModel, String> _accessObject;
+    private final Dao<IModel, String> _accessObject;
 
     private Users() throws SQLException { _accessObject = getAccessObject(User.class); }
 
@@ -23,7 +23,7 @@ public class Users extends Persistence {
 
     public boolean isUser(String username, String password) throws SQLException {
         if(!exists(username)) throw new InvalidCredentialsException();
-        User user = retrieveSingle(username);
+        final User user = retrieveSingle(username);
         if(!Security.eqHash(password, user.getPassword())) throw new InvalidCredentialsException();
         return true;
     }
@@ -46,7 +46,7 @@ public class Users extends Persistence {
     public void delete(IModel model) throws SQLException { }
 
     public boolean exists(String username) throws SQLException {
-        List<IModel> users =
+        final List<IModel> users =
                 _accessObject
                     .queryBuilder()
                     .where()
@@ -57,7 +57,7 @@ public class Users extends Persistence {
     }
 
     public User retrieveSingle(String username) throws SQLException {
-        List<IModel> users =
+        final List<IModel> users =
                 _accessObject
                         .queryBuilder()
                         .where()

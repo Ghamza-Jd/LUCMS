@@ -21,7 +21,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class CreateNews implements Initializable {
+public final class CreateNews implements Initializable {
     @FXML
     private JFXTextField title;
     @FXML
@@ -37,7 +37,7 @@ public class CreateNews implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ObservableList<String> levelOption = FXCollections.observableArrayList();
+        final ObservableList<String> levelOption = FXCollections.observableArrayList();
         levelOption.setAll(Constants.WARNING_LEVELS);
         level.setItems(levelOption);
         body.addEventHandler(KeyEvent.KEY_PRESSED, e -> {

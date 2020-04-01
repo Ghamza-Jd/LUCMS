@@ -21,14 +21,15 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
-public class CreateUserController implements Initializable {
+public final class CreateUserController implements Initializable {
     @FXML
     private JFXTextField
             firstName,
             middleName,
             lastName,
             username,
-            phoneNumber;
+            phoneNumber
+    ;
     @FXML
     private JFXDatePicker dateOfBirth;
     @FXML
@@ -37,7 +38,7 @@ public class CreateUserController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         dateOfBirth.setValue(LocalDate.of(2000, 1, 1));
-        ObservableList<String> genders = FXCollections.observableArrayList();
+        final ObservableList<String> genders = FXCollections.observableArrayList();
         genders.setAll(Constants.GENDERS);
         gender.setItems(genders);
         phoneNumber.setOnKeyTyped(e -> {
@@ -47,9 +48,9 @@ public class CreateUserController implements Initializable {
     }
 
     public User getUser() {
-        LocalDate localDate = dateOfBirth.getValue();
-        Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
-        Date date = Date.from(instant);
+        final LocalDate localDate = dateOfBirth.getValue();
+        final Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
+        final Date date = Date.from(instant);
         return new User(
                 firstName.getText(),
                 middleName.getText(),
@@ -68,23 +69,23 @@ public class CreateUserController implements Initializable {
         lastName.setText(user.getLastName());
         username.setText(user.getUsername());
         phoneNumber.setText(user.getPhone());
-        LocalDate localDate = LocalDate.parse(user.getDateOfBirth(), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        final LocalDate localDate = LocalDate.parse(user.getDateOfBirth(), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         dateOfBirth.setValue(localDate);
         gender.setValue(user.getGender());
     }
 
     public HashMap<String, String> getUserFields() {
-        HashMap<String, String> fields = new HashMap<>();
+        final HashMap<String, String> fields = new HashMap<>();
         fields.put("first_name", firstName.getText());
         fields.put("middle_name", middleName.getText());
         fields.put("last_name", lastName.getText());
         fields.put("username", username.getText());
         fields.put("phone", phoneNumber.getText());
 
-        LocalDate localDate = dateOfBirth.getValue();
-        Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
-        Date date = Date.from(instant);
-        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        final LocalDate localDate = dateOfBirth.getValue();
+        final Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
+        final Date date = Date.from(instant);
+        final SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         fields.put("date", df.format(date));
 
         fields.put("gender", gender.getValue());
@@ -92,7 +93,7 @@ public class CreateUserController implements Initializable {
     }
 
     public String validateInput() {
-        StringBuilder errors = new StringBuilder();
+        final StringBuilder errors = new StringBuilder();
         if(gender.getValue().equals(""))                    errors.append("gender ");
         if(username.getText().equals(""))                   errors.append("username ");
         if(lastName.getText().equals(""))                   errors.append("last name ");

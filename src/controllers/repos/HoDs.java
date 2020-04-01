@@ -10,10 +10,10 @@ import services.Persistence;
 import java.sql.SQLException;
 import java.util.List;
 
-public class HoDs extends Persistence {
+public final class HoDs extends Persistence {
     private static HoDs _hods;
-    private Dao<IModel, String> _hodsAccessObject;
-    private Dao<IModel, String> _usersAccessObject;
+    private final Dao<IModel, String> _hodsAccessObject;
+    private final Dao<IModel, String> _usersAccessObject;
 
     private HoDs() throws SQLException {
         _hodsAccessObject = getAccessObject(HeadOfDepartment.class);
@@ -27,7 +27,7 @@ public class HoDs extends Persistence {
 
     @Override
     public void create(IModel model) throws SQLException {
-        HeadOfDepartment hod = (HeadOfDepartment) model;
+        final HeadOfDepartment hod = (HeadOfDepartment) model;
         hod.getUser().setRole("HEAD_OF_DEPARTMENT");
         _usersAccessObject.create(hod.getUser());
         _hodsAccessObject.create(hod);

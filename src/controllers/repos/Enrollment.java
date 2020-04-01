@@ -9,13 +9,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Enrollment extends Persistence {
+public final class Enrollment extends Persistence {
     private static Enrollment   _enrollment;
-    private Dao<IModel, String> _enrollmentAccessObject;
-    private Dao<IModel, String> _professorsAccessObject;
-    private Dao<IModel, String> _coursesAccessObject;
-    private Dao<IModel, String> _usersAccessObject;
-    private Dao<IModel, String> _studentsAccessObject;
+    private final Dao<IModel, String> _enrollmentAccessObject;
+    private final Dao<IModel, String> _professorsAccessObject;
+    private final Dao<IModel, String> _coursesAccessObject;
+    private final Dao<IModel, String> _usersAccessObject;
+    private final Dao<IModel, String> _studentsAccessObject;
 
     private Enrollment() throws SQLException {
         _enrollmentAccessObject = getAccessObject(Enroll.class);
@@ -32,7 +32,7 @@ public class Enrollment extends Persistence {
 
     @Override
     public void create(IModel model) throws SQLException {
-        Enroll enroll = (Enroll) model;
+        final Enroll enroll = (Enroll) model;
         _enrollmentAccessObject.create(enroll);
     }
 
@@ -52,7 +52,7 @@ public class Enrollment extends Persistence {
     }
 
     public ArrayList<Course> retrieveAllCoursesByStudentId(int id) throws SQLException {
-        List<IModel> enrollments =
+        final List<IModel> enrollments =
                 _enrollmentAccessObject
                         .queryBuilder()
                         .where()
@@ -60,9 +60,9 @@ public class Enrollment extends Persistence {
                         .query()
         ;
         if(enrollments.size() <= 0) return null;
-        ArrayList<Course> courses = new ArrayList<>();
+        final ArrayList<Course> courses = new ArrayList<>();
         for(IModel model : enrollments) {
-            Enroll enroll = (Enroll) model;
+            final Enroll enroll = (Enroll) model;
             _coursesAccessObject.refresh(enroll.getCourse());
             _professorsAccessObject.refresh(enroll.getCourse().getProfessor());
             _usersAccessObject.refresh(enroll.getCourse().getProfessor().getUser());
@@ -72,7 +72,7 @@ public class Enrollment extends Persistence {
     }
 
     public ArrayList<Enroll> retrieveAllGradesByStudentsId(int id) throws SQLException {
-        List<IModel> enrollments =
+        final List<IModel> enrollments =
                 _enrollmentAccessObject
                         .queryBuilder()
                         .where()
@@ -80,9 +80,9 @@ public class Enrollment extends Persistence {
                         .query()
                 ;
         if(enrollments.size() <= 0) return null;
-        ArrayList<Enroll> enrolls = new ArrayList<>();
+        final ArrayList<Enroll> enrolls = new ArrayList<>();
         for(IModel model : enrollments) {
-            Enroll enroll = (Enroll) model;
+            final Enroll enroll = (Enroll) model;
             if(enroll.isAssigned()) {
                 _coursesAccessObject.refresh(enroll.getCourse());
                 enrolls.add(enroll);
@@ -92,8 +92,8 @@ public class Enrollment extends Persistence {
     }
 
     public ArrayList<Enroll> retrieveStudentsByCourseCode(String code) throws SQLException {
-        Course course = Courses.getInstance().retrieveCourseByCode(code);
-        List<IModel> enrollments =
+        final Course course = Courses.getInstance().retrieveCourseByCode(code);
+        final List<IModel> enrollments =
                 _enrollmentAccessObject
                         .queryBuilder()
                         .where()
@@ -101,9 +101,9 @@ public class Enrollment extends Persistence {
                         .query()
         ;
         if(enrollments.size() <= 0) return null;
-        ArrayList<Enroll> enrolls = new ArrayList<>();
+        final ArrayList<Enroll> enrolls = new ArrayList<>();
         for(IModel model : enrollments) {
-            Enroll enroll = (Enroll) model;
+            final Enroll enroll = (Enroll) model;
             _coursesAccessObject.refresh(enroll.getCourse());
             _studentsAccessObject.refresh(enroll.getStudent());
             _usersAccessObject.refresh(enroll.getStudent().getUser());

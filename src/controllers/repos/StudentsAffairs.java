@@ -9,10 +9,10 @@ import services.Persistence;
 import java.sql.SQLException;
 import java.util.List;
 
-public class StudentsAffairs extends Persistence {
+public final class StudentsAffairs extends Persistence {
     private static StudentsAffairs _affairs;
-    private Dao<IModel, String> _affairsAccessObject;
-    private Dao<IModel, String> _usersAccessObject;
+    private final Dao<IModel, String> _affairsAccessObject;
+    private final Dao<IModel, String> _usersAccessObject;
 
     private StudentsAffairs() throws SQLException {
         _affairsAccessObject = getAccessObject(StudentsAffair.class);
@@ -26,7 +26,7 @@ public class StudentsAffairs extends Persistence {
 
     @Override
     public void create(IModel model) throws SQLException {
-        StudentsAffair affair = (StudentsAffair) model;
+        final StudentsAffair affair = (StudentsAffair) model;
         affair.getUser().setRole("STUDENT_AFFAIR");
         _usersAccessObject.create(affair.getUser());
         _affairsAccessObject.create(affair);

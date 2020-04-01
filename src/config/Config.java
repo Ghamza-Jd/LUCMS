@@ -1,6 +1,6 @@
 package config;
 
-public class Config {
+public final class Config {
     public static final String DATABASE_ENGINE = "mysql";
     public static final String DATABASE_NAME = "lucms";
     public static final String DATABASE_USERNAME = "dbuser";
@@ -9,8 +9,9 @@ public class Config {
     public static final String DATABASE_URL = "localhost:" + PORT;
     public static final String PASSWORD_SALT = "salt";
     public static final String DATABASE_CONFIG =
-            "useUnicode=true&" +
-            "useJDBCCompliantTimezoneShift=true" +
+            "useUnicode=true" +
+            "&useJDBCCompliantTimezoneShift=true" +
             "&useLegacyDatetimeCode=false" +
-            "&serverTimezone=UTC";
+            "&serverTimezone=UTC"
+    ;
 }
