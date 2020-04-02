@@ -2,7 +2,11 @@ import controllers.repos.*;
 import models.*;
 
 import java.sql.SQLException;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
+import java.util.Random;
 
 public class DummyData {
     public static void main(String[] args) throws SQLException {
@@ -12,8 +16,8 @@ public class DummyData {
                 "Joudieh",
                 "N.Joudieh",
                 "P@ssw0rd",
-                "78939614",
-                new Date(),
+                generatePhoneNumber(),
+                generateDate(true),
                 "Female"
         );
         Student s1 = new Student(noura, "Computer science");
@@ -25,8 +29,8 @@ public class DummyData {
                 "Joudieh",
                 "Z.Joudieh",
                 "P@ssw0rd",
-                "78939614",
-                new Date(),
+                generatePhoneNumber(),
+                generateDate(true),
                 "Female"
         );
         Student s2 = new Student(zeina, "Geology");
@@ -38,8 +42,8 @@ public class DummyData {
                 "Jadid",
                 "H.Jadid",
                 "P@ssw0rd",
-                "78939614",
-                new Date(),
+                generatePhoneNumber(),
+                generateDate(true),
                 "Male"
         );
         Student s3 = new Student(hamza, "Computer science");
@@ -51,8 +55,8 @@ public class DummyData {
                 "Amhaz",
                 "B.Amhaz",
                 "P@ssw0rd",
-                "78939614",
-                new Date(),
+                generatePhoneNumber(),
+                generateDate(true),
                 "Female"
         );
         Student s4 = new Student(batoul, "Biology");
@@ -64,8 +68,8 @@ public class DummyData {
                 "Nasser",
                 "H.Nasser",
                 "P@ssw0rd",
-                "78939614",
-                new Date(),
+                generatePhoneNumber(),
+                generateDate(true),
                 "Male"
         );
         Student s5 = new Student(hadi, "Computer science");
@@ -77,8 +81,8 @@ public class DummyData {
                 "Bareq",
                 "M.Bareq",
                 "P@ssw0rd",
-                "78939614",
-                new Date(),
+                generatePhoneNumber(),
+                generateDate(true),
                 "Male"
         );
         Student s6 = new Student(mohammad, "Computer science");
@@ -90,8 +94,8 @@ public class DummyData {
                 "Atwi",
                 "R.Atwi",
                 "P@ssw0rd",
-                "78544789",
-                new Date(),
+                generatePhoneNumber(),
+                generateDate(true),
                 "Female"
         );
         Student s7 = new Student(reem, "Computer science");
@@ -103,8 +107,8 @@ public class DummyData {
                 "Choukair",
                 "N.Choukair",
                 "P@ssw0rd",
-                "78544789",
-                new Date(),
+                generatePhoneNumber(),
+                generateDate(true),
                 "Female"
         );
         Student s8 = new Student(noor, "Computer science");
@@ -116,11 +120,11 @@ public class DummyData {
                 "Haidar",
                 "S.Haidar",
                 "P@ssw0rd",
-                "78939614",
-                new Date(),
+                generatePhoneNumber(),
+                generateDate(false),
                 "Female"
         );
-        Professor p1 = new Professor(siba, 214);
+        Professor p1 = new Professor(siba, generateOfficeNumber());
         Professors.getInstance().create(p1);
 
         User mdbouk = new User(
@@ -129,11 +133,11 @@ public class DummyData {
                 "Dbouk",
                 "M.Dbouk",
                 "P@ssw0rd",
-                "78939614",
-                new Date(),
+                generatePhoneNumber(),
+                generateDate(false),
                 "Male"
         );
-        Professor p2 = new Professor(mdbouk, 214);
+        Professor p2 = new Professor(mdbouk, generateOfficeNumber());
         Professors.getInstance().create(p2);
 
         User sbiety = new User(
@@ -142,13 +146,41 @@ public class DummyData {
                 "Sbiety",
                 "I.Sbeity",
                 "P@ssw0rd",
-                "78939614",
-                new Date(),
+                generatePhoneNumber(),
+                generateDate(false),
                 "Male"
         );
-        Professor p3 = new Professor(sbiety, 214);
+        Professor p3 = new Professor(sbiety, generateOfficeNumber());
         Professors.getInstance().create(p3);
 
+        User bs = new User(
+                "Bilal",
+                "Adham",
+                "Said",
+                "B.Said",
+                "P@ssw0rd",
+                generatePhoneNumber(),
+                generateDate(false),
+                "Male"
+        );
+        Professor p4 = new Professor(bs, generateOfficeNumber());
+        Professors.getInstance().create(p4);
+
+        User kamal = new User(
+                "Kamal",
+                "Jamal",
+                "Beydoun",
+                "K.Beydoun",
+                "P@ssw0rd",
+                generatePhoneNumber(),
+                generateDate(false),
+                "Male"
+        );
+        Professor p5 = new Professor(kamal, generateOfficeNumber());
+        Professors.getInstance().create(p5);
+
+        Course c1 = new Course("I3350", "Mobile Dev", 5, "English", p1);
+        Courses.getInstance().create(c1);
 
         User ali = new User(
                 "Ali",
@@ -156,8 +188,8 @@ public class DummyData {
                 "Hajj Hassan",
                 "A.HajjHassan",
                 "P@ssw0rd",
-                "78939614",
-                new Date(),
+                generatePhoneNumber(),
+                generateDate(false),
                 "Male"
         );
         StudentsAffair sa = new StudentsAffair(ali, "hajjhassan@gmail.com");
@@ -169,8 +201,8 @@ public class DummyData {
                 "Tarraf",
                 "R.Tarraf",
                 "P@ssw0rd",
-                "78939614",
-                new Date(),
+                generatePhoneNumber(),
+                generateDate(false),
                 "Male"
         );
         HeadOfDepartment hod = new HeadOfDepartment(raafat, "Applied Math");
@@ -192,5 +224,28 @@ public class DummyData {
         NewsRepo.getInstance().create(dangerNews);
         NewsRepo.getInstance().create(warningNews);
         NewsRepo.getInstance().create(infoNews);
+    }
+
+    public static String generatePhoneNumber() {
+        final String [] prefixes = {"03", "70", "71", "76", "78"};
+        final Random random = new Random();
+        final StringBuilder s = new StringBuilder(prefixes[random.nextInt(prefixes.length)]);
+        for(int i = 0; i < 6; i++) s.append(random.nextInt(10));
+        return s.toString();
+    }
+
+    public static int generateOfficeNumber() {
+        final Random random = new Random();
+        return random.nextInt(10) + random.nextInt(10) * 10 + (random.nextInt(6) + 1) * 100;
+    }
+
+    public static Date generateDate(boolean isYoung) {
+        final Random random = new Random();
+        final int day = random.nextInt(28) + 1;
+        final int month = random.nextInt(12) + 1;
+        final int year = random.nextInt(6) + (isYoung ? 1995 : 1980);
+        final LocalDate localDate = LocalDate.of(year, month, day);
+        final Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
+        return Date.from(instant);
     }
 }
