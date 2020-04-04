@@ -13,6 +13,8 @@ public class Course implements IModel {
     @DatabaseField
     private String code;
     @DatabaseField
+    private String normalizedCode;
+    @DatabaseField
     private String name;
     @DatabaseField
     private int numberOfCredits;
@@ -27,6 +29,7 @@ public class Course implements IModel {
         this.numberOfCredits = numberOfCredits;
         this.language = language;
         this.professor = professor;
+        this.normalizedCode = (code + language.charAt(0)).toUpperCase();
     }
 
     public int getId() {
@@ -43,6 +46,14 @@ public class Course implements IModel {
 
     public String getCode() {
         return code;
+    }
+
+    public void setNormalizedCode(String normalizedCode) {
+        this.normalizedCode = normalizedCode;
+    }
+
+    public String getNormalizedCode() {
+        return normalizedCode;
     }
 
     public void setName(String name) {
