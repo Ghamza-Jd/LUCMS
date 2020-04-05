@@ -208,7 +208,7 @@ public class DummyData {
         User zein = new User(
                 "Zein",
                 "Marwan",
-                "Ibrain",
+                "Ibrahim",
                 "Z.Ibrahim",
                 "P@ssw0rd",
                 generatePhoneNumber(),
@@ -348,149 +348,306 @@ public class DummyData {
         Professor pfaour = new Professor(faour, generateOfficeNumber());
         Professors.getInstance().create(pfaour);
 
-        Course i3350 = new Course(
+        User sinno = new User(
+                "Nisren",
+                "Yassin",
+                "Sinno",
+                "N.Sinno",
+                "P@ssw0rd",
+                generatePhoneNumber(),
+                generateDate(false),
+                "Female"
+        );
+        Professor psinno = new Professor(sinno, generateOfficeNumber());
+        Professors.getInstance().create(psinno);
+
+        Course i3350e = new Course(
                 "I3350",
                 "Mobile Dev",
                 5,
                 "English",
-                pSiba
+                pbassem
         );
-        Courses.getInstance().create(i3350);
+        Courses.getInstance().create(i3350e);
 
-        Course i2208 = new Course(
+        Course i3350f = new Course(
+                "I3350",
+                "Mobile Dev",
+                5,
+                "French",
+                pzein
+        );
+        Courses.getInstance().create(i3350f);
+
+        Course i2208e = new Course(
                 "I2208",
                 "Network 1",
                 4,
                 "English",
                 pbassem
         );
-        Courses.getInstance().create(i2208);
+        Courses.getInstance().create(i2208e);
 
-        Course i2210 = new Course(
+        Course i2208f = new Course(
+                "I2208",
+                "Network 1",
+                4,
+                "French",
+                psinno
+        );
+        Courses.getInstance().create(i2208f);
+
+        Course i2210e = new Course(
                 "I2210",
                 "Databases 1",
                 5,
                 "English",
                 pdbouk
         );
-        Courses.getInstance().create(i2210);
+        Courses.getInstance().create(i2210e);
 
-        Course i2209 = new Course(
+        Course i2210f = new Course(
+                "I2210",
+                "Databases 1",
+                5,
+                "French",
+                pdbouk
+        );
+        Courses.getInstance().create(i2210f);
+
+        Course i2209e = new Course(
                 "I2209",
                 "Prolog",
                 4,
                 "English",
-                pSiba
+                prami
         );
-        Courses.getInstance().create(i2209);
+        Courses.getInstance().create(i2209e);
 
-        Course i2206 = new Course(
+        Course i2209f = new Course(
+                "I2209",
+                "Prolog",
+                4,
+                "French",
+                prami
+        );
+        Courses.getInstance().create(i2209f);
+
+        Course i2206e = new Course(
                 "I2206",
                 "Data Structures",
                 5,
                 "English",
                 pantoun
         );
-        Courses.getInstance().create(i2206);
+        Courses.getInstance().create(i2206e);
 
-        Course i2211 = new Course(
+        Course i2206f = new Course(
+                "I2206",
+                "Data Structures",
+                5,
+                "French",
+                pzein
+        );
+        Courses.getInstance().create(i2206f);
+
+        Course i2211e = new Course(
                 "I2211",
                 "Object Oriented",
                 5,
                 "English",
                 psbeity
         );
-        Courses.getInstance().create(i2211);
+        Courses.getInstance().create(i2211e);
 
-        Course i2207 = new Course(
+        Course i2211f = new Course(
+                "I2211",
+                "Object Oriented",
+                5,
+                "French",
+                psbeity
+        );
+        Courses.getInstance().create(i2211f);
+
+        Course i2207e = new Course(
                 "I2207",
                 "Assembly",
                 4,
                 "English",
-                pSiba
+                paladin
         );
-        Courses.getInstance().create(i2207);
+        Courses.getInstance().create(i2207e);
 
-        Course i3307 = new Course(
+        Course i2207f = new Course(
+                "I2207",
+                "Assembly",
+                4,
+                "French",
+                paladin
+        );
+        Courses.getInstance().create(i2207f);
+
+        Course i3307e = new Course(
                 "I3307",
                 "Theory of Computation",
                 4,
                 "English",
                 psaid
         );
-        Courses.getInstance().create(i3307);
+        Courses.getInstance().create(i3307e);
 
-        Course i3340 = new Course(
+        Course i3307f = new Course(
+                "I3307",
+                "Theory of Computation",
+                4,
+                "French",
+                psaid
+        );
+        Courses.getInstance().create(i3307f);
+
+        Course i3340e = new Course(
                 "I3340",
                 "Parallel Programming",
                 4,
                 "English",
                 psaid
         );
-        Courses.getInstance().create(i3340);
+        Courses.getInstance().create(i3340e);
 
-        Course i3344 = new Course(
+        Course i3340f = new Course(
+                "I3340",
+                "Parallel Programming",
+                4,
+                "French",
+                pmay
+        );
+        Courses.getInstance().create(i3340f);
+
+        Course i3344e = new Course(
                 "I3344",
                 "Modeling",
                 6,
                 "English",
-                pSiba
+                pfadlallah
         );
-        Courses.getInstance().create(i3344);
+        Courses.getInstance().create(i3344e);
 
-        Course i3330 = new Course(
+        Course i3344f = new Course(
+                "I3344",
+                "Modeling",
+                6,
+                "French",
+                paladin
+        );
+        Courses.getInstance().create(i3344f);
+
+        Course i3330e = new Course(
                 "I3330",
                 "Project Management",
                 3,
                 "English",
-                pSiba
+                phassan
         );
-        Courses.getInstance().create(i3330);
+        Courses.getInstance().create(i3330e);
 
-        Course i3333 = new Course(
+        Course i3330f = new Course(
+                "I3330",
+                "Project Management",
+                3,
+                "French",
+                pmakke
+        );
+        Courses.getInstance().create(i3330f);
+
+        Course i3333e = new Course(
                 "I3333",
                 "Image Synthesis",
                 3,
                 "English",
-                pSiba
+                phamze
         );
-        Courses.getInstance().create(i3333);
+        Courses.getInstance().create(i3333e);
 
-        Course i3341 = new Course(
+        Course i3333f = new Course(
+                "I3333",
+                "Image Synthesis",
+                3,
+                "French",
+                phamze
+        );
+        Courses.getInstance().create(i3333f);
+
+        Course i3341e = new Course(
                 "I3341",
                 "Advanced Algorithms",
                 4,
                 "English",
                 pantoun
         );
-        Courses.getInstance().create(i3341);
+        Courses.getInstance().create(i3341e);
 
-        Course i3332 = new Course(
+        Course i3341f = new Course(
+                "I3341",
+                "Advanced Algorithms",
+                4,
+                "French",
+                pSiba
+        );
+        Courses.getInstance().create(i3341f);
+
+        Course i3332e = new Course(
                 "I3332",
                 "ASP.NET",
                 3,
                 "English",
                 pkamal
         );
-        Courses.getInstance().create(i3332);
+        Courses.getInstance().create(i3332e);
 
-        Course i3331 = new Course(
+        Course i3332f = new Course(
+                "I3332",
+                "ASP.NET",
+                3,
+                "French",
+                pghrayeb
+        );
+        Courses.getInstance().create(i3332f);
+
+        Course i3331e = new Course(
                 "I3331",
                 "Computer and Society",
                 3,
                 "English",
-                pSiba
+                pmakke
         );
-        Courses.getInstance().create(i3331);
+        Courses.getInstance().create(i3331e);
 
-        Course i3306 = new Course(
+        Course i3331f = new Course(
+                "I3331",
+                "Computer and Society",
+                3,
+                "French",
+                pmakke
+        );
+        Courses.getInstance().create(i3331f);
+
+        Course i3306e = new Course(
                 "I3306",
                 "Databases 2",
                 3,
                 "English",
                 pdbouk
         );
-        Courses.getInstance().create(i3306);
+        Courses.getInstance().create(i3306e);
+
+        Course i3306f = new Course(
+                "I3306",
+                "Databases 2",
+                3,
+                "French",
+                phassan
+        );
+        Courses.getInstance().create(i3306f);
 
         User ali = new User(
                 "Ali",
