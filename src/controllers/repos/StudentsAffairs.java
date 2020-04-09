@@ -27,7 +27,7 @@ public final class StudentsAffairs extends Persistence {
     @Override
     public void create(IModel model) throws SQLException {
         final StudentsAffair affair = (StudentsAffair) model;
-        affair.getUser().setRole("STUDENT_AFFAIR");
+        affair.getUser().setRole("STUDENTS_AFFAIR");
         _usersAccessObject.create(affair.getUser());
         _affairsAccessObject.create(affair);
     }

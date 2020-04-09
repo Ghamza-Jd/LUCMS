@@ -56,8 +56,8 @@ public final class CreateUserController implements Initializable {
                 middleName.getText(),
                 lastName.getText(),
                 username.getText(),
-                username.getText() + "123",
-                "+961" + phoneNumber.getText(),
+                username.getText() + "ChangeMe",
+                phoneNumber.getText(),
                 date,
                 gender.getValue()
         );
@@ -94,7 +94,7 @@ public final class CreateUserController implements Initializable {
 
     public String validateInput() {
         final StringBuilder errors = new StringBuilder();
-        if(gender.getValue().equals(""))                    errors.append("gender ");
+        if(gender.getValue() == null)                       errors.append("gender ");
         if(username.getText().equals(""))                   errors.append("username ");
         if(lastName.getText().equals(""))                   errors.append("last name ");
         if(firstName.getText().equals(""))                  errors.append("first name ");

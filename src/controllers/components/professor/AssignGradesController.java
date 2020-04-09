@@ -75,27 +75,31 @@ public final class AssignGradesController implements Initializable {
         grade.setCellValueFactory(cell -> cell.getValue().getValue().grade);
 
         final Callback<TreeTableColumn<AssignmentRow, String>, TreeTableCell<AssignmentRow, String>> actionsCell =
-                new Callback<TreeTableColumn<AssignmentRow, String>, TreeTableCell<AssignmentRow, String>>() {
+                new Callback<>() {
                     @Override
                     public TreeTableCell<AssignmentRow, String> call(TreeTableColumn<AssignmentRow, String> param) {
-                        return new TreeTableCell<AssignmentRow, String>() {
+                        return new TreeTableCell<>() {
                             final ViewsManager.DetailedComponent component =
                                     ViewsManager.requestDetailedComponent("user/Actions");
                             final ActionsController controller = component.getLoader().getController();
+
                             {
-                                controller.getEdit().setOnAction(e -> { });
-                                controller.getDetails().setOnAction(e -> { });
+                                controller.getEdit().setOnAction(e -> {
+                                });
+                                controller.getDetails().setOnAction(e -> {
+                                });
                                 controller.getDelete().setVisible(false);
                                 controller.getDelete().setPrefWidth(0);
                             }
+
                             final Parent root = component.getRoot();
+
                             @Override
                             protected void updateItem(String item, boolean empty) {
                                 super.updateItem(item, empty);
-                                if(empty) {
+                                if (empty) {
                                     setGraphic(null);
-                                }
-                                else {
+                                } else {
                                     setGraphic(root);
                                     setAlignment(Pos.CENTER);
                                 }
@@ -130,19 +134,21 @@ public final class AssignGradesController implements Initializable {
         if(courseCode.equals("")) return;
         rows.clear();
         final ArrayList<Enroll> enrolls = Enrollment.getInstance().retrieveStudentsByCourseCode(courseCode);
-        for(Enroll enroll : enrolls) {
-            rows.add(
-                    new AssignmentRow(
-                            String.valueOf(enroll.getStudent().getId()),
-                            String.format(
-                                    "%s %s %s",
-                                    enroll.getStudent().getUser().getFirstName(),
-                                    enroll.getStudent().getUser().getMiddleName(),
-                                    enroll.getStudent().getUser().getLastName()
-                            ),
-                            String.valueOf(enroll.getGrade())
-                    )
-            );
+        if (enrolls != null) {
+            for(Enroll enroll : enrolls) {
+                rows.add(
+                        new AssignmentRow(
+                                String.valueOf(enroll.getStudent().getId()),
+                                String.format(
+                                        "%s %s %s",
+                                        enroll.getStudent().getUser().getFirstName(),
+                                        enroll.getStudent().getUser().getMiddleName(),
+                                        enroll.getStudent().getUser().getLastName()
+                                ),
+                                String.valueOf(enroll.getGrade())
+                        )
+                );
+            }
         }
         displayedRows.clear();
         displayedRows.setAll(rows);

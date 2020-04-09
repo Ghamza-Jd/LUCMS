@@ -22,7 +22,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public final class Marks implements Initializable {
+public final class MarksController implements Initializable {
     @FXML
     private JFXTreeTableView<MarkRow> table;
 
@@ -68,16 +68,18 @@ public final class Marks implements Initializable {
                                     ).getId()
                             )
                     ;
-            for(Enroll enroll : enrolls) {
-                rows.add(
-                        new MarkRow(
-                                enroll.getCourse().getCode(),
-                                enroll.getCourse().getName(),
-                                String.valueOf(enroll.getCourse().getName()),
-                                enroll.getCourse().getLanguage(),
-                                String.valueOf(enroll.getGrade())
-                        )
-                );
+            if(enrolls != null) {
+                for (Enroll enroll : enrolls) {
+                    rows.add(
+                            new MarkRow(
+                                    enroll.getCourse().getCode(),
+                                    enroll.getCourse().getName(),
+                                    String.valueOf(enroll.getCourse().getName()),
+                                    enroll.getCourse().getLanguage(),
+                                    String.valueOf(enroll.getGrade())
+                            )
+                    );
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();

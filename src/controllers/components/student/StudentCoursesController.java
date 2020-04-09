@@ -63,15 +63,17 @@ public final class StudentCoursesController implements Initializable {
                                     ).getId()
                             )
             ;
-            for(Course course : courses) {
-                rows.add(
-                        new CourseRow(
-                            course.getCode(),
-                            course.getName(),
-                            course.getProfessor().getUser().getUsername(),
-                            String.valueOf(course.getNumberOfCredits())
-                        )
-                );
+            if (courses != null) {
+                for(Course course : courses) {
+                    rows.add(
+                            new CourseRow(
+                                course.getCode(),
+                                course.getName(),
+                                course.getProfessor().getUser().getUsername(),
+                                String.valueOf(course.getNumberOfCredits())
+                            )
+                    );
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();

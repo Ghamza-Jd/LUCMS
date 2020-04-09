@@ -1,6 +1,6 @@
 package exceptions;
 
-public class InvalidInputFormat extends RuntimeException {
+public class InvalidInputFormat extends Exception {
     public InvalidInputFormat() { }
     public InvalidInputFormat(String msg) { }
 }

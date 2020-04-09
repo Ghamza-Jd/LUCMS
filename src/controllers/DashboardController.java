@@ -103,6 +103,7 @@ public final class DashboardController implements Initializable {
 
     private void roleSetup(String role) {
         final String path = role.toLowerCase();
+        System.out.println(path);
         if(role.equals("STUDENT")) {
             final ViewsManager.DetailedComponent component =
                     ViewsManager.requestDetailedComponent(path + "/StudentSidePanel");
@@ -134,7 +135,7 @@ public final class DashboardController implements Initializable {
             sidePanelController.getEmpty().getChildren().setAll(component.getRoot());
         }
 
-        if(role.equals("STUDENT_AFFAIR")) {
+        if(role.equals("STUDENTS_AFFAIR")) {
             final ViewsManager.DetailedComponent component =
                     ViewsManager.requestDetailedComponent(path + "/SaSidePanel");
             final SaSidePanelController controller = component.getLoader().getController();

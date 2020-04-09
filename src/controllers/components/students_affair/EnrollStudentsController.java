@@ -57,9 +57,17 @@ public final class EnrollStudentsController implements Initializable {
             Alerts.createDefaultAlert("Error", "Please enter either a file number or username").showAndWait();
             return;
         }
+        int fileNumber = 0;
+        try {
+            fileNumber = Integer.parseInt(fileNb.getText());
+        } catch (NumberFormatException e) {
+            Alerts.createSnackbar(dashboard,"Invalid Format for File Number", 2, "#D00", "#FFF");
+            fileNb.setText("");
+            return;
+        }
         Student student = null;
         if(!fileNb.getText().equals("")) {
-            student = Students.getInstance().retrieveSingleByFileNb(Integer.parseInt(fileNb.getText()));
+            student = Students.getInstance().retrieveSingleByFileNb(fileNumber);
         }
         if(student == null && !username.getText().equals("")) {
             student = Students.getInstance().retrieveSingleByUsername(username.getText());

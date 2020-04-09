@@ -25,7 +25,6 @@ public final class CreateStudentController implements Initializable {
     private JFXComboBox<String> major;
 
     private CreateUserController controller;
-
     private Pane dashboard;
 
     @Override
@@ -40,9 +39,22 @@ public final class CreateStudentController implements Initializable {
 
     @FXML
     public void createStudent(ActionEvent event) throws SQLException {
+        if(!validateInput().equals("")){
+            Alerts.createSnackbar(
+                    dashboard,
+                    "Please fill of the fields first",
+                    4, "#D00", "#FFF");
+            return;
+        }
         final Student student = new Student(controller.getUser(), major.getValue());
         Students.getInstance().create(student);
         Alerts.createSnackbar(dashboard, "Student Created Successfully", 2);
+    }
+
+    private String validateInput() {
+        final StringBuilder errors = new StringBuilder(controller.validateInput());
+        if(major.getValue() == null) errors.append("major ");
+        return errors.toString();
     }
 
     public void setDashboardPane(Pane pane) {

@@ -21,7 +21,7 @@ public final class Users extends Persistence {
         return _users;
     }
 
-    public boolean isUser(String username, String password) throws SQLException {
+    public boolean isUser(String username, String password) throws SQLException, InvalidCredentialsException {
         if(!exists(username)) throw new InvalidCredentialsException();
         final User user = retrieveSingle(username);
         if(!Security.eqHash(password, user.getPassword())) throw new InvalidCredentialsException();
