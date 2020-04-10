@@ -43,7 +43,9 @@ public final class Enrollment extends Persistence {
 
     @Override
     public void update(IModel model) throws SQLException {
-
+        Enroll enroll = (Enroll) model;
+        enroll.setAssigned(true);
+        _enrollmentAccessObject.update(model);
     }
 
     @Override
@@ -110,5 +112,17 @@ public final class Enrollment extends Persistence {
             enrolls.add(enroll);
         }
         return enrolls;
+    }
+
+    public Enroll retrieveEnrollmentById(String id) throws SQLException {
+        final List<IModel> enrollments = _enrollmentAccessObject.queryBuilder().where().eq("id", id).query();
+        if(enrollments.size() > 0) {
+            Enroll enroll = (Enroll) enrollments.get(0);
+            _coursesAccessObject.refresh(enroll.getCourse());
+            _studentsAccessObject.refresh(enroll.getStudent());
+            _usersAccessObject.refresh(enroll.getStudent().getUser());
+            return enroll;
+        }
+        return null;
     }
 }

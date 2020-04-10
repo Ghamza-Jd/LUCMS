@@ -4,6 +4,7 @@ import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import controllers.components.students_affair.ViewStudentsController;
 import controllers.components.user.ActionsController;
+import controllers.components.user.ProfileController;
 import controllers.repos.Courses;
 import controllers.repos.Enrollment;
 import controllers.repos.Students;
@@ -17,9 +18,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableCell;
 import javafx.scene.control.TreeTableColumn;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.util.Callback;
 import models.Course;
 import models.Enroll;
@@ -27,6 +34,7 @@ import models.Professor;
 import models.Student;
 import services.Session;
 import services.ViewsManager;
+import utils.Alerts;
 
 import java.awt.event.KeyEvent;
 import java.net.URL;
@@ -85,6 +93,16 @@ public final class AssignGradesController implements Initializable {
 
                             {
                                 controller.getEdit().setOnAction(e -> {
+                                    final String studentId = this.getTreeTableRow().getTreeItem().getValue().fileNumber.getValue();
+                                    final String[] splitCourse = courses.getValue().split(" ");
+                                    final String code = (splitCourse[0] + splitCourse[splitCourse.length - 1].charAt(0)).toUpperCase();
+                                    try {
+                                        Course course = Courses.getInstance().retrieveCourseByCode(code);
+                                        Enroll enroll = Enrollment.getInstance().retrieveEnrollmentById("s"+studentId+"c"+course.getId());
+                                        displayEnrollmentEdit(enroll);
+                                    } catch (SQLException ex) {
+                                        ex.printStackTrace();
+                                    }
                                 });
                                 controller.getDetails().setOnAction(e -> {
                                 });
@@ -190,6 +208,50 @@ public final class AssignGradesController implements Initializable {
         }
         displayedRows.clear();
         displayedRows.setAll(newRows);
+    }
+
+    private void displayEnrollmentEdit(Enroll enroll) {
+        final JFXAlert<String> alert = Alerts.createAlert();
+        final JFXDialogLayout layout = new JFXDialogLayout();
+        final JFXButton exit = new JFXButton("");
+        final Region region = new Region();
+        final HBox heading = new HBox(new Label("Details"), region, exit);
+        final ImageView exitIcon = new ImageView(new Image("/icons/close.png"));
+
+        exitIcon.setFitHeight(32);
+        exitIcon.setFitWidth(32);
+        exit.setGraphic(exitIcon);
+        exit.setOnAction(e -> alert.hideWithAnimation());
+
+        HBox.setHgrow(region, Priority.ALWAYS);
+
+        layout.setStyle("-fx-border-color: grey;");
+        layout.setHeading(heading);
+
+        final ViewsManager.DetailedComponent detailedComponent = ViewsManager.requestDetailedComponent("professor/EditGrade");
+        final EditGradeController controller = detailedComponent.getLoader().getController();
+
+        controller.getCourse().setText(enroll.getCourse().getNormalizedCode() + " - " + enroll.getCourse().getName());
+        controller.getStudent().setText(String.format("%s - %s", enroll.getStudent().getId(), enroll.getStudent().getUser().getUsername()));
+        controller.getGrade().setText(String.valueOf(enroll.getGrade()));
+        controller.getGrade().setOnKeyTyped(e -> {
+            if(!"0123456789".contains(e.getCharacter()))
+                e.consume();
+        });
+        controller.getAssign().setOnAction(e -> {
+            enroll.setGrade(Float.parseFloat(controller.getGrade().getText()));
+            try {
+                Enrollment.getInstance().update(enroll);
+                populateTable(enroll.getCourse().getNormalizedCode());
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            alert.hideWithAnimation();
+        });
+
+        layout.setBody(detailedComponent.getRoot());
+        alert.setContent(layout);
+        alert.showAndWait();
     }
 
     private static class AssignmentRow extends RecursiveTreeObject<AssignmentRow> {
