@@ -68,7 +68,7 @@ public final class Courses extends Persistence {
                 _coursesAccessObject
                         .queryBuilder()
                         .where()
-                        .eq("code", code)
+                        .eq("normalizedCode", code.toUpperCase())
                         .query()
         ;
         if(models.size() > 0) {

@@ -37,7 +37,7 @@
       </Label>
       <Label layoutX="476.0" layoutY="79.0" text="Search by Course Code:" />
       <JFXTextField fx:id="code" layoutX="476.0" layoutY="97.0" prefHeight="24.0" prefWidth="118.0" promptText="course code" />
-      <Label layoutX="476.0" layoutY="143.0" text="Seach by Course Name:" />
+      <Label layoutX="476.0" layoutY="143.0" text="Search by Course Name:" />
       <JFXTextField fx:id="courseName" layoutX="476.0" layoutY="163.0" prefHeight="24.0" prefWidth="118.0" promptText="course name" />
       <JFXButton layoutX="662.0" layoutY="120.0" onAction="#searchCourse" style="-fx-background-color: #ddd;" text="Search">
          <graphic>

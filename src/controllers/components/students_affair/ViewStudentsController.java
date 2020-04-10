@@ -2,6 +2,7 @@ package controllers.components.students_affair;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import controllers.components.professor.AssignGradesController;
 import controllers.components.user.ActionsController;
 import controllers.components.user.CreateUserController;
 import controllers.components.user.ProfileController;
@@ -38,16 +39,23 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public final class ViewStudentsController implements Initializable {
     @FXML
     private JFXTreeTableView<StudentRow> table;
+    @FXML
+    private JFXTextField search;
+
     private ObservableList<StudentRow> rows;
+    private ObservableList<StudentRow> displayedRows;
     private Pane dashboard;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         rows = FXCollections.observableArrayList();
+        displayedRows = FXCollections.observableArrayList();
         final double width = table.getPrefWidth();
 
         final JFXTreeTableColumn<StudentRow, String>
@@ -135,7 +143,9 @@ public final class ViewStudentsController implements Initializable {
             e.printStackTrace();
         }
 
-        final TreeItem<StudentRow> root = new RecursiveTreeItem<>(rows, RecursiveTreeObject::getChildren);
+        search.setOnKeyReleased(e -> searchTable(search.getText()));
+
+        final TreeItem<StudentRow> root = new RecursiveTreeItem<>(displayedRows, RecursiveTreeObject::getChildren);
         table.getColumns().setAll(fileNumber, fullName, username, actions);
         table.setRoot(root);
         table.setShowRoot(false);
@@ -161,6 +171,30 @@ public final class ViewStudentsController implements Initializable {
                     )
             );
         }
+        displayedRows.clear();
+        displayedRows.setAll(rows);
+    }
+
+    private void searchTable(String regex) {
+        final ObservableList<StudentRow> newRows = FXCollections.observableArrayList();
+        for(StudentRow studentRow : rows) {
+            final Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+            final Matcher
+                    fullNameMatcher = pattern.matcher(studentRow.fullName.getValue()),
+                    fileNumberMatcher = pattern.matcher(studentRow.fileNumber.getValue()),
+                    gradeMatcher = pattern.matcher(studentRow.username.getValue())
+            ;
+            if(fullNameMatcher.find() || fileNumberMatcher.find() || gradeMatcher.find())
+                newRows.add(
+                        new StudentRow(
+                                studentRow.fileNumber.getValue(),
+                                studentRow.fullName.getValue(),
+                                studentRow.username.getValue()
+                        )
+                );
+        }
+        displayedRows.clear();
+        displayedRows.setAll(newRows);
     }
 
     private void displayStudentDetails(Student student) {

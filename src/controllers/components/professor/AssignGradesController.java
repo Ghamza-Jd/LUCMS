@@ -113,7 +113,8 @@ public final class AssignGradesController implements Initializable {
 
         courses.getSelectionModel().selectedItemProperty().addListener((option, oldVal, newVale) -> {
             try {
-                final String code = newVale.split(" ")[0];
+                final String[] splitCourse = newVale.split(" ");
+                final String code = (splitCourse[0] + splitCourse[splitCourse.length - 1].charAt(0)).toUpperCase();
                 populateTable(code);
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -178,7 +179,14 @@ public final class AssignGradesController implements Initializable {
                     fileNumberMatcher = pattern.matcher(assignmentRow.fileNumber.getValue()),
                     gradeMatcher = pattern.matcher(assignmentRow.grade.getValue())
             ;
-            if(fullNameMatcher.find() || fileNumberMatcher.find() || gradeMatcher.find()) newRows.add(assignmentRow);
+            if(fullNameMatcher.find() || fileNumberMatcher.find() || gradeMatcher.find())
+                newRows.add(
+                        new AssignmentRow(
+                                assignmentRow.fileNumber.getValue(),
+                                assignmentRow.fullName.getValue(),
+                                assignmentRow.grade.getValue()
+                        )
+                );
         }
         displayedRows.clear();
         displayedRows.setAll(newRows);

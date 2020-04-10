@@ -22,7 +22,6 @@ public final class CreateProfessorController implements Initializable {
     private JFXTextField office;
 
     private CreateUserController controller;
-
     private Pane dashboard;
 
     @Override

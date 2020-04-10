@@ -81,7 +81,7 @@ public final class EnrollStudentsController implements Initializable {
 
     @FXML
     private void searchCourse(ActionEvent event) throws SQLException {
-        if(code.getText().equals("") && courseName.getText().equals("")) {
+        if(code.getText().equals("") && (courseName == null || courseName.getText().equals(""))) {
             Alerts.createDefaultAlert("Error", "Please enter either a course code or course name").showAndWait();
             return;
         }
